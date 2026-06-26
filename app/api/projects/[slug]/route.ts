@@ -2,7 +2,7 @@ import { and, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { apiHandler, apiError } from '@/lib/api/response'
 import { requireAuth } from '@/server/utils/guards'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
 
 const UpdateProject = z.object({
@@ -57,7 +57,7 @@ export async function GET(_request: Request, { params }: Params) {
       return { project: demo }
     }
 
-    const db = useDb()
+    const db = getDb()
     const [project] = await db
       .select()
       .from(schema.projects)
@@ -84,7 +84,7 @@ export async function PUT(request: Request, { params }: Params) {
       return { project: { ...demo, ...parsed.data, updatedAt: new Date() } }
     }
 
-    const db = useDb()
+    const db = getDb()
     const [project] = await db
       .update(schema.projects)
       .set({ ...parsed.data, updatedAt: new Date() })
@@ -103,7 +103,7 @@ export async function DELETE(_request: Request, { params }: Params) {
 
     if (session.demo) return { deleted: true }
 
-    const db = useDb()
+    const db = getDb()
     const [project] = await db
       .delete(schema.projects)
       .where(and(eq(schema.projects.slug, slug), eq(schema.projects.ownerId, session.user.id)))

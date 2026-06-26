@@ -1,6 +1,6 @@
-# 🚀 Next.js 15 Boilerplate
+# 🚀 Next.js 16.2 Boilerplate
 
-A production-grade [Next.js 15](https://nextjs.org) App Router starter for SaaS — session auth, typed API envelope, Drizzle ORM scaffold, billing hooks, and a **full design system** powered by [`@uipkge-react`](https://uipkge.dev/react/setup). **Every external integration is gated on env** so cloning gives you a working app *today*; configuring services flips them on. No accounts required to start.
+A production-grade [Next.js 16.2](https://nextjs.org) App Router starter for SaaS — session auth, typed API envelope, Drizzle ORM scaffold, billing hooks, and a **full design system** powered by [`@uipkge-react`](https://uipkge.dev/react/setup). **Every external integration is gated on env** so cloning gives you a working app *today*; configuring services flips them on. No accounts required to start.
 
 ![Dashboard preview](./.github/assets/dashboard.png)
 
@@ -74,7 +74,7 @@ That's it. The boilerplate runs in **demo mode** with no DB, no OAuth app, no AP
 | Landing | [`/`](http://localhost:3000/) | Marketing blocks — header links to **Sign in** / **Start free trial** |
 | **Sign in** | [`/login`](http://localhost:3000/login) | GitHub OAuth + magic-link form; **Continue as demo user** when demo mode is on |
 | Sign up | [`/sign-up`](http://localhost:3000/sign-up) | Links back to `/login` |
-| Dashboard | [`/dashboard`](http://localhost:3000/dashboard) | Protected — middleware redirects to `/login?next=…` until signed in |
+| Dashboard | [`/dashboard`](http://localhost:3000/dashboard) | Protected — proxy redirects to `/login?next=…` until signed in |
 | Kanban | `/dashboard/kanban` | Full registry kanban block |
 | Customers table | `/dashboard/data-table` | TanStack Table demo |
 | Calendar | `/dashboard/calendar` | Month grid, context menus, event detail dialog |
@@ -86,7 +86,7 @@ That's it. The boilerplate runs in **demo mode** with no DB, no OAuth app, no AP
 
 ### Developer experience
 
-- ✅ **Next.js 15** App Router + **React 19** + TypeScript
+- ✅ **Next.js 16.2** App Router + **React 19** + TypeScript
 - ✅ **Turbopack** dev server (`next dev --turbopack`)
 - ✅ **`zod`-validated env** at boot — partial configs fail loud with friendly errors
 - ✅ **`components.json`** pre-wired for `@uipkge-react` registry URLs
@@ -172,7 +172,7 @@ Already wired in [`components.json`](./components.json):
 
 | Layer | Library |
 |---|---|
-| Framework | [Next.js 15](https://nextjs.org) (React 19, App Router, TypeScript) |
+| Framework | [Next.js 16.2](https://nextjs.org) (React 19, App Router, TypeScript) |
 | Auth | [iron-session](https://github.com/vvo/iron-session) + GitHub OAuth |
 | ORM / DB | [Drizzle ORM](https://orm.drizzle.team) + [postgres](https://github.com/porsager/postgres) |
 | Styling | [Tailwind v4](https://tailwindcss.com) |
@@ -229,6 +229,7 @@ Without `DATABASE_URL`, demo auth and GitHub OAuth sessions still work — DB up
 
 ```bash
 npm run dev        # http://localhost:3000
+npm test           # targeted logic tests
 npm run build      # production build
 npm run start      # serve production build
 ```
@@ -250,7 +251,7 @@ Open **[http://localhost:3000/login](http://localhost:3000/login)** → **Contin
 │   └── ui/                   # shadcn primitives
 ├── lib/                      # env, api/response, auth/session, demo-mode, utils
 ├── server/db/                # Drizzle schema + migrations
-├── middleware.ts             # auth gate → /login?next=…
+├── proxy.ts                  # auth gate → /login?next=…
 ├── components.json           # shadcn CLI + @uipkge-react registry
 └── .env.example
 ```

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { AuthSignIn } from '@/components/blocks/AuthSignIn'
 import { Button } from '@/components/ui/button'
 import type { ApiResponse } from '@/lib/api/response'
+import { safeRedirectPath } from '@/lib/auth/redirect'
 
 type LinkState =
   | { kind: 'idle' }
@@ -15,7 +16,7 @@ type LinkState =
 
 export function LoginClient({ demoMode }: { demoMode: boolean }) {
   const searchParams = useSearchParams()
-  const next = searchParams.get('next') ?? '/dashboard'
+  const next = safeRedirectPath(searchParams.get('next'))
   const errorCode = searchParams.get('error')
 
   const [demoEnabled, setDemoEnabled] = useState(demoMode)

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { safeRedirectPath } from '@/lib/auth/redirect'
 import { env, hasGithubOAuth } from '@/lib/env'
 
 export async function GET(request: Request) {
@@ -9,7 +10,7 @@ export async function GET(request: Request) {
   }
 
   const url = new URL(request.url)
-  const next = url.searchParams.get('next') ?? '/dashboard'
+  const next = safeRedirectPath(url.searchParams.get('next'))
   const state = Buffer.from(JSON.stringify({ next })).toString('base64url')
 
   const params = new URLSearchParams({

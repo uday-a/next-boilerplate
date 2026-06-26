@@ -1,5 +1,5 @@
 import { env, hasPolar } from '@/lib/env'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
 
 export async function POST(request: Request) {
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     }
 
     try {
-      const db = useDb()
+      const db = getDb()
       await db
         .insert(schema.subscriptions)
         .values({

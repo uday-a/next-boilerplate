@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { DEFAULT_AUTH_REDIRECT, safeRedirectPath } from '@/lib/auth/redirect'
 import { env, hasGithubOAuth } from '@/lib/env'
 import { getSession } from '@/lib/auth/session'
 import { sessionUserFromGithub, setAuthSession, upsertGithubUser } from '@/lib/auth/github'
@@ -20,11 +21,11 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const code = url.searchParams.get('code')
   const stateRaw = url.searchParams.get('state')
-  let next = '/dashboard'
+  let next = DEFAULT_AUTH_REDIRECT
   if (stateRaw) {
     try {
       const state = JSON.parse(Buffer.from(stateRaw, 'base64url').toString()) as { next?: string }
-      if (state.next) next = state.next
+      next = safeRedirectPath(state.next)
     } catch {
       /* ignore bad state */
     }

@@ -1,11 +1,11 @@
 import { apiHandler } from '@/lib/api/response'
 import { requireRole } from '@/server/utils/guards'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 
 export async function GET() {
   return apiHandler(async () => {
     await requireRole('admin')
-    const db = useDb()
+    const db = getDb()
     return db
       .select({
         id: schema.users.id,

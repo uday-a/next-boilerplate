@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { apiHandler, apiError } from '@/lib/api/response'
 import { requireAuth } from '@/server/utils/guards'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
 
 const slug = z
@@ -55,7 +55,7 @@ export async function GET() {
     const session = await requireAuth()
     if (session.demo) return { projects: demoProjects() }
 
-    const db = useDb()
+    const db = getDb()
     const rows = await db
       .select()
       .from(schema.projects)
@@ -86,7 +86,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const db = useDb()
+    const db = getDb()
     try {
       const [project] = await db
         .insert(schema.projects)

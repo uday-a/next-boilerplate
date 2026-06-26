@@ -1,8 +1,7 @@
-import { eq } from 'drizzle-orm'
 import type { IronSession } from 'iron-session'
 import { env } from '@/lib/env'
 import type { SessionData, SessionUser } from '@/lib/auth/types'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { ROLES, type Role } from '@/server/db/schema'
 import { logger } from '@/server/utils/logger'
 import { sendEmail, welcomeEmail } from '@/server/utils/mailer'
@@ -28,7 +27,7 @@ export async function upsertGithubUser(githubUser: GitHubUser) {
   let dbUserId = githubUser.id
 
   try {
-    const db = useDb()
+    const db = getDb()
     const returned = await db
       .insert(schema.users)
       .values({

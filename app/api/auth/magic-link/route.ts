@@ -5,7 +5,7 @@ import { apiHandler, apiError } from '@/lib/api/response'
 import { env } from '@/lib/env'
 import { getSession } from '@/lib/auth/session'
 import { setAuthSession } from '@/lib/auth/github'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
 import { sendEmail, magicLinkEmail } from '@/server/utils/mailer'
 import { generateToken, hashToken } from '@/server/utils/tokens'
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     const expiresAt = new Date(Date.now() + TOKEN_TTL_MS)
 
     try {
-      const db = useDb()
+      const db = getDb()
       await db.insert(schema.magicLinkTokens).values({ email, tokenHash, expiresAt })
     } catch (e) {
       logger.error('auth.magic_link.db_insert_failed', { email, error: (e as Error).message })
@@ -71,7 +71,7 @@ export async function GET(request: Request) {
 
   let row: (typeof schema.magicLinkTokens.$inferSelect) | undefined
   try {
-    const db = useDb()
+    const db = getDb()
     const rows = await db
       .select()
       .from(schema.magicLinkTokens)
@@ -87,7 +87,7 @@ export async function GET(request: Request) {
   if (row.usedAt) return login('magic-link-used')
   if (row.expiresAt.getTime() < Date.now()) return login('magic-link-expired')
 
-  const db = useDb()
+  const db = getDb()
   await db
     .update(schema.magicLinkTokens)
     .set({ usedAt: new Date() })

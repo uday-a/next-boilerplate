@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import * as echartsCore from 'echarts/core'
-import { use } from 'echarts/core'
+import { use as registerECharts } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import {
   LineChart as EChartsLineChart,
@@ -85,7 +85,7 @@ export function EChart({ option }: { option: any }) {
 export const echartsCoreModule = echartsCore
 
 // Register every chart type the wrappers need once at module load.
-use([
+registerECharts([
   CanvasRenderer,
   EChartsLineChart,
   EChartsBarChart,

@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { apiHandler, apiError } from '@/lib/api/response'
 import { requireAuth } from '@/server/utils/guards'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
 
 const UpdateProfile = z.object({
@@ -29,7 +29,7 @@ export async function GET() {
         },
       }
     }
-    const db = useDb()
+    const db = getDb()
     const [row] = await db
       .select({
         name: schema.users.name,
@@ -60,7 +60,7 @@ export async function PUT(request: Request) {
       return { profile: parsed.data, demo: true }
     }
 
-    const db = useDb()
+    const db = getDb()
     const [updated] = await db
       .update(schema.users)
       .set({ ...parsed.data, updatedAt: new Date() })

@@ -5,7 +5,7 @@ import type { SessionData } from '@/lib/auth/types'
 
 const protectedPrefixes = ['/dashboard', '/settings', '/projects', '/support', '/feedback', '/onboarding']
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const isProtected = protectedPrefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`))
   if (!isProtected) return NextResponse.next()

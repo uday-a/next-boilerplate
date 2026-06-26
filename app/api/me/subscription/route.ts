@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
 import { apiHandler } from '@/lib/api/response'
 import { requireAuth } from '@/server/utils/guards'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { planForProductId } from '@/server/utils/polar'
 
 export async function GET() {
@@ -9,7 +9,7 @@ export async function GET() {
     const session = await requireAuth()
     if (session.demo) return { subscription: null }
 
-    const db = useDb()
+    const db = getDb()
     const [row] = await db
       .select({
         status: schema.subscriptions.status,

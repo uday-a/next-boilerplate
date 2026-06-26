@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import type { SessionData } from '@/lib/auth/types'
 import { apiError } from '@/lib/api/response'
 import { getSession } from '@/lib/auth/session'
-import { useDb, schema } from '@/server/db'
+import { getDb, schema } from '@/server/db'
 import { ROLES, type Role } from '@/server/db/schema'
 import { logger } from './logger'
 
@@ -41,7 +41,7 @@ type RoleLookup = { state: 'found'; role: Role } | { state: 'not-found' } | { st
 
 async function readLiveRole(userId: number): Promise<RoleLookup> {
   try {
-    const db = useDb()
+    const db = getDb()
     const row = await db
       .select({ role: schema.users.role })
       .from(schema.users)

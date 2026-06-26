@@ -6,7 +6,7 @@ import { env } from '@/lib/env'
 let client: ReturnType<typeof postgres> | undefined
 let db: ReturnType<typeof drizzle<typeof schema>> | undefined
 
-export function useDb() {
+export function getDb() {
   if (!env.DATABASE_URL) {
     throw new Error('DATABASE_URL is not configured')
   }
