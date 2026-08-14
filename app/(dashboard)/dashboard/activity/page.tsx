@@ -117,11 +117,11 @@ export default function ActivityPage() {
           return (
             <div key={kpi.label} className="relative overflow-hidden rounded-xl border bg-card p-4">
               <div className="flex items-center gap-1.5">
-                <Icon className={`size-3.5 ${kpi.color}`} />
-                <p className="text-[10px] uppercase tracking-[0.14em] font-medium text-muted-foreground">{kpi.label}</p>
+                <Icon className={`size-4 ${kpi.color}`} />
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{kpi.label}</p>
               </div>
-              <p className="mt-2 text-3xl font-semibold tabular-nums leading-none">{kpi.value}</p>
-              <p className="mt-1 text-[11px] text-muted-foreground truncate">{kpi.sub}</p>
+              <p className="mt-2 text-2xl font-bold tracking-tight tabular-nums leading-none">{kpi.value}</p>
+              <p className="mt-1 text-xs text-muted-foreground truncate">{kpi.sub}</p>
             </div>
           )
         })}
@@ -141,7 +141,7 @@ export default function ActivityPage() {
             </Button>
             <h2 className="text-sm font-semibold ml-2">{monthLabel}</h2>
           </div>
-          <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
+          <div className="flex items-center gap-3 text-xs text-muted-foreground">
             {isRange ? (
               <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-800 ring-1 ring-inset ring-emerald-500/25 dark:text-emerald-300">
                 <MousePointer2 className="size-3" />
@@ -160,7 +160,7 @@ export default function ActivityPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-7 border-b bg-muted/10 text-[10px] uppercase tracking-wider text-muted-foreground">
+        <div className="grid grid-cols-7 border-b bg-muted/10 text-xs font-medium uppercase tracking-wider text-muted-foreground">
           {weekdays.map((w) => (
             <div key={w} className="px-2 py-2 font-medium">
               {w}
@@ -194,7 +194,7 @@ export default function ActivityPage() {
               />
               <span
                 className={[
-                  'relative inline-flex size-5 items-center justify-center rounded-full text-[11px] tabular-nums z-10',
+                  'relative inline-flex size-5 items-center justify-center rounded-full text-xs tabular-nums z-10',
                   d.key === todayKey && 'bg-foreground text-background font-semibold ring-2 ring-emerald-400',
                   d.key !== todayKey && d.inMonth && 'text-foreground/80',
                   !d.inMonth && 'text-foreground/40',
@@ -205,7 +205,7 @@ export default function ActivityPage() {
                 {d.date.getDate()}
               </span>
               {d.count > 0 && d.inMonth ? (
-                <span className="relative z-10 text-[10px] tabular-nums text-foreground/70 opacity-0 transition-opacity group-hover:opacity-100">
+                <span className="relative z-10 text-xs tabular-nums text-foreground/70 opacity-0 transition-opacity group-hover:opacity-100">
                   {d.count}
                 </span>
               ) : null}
@@ -213,8 +213,8 @@ export default function ActivityPage() {
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 border-t bg-muted/20 px-4 py-2 text-[10px] text-muted-foreground">
-          <CalendarIcon className="size-3" />
+        <div className="flex flex-wrap items-center gap-3 border-t bg-muted/20 px-4 py-2 text-xs text-muted-foreground">
+          <CalendarIcon className="size-3.5" />
           <span>Less</span>
           <span className="h-2.5 w-4 rounded-sm bg-muted/40" />
           <span className="h-2.5 w-4 rounded-sm bg-emerald-500/15" />
@@ -230,22 +230,22 @@ export default function ActivityPage() {
         <div className="rounded-xl border bg-gradient-to-br from-emerald-500/10 to-transparent p-4">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.14em] font-medium text-muted-foreground">Selected range</p>
+              <p className="text-xs uppercase tracking-wider font-medium text-muted-foreground">Selected range</p>
               <p className="mt-1 text-base font-semibold">
                 {fmtKey(rangeBounds.lo)} → {fmtKey(rangeBounds.hi)}
               </p>
             </div>
             <div className="grid grid-cols-3 gap-3 text-right">
               <div>
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Days</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Days</p>
                 <p className="text-lg font-semibold tabular-nums">{rangeDayCount}</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Active</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Active</p>
                 <p className="text-lg font-semibold tabular-nums">{rangeStats.active}</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Total</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Total</p>
                 <p className="text-lg font-semibold tabular-nums text-emerald-700 dark:text-emerald-300">
                   {rangeStats.total.toLocaleString()}
                 </p>

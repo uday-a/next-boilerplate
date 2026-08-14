@@ -181,10 +181,6 @@ export function DataTableClient() {
     return () => clearTimeout(t)
   }, [])
 
-  useEffect(() => {
-    setPage(0)
-  }, [search, statusFilter, planFilter, dateRange, pageSize])
-
   const dateCutoff = useMemo(() => {
     if (dateRange === 'all') return null
     const days = dateRange === '7d' ? 7 : dateRange === '30d' ? 30 : 90
@@ -347,7 +343,7 @@ export function DataTableClient() {
                   <Filter className="size-3.5" />
                   Status
                   {statusFilter.size > 0 ? (
-                    <Badge variant="secondary" className="ml-1 h-4 px-1 text-[10px]">
+                    <Badge variant="secondary" className="ml-1 h-4 px-1.5 text-xs">
                       {statusFilter.size}
                     </Badge>
                   ) : null}
@@ -396,7 +392,7 @@ export function DataTableClient() {
                   <Filter className="size-3.5" />
                   Plan
                   {planFilter.size > 0 ? (
-                    <Badge variant="secondary" className="ml-1 h-4 px-1 text-[10px]">
+                    <Badge variant="secondary" className="ml-1 h-4 px-1.5 text-xs">
                       {planFilter.size}
                     </Badge>
                   ) : null}
@@ -599,7 +595,7 @@ export function DataTableClient() {
                           <Badge
                             variant="outline"
                             className={[
-                              'gap-1 px-2 text-[10px] font-medium uppercase tracking-wide',
+                              'gap-1 px-2 text-xs font-medium uppercase tracking-wide',
                               statusTone[c.status],
                             ].join(' ')}
                           >
@@ -753,7 +749,7 @@ export function DataTableClient() {
                       <Badge
                         variant="outline"
                         className={[
-                          'gap-1 px-1.5 py-0 text-[10px] font-medium uppercase tracking-wide',
+                          'gap-1 px-2 py-0.5 text-xs font-medium uppercase tracking-wide',
                           statusTone[detailCustomer.status],
                         ].join(' ')}
                       >
@@ -773,13 +769,13 @@ export function DataTableClient() {
                       </Badge>
                       <span
                         className={[
-                          'rounded-full px-2 py-0.5 text-[10px] font-medium',
+                          'rounded-full px-2 py-0.5 text-xs font-medium',
                           planChipTone[detailCustomer.plan],
                         ].join(' ')}
                       >
                         {detailCustomer.plan}
                       </span>
-                      <span className="text-muted-foreground inline-flex items-center gap-1 text-[10px]">
+                      <span className="text-muted-foreground inline-flex items-center gap-1 text-xs">
                         <MapPin className="size-3" />
                         {detailCustomer.country}
                       </span>
@@ -791,41 +787,41 @@ export function DataTableClient() {
               <div className="flex-1 overflow-y-auto">
                 <div className="grid grid-cols-3 gap-px border-b bg-border">
                   <div className="bg-background flex flex-col gap-1 px-4 py-3">
-                    <span className="text-muted-foreground inline-flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                    <span className="text-muted-foreground inline-flex items-center gap-1 text-xs uppercase tracking-wide">
                       <CreditCard className="size-3" />
                       MRR
                     </span>
                     <span className="text-base font-semibold tabular-nums">{formatMoney(detailCustomer.mrr)}</span>
                     {detailCustomer.mrr > 0 ? (
-                      <span className="text-emerald-600 inline-flex items-center gap-0.5 text-[10px] font-medium dark:text-emerald-400">
+                      <span className="text-emerald-600 inline-flex items-center gap-0.5 text-xs font-medium dark:text-emerald-400">
                         <ArrowUpRight className="size-2.5" />
                         {Math.round((detailCustomer.mrr * 12) / 1000)}k ARR
                       </span>
                     ) : (
-                      <span className="text-muted-foreground text-[10px]">No revenue</span>
+                      <span className="text-muted-foreground text-xs">No revenue</span>
                     )}
                   </div>
                   <div className="bg-background flex flex-col gap-1 px-4 py-3">
-                    <span className="text-muted-foreground inline-flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                    <span className="text-muted-foreground inline-flex items-center gap-1 text-xs uppercase tracking-wide">
                       <Users className="size-3" />
                       Seats
                     </span>
                     <span className="text-base font-semibold tabular-nums">{detailCustomer.seats || 0}</span>
                     {detailCustomer.seats ? (
-                      <span className="text-muted-foreground tabular-nums text-[10px]">
+                      <span className="text-muted-foreground tabular-nums text-xs">
                         ${Math.round(detailCustomer.mrr / detailCustomer.seats)}/seat
                       </span>
                     ) : (
-                      <span className="text-muted-foreground text-[10px]">No seats</span>
+                      <span className="text-muted-foreground text-xs">No seats</span>
                     )}
                   </div>
                   <div className="bg-background flex flex-col gap-1 px-4 py-3">
-                    <span className="text-muted-foreground inline-flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                    <span className="text-muted-foreground inline-flex items-center gap-1 text-xs uppercase tracking-wide">
                       <Building2 className="size-3" />
                       Tier
                     </span>
                     <span className="text-base font-semibold">{detailCustomer.plan}</span>
-                    <span className="text-muted-foreground text-[10px]">
+                    <span className="text-muted-foreground text-xs">
                       {detailCustomer.status === 'active'
                         ? 'Renews monthly'
                         : detailCustomer.status === 'trial'
@@ -857,7 +853,7 @@ export function DataTableClient() {
                 </dl>
 
                 <div className="border-t px-5 py-4">
-                  <div className="text-muted-foreground mb-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                  <div className="text-muted-foreground mb-3 inline-flex items-center gap-1 text-xs uppercase tracking-wide">
                     <Activity className="size-3" />
                     Recent activity
                   </div>
@@ -871,7 +867,7 @@ export function DataTableClient() {
                             <EvIcon className={['size-2.5', ev.tone].join(' ')} />
                           </span>
                           <div className="text-xs font-medium leading-tight">{ev.title}</div>
-                          <div className="text-muted-foreground tabular-nums text-[10px]">{ev.meta}</div>
+                          <div className="text-muted-foreground tabular-nums text-xs">{ev.meta}</div>
                         </li>
                       )
                     })}

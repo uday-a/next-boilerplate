@@ -18,7 +18,7 @@ export function PriorityBadge({
   return (
     <div className={cn('flex items-center gap-1', className)}>
       <Icon className={cn(iconSize, config.class)} />
-      <span className={cn('text-[11px] font-semibold', config.class)}>{config.label}</span>
+      <span className={cn('text-xs font-semibold', config.class)}>{config.label}</span>
     </div>
   )
 }

@@ -8,39 +8,42 @@ import { cva } from 'class-variance-authority'
  * example + the SSR symptom that motivated the split.
  */
 
-export const tabsListVariants = cva('inline-flex items-stretch text-muted-foreground', {
-  variants: {
-    variant: {
-      // Solid muted track with rounded inset triggers — the default look.
-      segmented: 'gap-1 rounded-md bg-muted p-1',
-      // Transparent track with rounded-full pill triggers.
-      pill: 'gap-2 bg-transparent p-0',
-      // Bottom-border bar (horizontal) or right-border bar (vertical), with
-      // an underline on the active trigger.
-      underline: 'gap-0 bg-transparent p-0',
+export const tabsListVariants = cva(
+  'inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground',
+  {
+    variants: {
+      variant: {
+        // Solid muted track with rounded inset triggers — the default look.
+        segmented: 'gap-1 rounded-lg bg-muted p-1',
+        // Transparent track with rounded-full pill triggers.
+        pill: 'h-auto gap-2 bg-transparent p-0',
+        // Bottom-border bar (horizontal) or right-border bar (vertical), with
+        // an underline on the active trigger.
+        underline: 'h-auto gap-0 bg-transparent p-0',
+      },
+      orientation: {
+        horizontal: 'flex-row',
+        vertical: 'h-auto flex-col items-stretch',
+      },
     },
-    orientation: {
-      horizontal: 'flex-row',
-      vertical: 'h-auto flex-col items-stretch',
-    },
-  },
-  compoundVariants: [
-    {
-      variant: 'underline',
+    compoundVariants: [
+      {
+        variant: 'underline',
+        orientation: 'horizontal',
+        class: 'w-full justify-start border-b border-border',
+      },
+      {
+        variant: 'underline',
+        orientation: 'vertical',
+        class: 'border-r border-border',
+      },
+    ],
+    defaultVariants: {
+      variant: 'segmented',
       orientation: 'horizontal',
-      class: 'w-full justify-start border-b border-border',
     },
-    {
-      variant: 'underline',
-      orientation: 'vertical',
-      class: 'border-r border-border',
-    },
-  ],
-  defaultVariants: {
-    variant: 'segmented',
-    orientation: 'horizontal',
   },
-})
+)
 
 export const tabsTriggerVariants = cva(
   'inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-medium ring-offset-background transition-[color,background-color,box-shadow,border-color] duration-150 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
@@ -48,15 +51,15 @@ export const tabsTriggerVariants = cva(
     variants: {
       variant: {
         segmented:
-          'rounded-sm data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-xs',
+          'rounded-md data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-xs',
         pill: 'rounded-full border border-border bg-transparent data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary',
         underline:
           'rounded-none border-b-2 border-transparent -mb-px data-[state=active]:border-foreground data-[state=active]:text-foreground',
       },
       size: {
-        default: 'h-9 px-3 text-sm',
-        sm: 'h-8 px-2.5 text-xs',
-        lg: 'h-10 px-4 text-sm',
+        default: 'h-7 px-3 text-sm',
+        sm: 'h-6 px-2.5 text-xs',
+        lg: 'h-8 px-4 text-sm',
       },
       orientation: {
         horizontal: '',

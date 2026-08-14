@@ -25,7 +25,7 @@ type Team = {
 }
 
 const teams: Team[] = [
-  { name: 'UIPKGE', logo: UipkgeLogo, plan: 'Boilerplate' },
+  { name: 'UIPKGE', logo: UipkgeLogo, plan: 'Next.js' },
   { name: 'Acme Corp.', logo: AudioWaveform, plan: 'Startup' },
   { name: 'Evil Corp.', logo: Command, plan: 'Free' },
 ]
@@ -47,9 +47,9 @@ export function TeamSwitcher() {
               <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg group-data-[collapsible=icon]:size-6">
                 <ActiveLogo className="size-8 group-data-[collapsible=icon]:size-6" />
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
-                <span className="font-display truncate font-bold">{activeTeam.name}</span>
-                <span className="text-sidebar-foreground/60 truncate text-xs">{activeTeam.plan}</span>
+              <div className="flex flex-1 flex-col justify-center gap-0.5 text-left min-w-0 group-data-[collapsible=icon]:hidden">
+                <span className="truncate font-semibold text-sm leading-none tracking-tight">{activeTeam.name}</span>
+                <span className="text-muted-foreground truncate text-xs leading-none">{activeTeam.plan}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4 group-data-[collapsible=icon]:hidden" />
             </SidebarMenuButton>

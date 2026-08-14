@@ -54,7 +54,7 @@ export function KanbanCard({
       />
 
       <div className="mb-1 flex items-center justify-between pl-2">
-        <span className="text-muted-foreground/70 font-mono text-[11px]">{task.id}</span>
+        <span className="text-muted-foreground/70 font-mono text-xs">{task.id}</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -92,7 +92,7 @@ export function KanbanCard({
 
       <p
         className={cn(
-          'mb-2 pl-2 text-[13px] leading-snug font-medium',
+          'mb-2 pl-2 text-sm leading-snug font-medium',
           isDone ? 'decoration-muted-foreground/40 line-through' : '',
         )}
       >
@@ -117,14 +117,14 @@ export function KanbanCard({
         {task.dueDate && <DueDateBadge dueDate={task.dueDate} variant="chip" />}
 
         {task.commentItems.length > 0 && (
-          <div className="text-muted-foreground/70 flex items-center gap-1 text-[11px]">
+          <div className="text-muted-foreground/70 flex items-center gap-1 text-xs">
             <MessageSquare className="size-3" />
             {task.commentItems.length}
           </div>
         )}
 
         {task.fileItems.length > 0 && (
-          <div className="text-muted-foreground/70 flex items-center gap-1 text-[11px]">
+          <div className="text-muted-foreground/70 flex items-center gap-1 text-xs">
             <Paperclip className="size-3" />
             {task.fileItems.length}
           </div>

@@ -29,7 +29,7 @@ export function DueDateBadge({
   if (variant === 'chip') {
     return (
       <div
-        className={cn('flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] font-medium', chipClasses, className)}
+        className={cn('flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium', chipClasses, className)}
       >
         <Clock className="size-3" />
         {formatted}
@@ -38,7 +38,7 @@ export function DueDateBadge({
   }
 
   return (
-    <p className={cn('flex items-center gap-1 text-[13px] leading-tight font-medium', inlineClasses, className)}>
+    <p className={cn('flex items-center gap-1 text-sm leading-tight font-medium', inlineClasses, className)}>
       <Clock className="size-3" />
       {formatted}
     </p>

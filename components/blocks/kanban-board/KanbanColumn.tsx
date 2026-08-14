@@ -63,14 +63,14 @@ export function KanbanColumn({
           <span className={cn('size-2 shrink-0 rounded-full', column.dotColor)} />
           <span
             className={cn(
-              'text-[11px] font-semibold tracking-tight',
+              'text-xs font-semibold tracking-tight',
               column.color,
               'rotate-180 [writing-mode:vertical-lr]',
             )}
           >
             {column.title}
           </span>
-          <Badge variant="secondary" className="mt-1 h-5 min-w-5 justify-center rounded-md px-1 text-[10px]">
+          <Badge variant="secondary" className="mt-1 h-5 min-w-5 justify-center rounded-md px-1 text-xs">
             {column.tasks.length}
           </Badge>
           <ChevronsRight className="text-muted-foreground mt-auto size-3.5" />
@@ -86,8 +86,8 @@ export function KanbanColumn({
               <ChevronsLeft className="size-3.5" />
             </button>
             <span className={cn('size-2 shrink-0 rounded-full', column.dotColor)} />
-            <h3 className={cn('text-[13px] font-semibold tracking-tight', column.color)}>{column.title}</h3>
-            <span className="text-muted-foreground bg-muted rounded-md px-1.5 py-0.5 text-[11px] font-medium tabular-nums">
+            <h3 className={cn('text-sm font-semibold tracking-tight', column.color)}>{column.title}</h3>
+            <span className="text-muted-foreground bg-muted rounded-md px-1.5 py-0.5 text-xs font-medium tabular-nums">
               {column.tasks.length}
             </span>
             <div className="ml-auto flex items-center">

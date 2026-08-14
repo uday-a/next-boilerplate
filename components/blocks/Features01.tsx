@@ -7,7 +7,7 @@ export function Features01() {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mb-12 max-w-2xl space-y-3">
           <p className="text-primary text-sm font-medium tracking-widest uppercase">Features</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Everything teams need, nothing they don't.</h2>
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Everything teams need, nothing they don&apos;t.</h2>
           <p className="text-muted-foreground text-lg">
             Six modules that work together out of the box. Pay only for what you use.
           </p>

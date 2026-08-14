@@ -114,7 +114,7 @@ export default function FormsPage() {
               maxLength={280}
               placeholder="Tell people what you work on…"
             />
-            <p className="text-muted-foreground text-[11px] tabular-nums">{profile.bio.length} / 280</p>
+            <p className="text-muted-foreground text-xs tabular-nums">{profile.bio.length} / 280</p>
           </div>
         </CardContent>
       </Card>
@@ -253,7 +253,7 @@ export default function FormsPage() {
               step={1}
               aria-label="Team seats"
             />
-            <div className="text-muted-foreground flex justify-between text-[11px] tabular-nums">
+            <div className="text-muted-foreground flex justify-between text-xs tabular-nums">
               <span>1</span>
               <span>50</span>
             </div>

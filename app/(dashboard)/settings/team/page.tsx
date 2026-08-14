@@ -141,7 +141,7 @@ export default function TeamSettingsPage() {
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <Avatar className="size-8">
-                      <AvatarFallback className={`text-[10px] font-semibold ${member.color}`}>
+                      <AvatarFallback className={`text-xs font-semibold ${member.color}`}>
                         {initials(member.name)}
                       </AvatarFallback>
                     </Avatar>
@@ -152,7 +152,7 @@ export default function TeamSettingsPage() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline" className="text-[10px]">
+                  <Badge variant="outline" className="text-xs">
                     {member.role}
                   </Badge>
                 </TableCell>

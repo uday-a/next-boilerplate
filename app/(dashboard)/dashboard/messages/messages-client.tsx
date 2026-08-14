@@ -144,7 +144,7 @@ export function MessagesClient() {
                     {folder.label}
                   </span>
                   {folder.count > 0 ? (
-                    <Badge variant="secondary" className="h-5 px-1.5 text-[10px]">
+                    <Badge variant="secondary" className="h-5 px-1.5 text-xs">
                       {folder.count}
                     </Badge>
                   ) : null}
@@ -157,7 +157,7 @@ export function MessagesClient() {
             <p className="text-xs font-medium text-muted-foreground mb-2">Labels</p>
             <div className="flex flex-wrap gap-1.5">
               {['work', 'code-review', 'bugfix', 'sales', 'system'].map((tag) => (
-                <Badge key={tag} variant="outline" className="text-[10px] cursor-pointer hover:bg-accent">
+                <Badge key={tag} variant="outline" className="text-xs cursor-pointer hover:bg-accent">
                   {tag}
                 </Badge>
               ))}
@@ -189,7 +189,7 @@ export function MessagesClient() {
                 onClick={() => setSelectedId(msg.id)}
               >
                 <Avatar className="size-9 shrink-0">
-                  <AvatarFallback className={['text-[10px] font-semibold', msg.color].join(' ')}>
+                  <AvatarFallback className={['text-xs font-semibold', msg.color].join(' ')}>
                     {msg.initials}
                   </AvatarFallback>
                 </Avatar>
@@ -198,16 +198,16 @@ export function MessagesClient() {
                     <p className={['truncate text-xs', !msg.read ? 'font-semibold' : 'font-medium'].join(' ')}>
                       {msg.sender}
                     </p>
-                    <span className="text-muted-foreground shrink-0 text-[10px]">{msg.time}</span>
+                    <span className="text-muted-foreground shrink-0 text-xs">{msg.time}</span>
                   </div>
                   <p className={['truncate text-xs', !msg.read ? 'font-medium' : 'text-muted-foreground'].join(' ')}>
                     {msg.subject}
                   </p>
-                  <p className="text-muted-foreground line-clamp-1 text-[11px]">{msg.preview}</p>
+                  <p className="text-muted-foreground line-clamp-1 text-xs">{msg.preview}</p>
                   <div className="flex items-center gap-1 pt-0.5">
                     {msg.starred ? <Star className="size-3 text-amber-500 fill-amber-500" /> : null}
                     {msg.tags.slice(0, 2).map((tag) => (
-                      <Badge key={tag} variant={tagVariant(tag)} className="text-[9px] h-4 px-1">
+                      <Badge key={tag} variant={tagVariant(tag)} className="text-xs h-4 px-1.5">
                         {tag}
                       </Badge>
                     ))}
@@ -289,7 +289,7 @@ export function MessagesClient() {
                 <h2 className="text-lg font-semibold mb-2">{selectedMessage.subject}</h2>
                 <div className="flex flex-wrap gap-1.5 mb-6">
                   {selectedMessage.tags.map((tag) => (
-                    <Badge key={tag} variant={tagVariant(tag)} className="text-[10px]">
+                    <Badge key={tag} variant={tagVariant(tag)} className="text-xs">
                       {tag}
                     </Badge>
                   ))}

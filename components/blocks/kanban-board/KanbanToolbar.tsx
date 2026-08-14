@@ -54,7 +54,7 @@ export function KanbanToolbar({
             <Filter className="size-3" />
             Priority
             {selectedPriority && (
-              <Badge variant="default" className="ml-0.5 h-4 min-w-4 justify-center rounded px-1 text-[10px]">
+              <Badge variant="default" className="ml-0.5 h-4 min-w-4 justify-center rounded px-1 text-xs">
                 1
               </Badge>
             )}

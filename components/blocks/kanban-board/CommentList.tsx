@@ -35,23 +35,16 @@ export function CommentList({
               <UserAvatar name={comment.author} color={comment.authorColor} size={compact ? 'xs' : 'sm'} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline gap-2">
-                  <span className={compact ? 'text-[12px] font-semibold' : 'text-[13px] font-semibold'}>
+                  <span className="text-xs font-semibold">
                     {compact ? comment.author.split(' ')[0] : comment.author}
                   </span>
-                  <span
-                    className={
-                      compact ? 'text-muted-foreground text-[10px]' : 'text-muted-foreground text-[11px]'
-                    }
-                  >
+                  <span className="text-muted-foreground text-xs">
                     {comment.time}
                   </span>
                 </div>
                 <div
                   className={cn(
-                    'rich-text-content prose prose-sm dark:prose-invert mt-0.5 max-w-none',
-                    compact
-                      ? 'text-muted-foreground text-[12px] leading-relaxed'
-                      : 'text-muted-foreground text-[13px] leading-relaxed',
+                    'rich-text-content prose prose-sm dark:prose-invert mt-0.5 max-w-none text-muted-foreground text-xs leading-relaxed',
                   )}
                   dangerouslySetInnerHTML={{ __html: comment.text }}
                 />
@@ -60,7 +53,7 @@ export function CommentList({
           ))}
         </div>
       ) : (
-        <p className={compact ? 'text-muted-foreground text-[12px]' : 'text-muted-foreground text-sm'}>
+        <p className="text-muted-foreground text-sm">
           No comments yet.
         </p>
       )}
@@ -75,12 +68,12 @@ export function CommentList({
             onValueChange={setNewComment}
             placeholder="Write a comment..."
             minHeight={compact ? '60px' : '80px'}
-            className={compact ? 'text-[12px]' : 'text-[13px]'}
+            className="text-xs"
           />
           <div className="flex justify-end">
             <Button
               size="sm"
-              className={compact ? 'h-7 gap-1 text-[11px]' : 'h-8 gap-1.5 text-xs'}
+              className={compact ? 'h-7 gap-1 text-xs' : 'h-8 gap-1.5 text-xs'}
               disabled={!newComment.replace(/<[^>]*>/g, '').trim()}
               onClick={submit}
             >

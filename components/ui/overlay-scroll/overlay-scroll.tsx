@@ -181,6 +181,8 @@ const OverlayScroll = React.forwardRef<OverlayScrollHandle, OverlayScrollProps>(
       el.scrollTop = dragStartScrollTopRef.current + (e.clientY - dragStartYRef.current) * scrollRatio
     }, [])
 
+    const endDragRef = React.useRef<(e?: PointerEvent) => void>(() => {})
+
     const endDrag = React.useCallback(
       (e?: PointerEvent) => {
         if (e && activePointerIdRef.current !== e.pointerId) return
@@ -194,13 +196,18 @@ const OverlayScroll = React.forwardRef<OverlayScrollHandle, OverlayScrollProps>(
           }
         }
         activePointerIdRef.current = null
+        const handler = endDragRef.current
         thumbRef.current?.removeEventListener('pointermove', onPointerMove)
-        thumbRef.current?.removeEventListener('pointerup', endDrag)
-        thumbRef.current?.removeEventListener('pointercancel', endDrag)
+        thumbRef.current?.removeEventListener('pointerup', handler)
+        thumbRef.current?.removeEventListener('pointercancel', handler)
         if (!isHoveredRef.current) setShowThumb(false)
       },
       [onPointerMove],
     )
+
+    React.useLayoutEffect(() => {
+      endDragRef.current = endDrag
+    }, [endDrag])
 
     const onThumbPointerDown = React.useCallback(
       (e: React.PointerEvent) => {

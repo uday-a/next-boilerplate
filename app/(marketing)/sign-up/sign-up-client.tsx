@@ -12,6 +12,7 @@ export function SignUpClient() {
       alert('Only GitHub OAuth is wired right now.')
       return
     }
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- API endpoint redirects to external OAuth provider
     window.location.href = '/api/auth/github'
   }
 

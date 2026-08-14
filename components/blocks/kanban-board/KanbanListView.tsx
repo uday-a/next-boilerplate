@@ -128,7 +128,7 @@ export function KanbanListView({
 
   return (
     <div className="kanban-list flex min-h-0 flex-1 flex-col overflow-auto pb-3">
-      <div className="bg-muted/50 sticky top-0 z-10 grid grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 rounded-t-lg border px-3 py-2 text-[11px] font-semibold tracking-wider uppercase">
+      <div className="bg-muted/50 sticky top-0 z-10 grid grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 rounded-t-lg border px-3 py-2 text-xs font-medium tracking-wider uppercase">
         {headerCols.map((h) => (
           <button key={h.field} className="flex items-center gap-1 text-left" onClick={() => toggleSort(h.field)}>
             {h.label}
@@ -153,7 +153,7 @@ export function KanbanListView({
             )}
             <span className={cn('size-2 rounded-full', group.column.dotColor)} />
             <span className="text-sm font-medium">{group.column.title}</span>
-            <Badge variant="secondary" className="ml-1 h-4 px-1.5 text-[10px] tabular-nums">
+            <Badge variant="secondary" className="ml-1 h-4 px-1.5 text-xs tabular-nums">
               {group.tasks.length}
             </Badge>
           </button>
@@ -165,13 +165,13 @@ export function KanbanListView({
                 className="hover:bg-muted/30 grid cursor-pointer grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 border-x border-b px-3 py-2 transition-colors"
                 onClick={() => onTaskClick(item.task)}
               >
-                <span className="text-muted-foreground font-mono text-[11px]">{item.task.id}</span>
+                <span className="text-muted-foreground font-mono text-xs">{item.task.id}</span>
 
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span
                       className={cn(
-                        'truncate text-[13px] font-medium',
+                        'truncate text-sm font-medium',
                         item.columnId === 'done' ? 'text-muted-foreground line-through' : '',
                       )}
                     >
@@ -192,7 +192,7 @@ export function KanbanListView({
                           key={tag.label}
                           label={tag.label}
                           color={tag.color}
-                          className="!px-1.5 !py-0 !text-[9px]"
+                          className="!px-1.5 !py-0 !text-xs"
                         />
                       ))}
                       {item.task.subtaskIds.length > 0 && (
@@ -212,7 +212,7 @@ export function KanbanListView({
                     onValueChange={(val) => onMoveTask(item.task, String(val))}
                   >
                     <SelectTrigger
-                      className="hover:bg-muted h-6 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-[11px] font-medium shadow-none"
+                      className="hover:bg-muted h-6 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <span className="flex items-center gap-1.5">
@@ -237,14 +237,14 @@ export function KanbanListView({
 
                 <div className="flex items-center gap-2">
                   <UserAvatar name={item.task.assignee.name} color={item.task.assignee.color} size="xs" />
-                  <span className="truncate text-[12px]">{item.task.assignee.name}</span>
+                  <span className="truncate text-xs">{item.task.assignee.name}</span>
                 </div>
 
                 <div>
                   {item.task.dueDate ? (
                     <DueDateBadge dueDate={item.task.dueDate} variant="chip" />
                   ) : (
-                    <span className="text-muted-foreground/50 text-[11px]">—</span>
+                    <span className="text-muted-foreground/50 text-xs">—</span>
                   )}
                 </div>
 
@@ -253,7 +253,7 @@ export function KanbanListView({
                     {item.task.commentItems.length > 0 && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-muted-foreground/70 flex items-center gap-0.5 text-[11px]">
+                          <span className="text-muted-foreground/70 flex items-center gap-0.5 text-xs">
                             <MessageSquare className="size-3" />
                             {item.task.commentItems.length}
                           </span>
@@ -264,7 +264,7 @@ export function KanbanListView({
                     {item.task.fileItems.length > 0 && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-muted-foreground/70 flex items-center gap-0.5 text-[11px]">
+                          <span className="text-muted-foreground/70 flex items-center gap-0.5 text-xs">
                             <Paperclip className="size-3" />
                             {item.task.fileItems.length}
                           </span>

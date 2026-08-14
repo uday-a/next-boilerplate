@@ -67,7 +67,7 @@ function EventContextMenu({
     <ContextMenu>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
       <ContextMenuContent className={menuWidth}>
-        <ContextMenuLabel className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+        <ContextMenuLabel className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <span className={['size-1.5 rounded-full', meta.dot].join(' ')} />
           <span className="truncate">{event.title}</span>
         </ContextMenuLabel>
@@ -315,15 +315,15 @@ export function CalendarClient() {
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5">
                   <span className={['size-1.5 rounded-full', meta.dot].join(' ')} />
-                  <p className="text-muted-foreground text-[10px] uppercase tracking-[0.14em] font-medium">{meta.label}</p>
+                  <p className="text-muted-foreground text-xs uppercase tracking-wider font-medium">{meta.label}</p>
                 </div>
                 <div className={['flex size-7 items-center justify-center rounded-md ring-1 ring-inset', meta.chip].join(' ')}>
                   <Icon className="size-3.5" />
                 </div>
               </div>
               <div className="mt-2 flex items-baseline gap-1.5">
-                <p className="text-3xl font-semibold tabular-nums leading-none">{monthCounts[type]}</p>
-                <p className="text-muted-foreground text-[10px] uppercase tracking-wider">this month</p>
+                <p className="text-2xl font-bold tracking-tight tabular-nums leading-none">{monthCounts[type]}</p>
+                <p className="text-muted-foreground text-xs uppercase tracking-wider">this month</p>
               </div>
               <div className="mt-3 flex items-end gap-1 h-6">
                 {typeStats[type].weeks.slice(0, 6).map((n, i) => (
@@ -338,14 +338,14 @@ export function CalendarClient() {
               <div className="mt-3 border-t border-border/50 pt-2 min-h-[2.25rem]">
                 {typeStats[type].next ? (
                   <>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">
                       Next · <span className={meta.text}>{fmtNextDate(typeStats[type].next!.date)}</span>
                     </p>
                     <p className="truncate text-xs font-medium mt-0.5">{typeStats[type].next!.title}</p>
                   </>
                 ) : (
                   <>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground">No upcoming</p>
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">No upcoming</p>
                     <p className="text-xs text-muted-foreground/70 mt-0.5">All clear</p>
                   </>
                 )}
@@ -370,7 +370,7 @@ export function CalendarClient() {
               </Button>
               <h2 className="text-sm font-semibold ml-2">{monthLabel}</h2>
             </div>
-            <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
+            <div className="flex items-center gap-3 text-xs text-muted-foreground">
               {isRange ? (
                 <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2 py-0.5 text-primary ring-1 ring-inset ring-primary/20">
                   <MousePointer2 className="size-3" />
@@ -391,7 +391,7 @@ export function CalendarClient() {
             </div>
           </div>
 
-          <div className="grid grid-cols-7 border-b bg-muted/10 text-[10px] uppercase tracking-wider text-muted-foreground">
+          <div className="grid grid-cols-7 border-b bg-muted/10 text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {weekdays.map((w) => (
               <div key={w} className="px-2 py-2 font-medium">
                 {w}
@@ -439,7 +439,7 @@ export function CalendarClient() {
                           <div className="flex items-center justify-between">
                             <span
                               className={[
-                                'inline-flex size-5 items-center justify-center rounded-full text-[11px] tabular-nums',
+                                'inline-flex size-5 items-center justify-center rounded-full text-xs tabular-nums',
                                 d.key === todayKey && 'bg-primary text-primary-foreground font-semibold',
                                 d.key !== todayKey && d.inMonth && 'text-foreground',
                                 !d.inMonth && 'text-muted-foreground/60',
@@ -450,7 +450,7 @@ export function CalendarClient() {
                               {d.date.getDate()}
                             </span>
                             {dayEventCount > 0 ? (
-                              <span className="text-[9px] tabular-nums text-muted-foreground">{dayEventCount}</span>
+                              <span className="text-xs tabular-nums text-muted-foreground">{dayEventCount}</span>
                             ) : null}
                           </div>
                           <div className="flex flex-col gap-0.5">
@@ -458,7 +458,7 @@ export function CalendarClient() {
                               <EventContextMenu key={e.id} event={e} onView={openEvent}>
                                 <span
                                   className={[
-                                    'flex items-center gap-1 truncate rounded px-1 py-0.5 text-[10px] ring-1 ring-inset cursor-pointer',
+                                    'flex items-center gap-1 truncate rounded px-1 py-0.5 text-xs ring-1 ring-inset cursor-pointer',
                                     typeMeta[e.type].chip,
                                   ].join(' ')}
                                   onMouseDown={(ev) => ev.stopPropagation()}
@@ -474,13 +474,13 @@ export function CalendarClient() {
                               </EventContextMenu>
                             ))}
                             {dayEventCount > 2 ? (
-                              <span className="px-1 text-[10px] text-muted-foreground">+{dayEventCount - 2} more</span>
+                              <span className="px-1 text-xs text-muted-foreground">+{dayEventCount - 2} more</span>
                             ) : null}
                           </div>
                         </button>
                       </ContextMenuTrigger>
                       <ContextMenuContent className="w-56">
-                        <ContextMenuLabel className="text-[11px] text-muted-foreground">{fmtDayLong(d.key)}</ContextMenuLabel>
+                        <ContextMenuLabel className="text-xs text-muted-foreground">{fmtDayLong(d.key)}</ContextMenuLabel>
                         <ContextMenuSeparator />
                         <ContextMenuItem className="gap-2">
                           <CalendarPlus className="size-3.5" />
@@ -521,7 +521,7 @@ export function CalendarClient() {
                 })}
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 border-t bg-muted/20 px-4 py-2 text-[10px] text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-3 border-t bg-muted/20 px-4 py-2 text-xs text-muted-foreground">
             <ListFilter className="size-3" />
             {(Object.keys(typeMeta) as CalendarEvent['type'][]).map((key) => (
               <div key={key} className="flex items-center gap-1.5">
@@ -539,13 +539,13 @@ export function CalendarClient() {
               <div className="border-b bg-muted/30 px-4 py-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">
                       {rangeStart === todayKey ? 'Today' : 'Selected'}
                     </p>
                     <p className="mt-0.5 text-sm font-semibold">{fmtDayLong(rangeStart)}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Events</p>
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">Events</p>
                     <p className="text-sm font-semibold tabular-nums">{selectedDayEvents.length}</p>
                   </div>
                 </div>
@@ -583,14 +583,14 @@ export function CalendarClient() {
                             <p className="text-sm font-medium leading-tight">{e.title}</p>
                             <span
                               className={[
-                                'shrink-0 rounded px-1.5 py-0.5 text-[9px] uppercase tracking-wider ring-1 ring-inset',
+                                'shrink-0 rounded px-1.5 py-0.5 text-xs uppercase tracking-wider ring-1 ring-inset',
                                 typeMeta[e.type].chip,
                               ].join(' ')}
                             >
                               {typeMeta[e.type].label}
                             </span>
                           </div>
-                          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-muted-foreground">
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-muted-foreground">
                             <span className="inline-flex items-center gap-1">
                               <Clock className="size-3" />
                               {e.start}–{e.end}
@@ -606,13 +606,13 @@ export function CalendarClient() {
                             <div className="flex items-center -space-x-1.5 pt-0.5">
                               {e.attendees.slice(0, 4).map((a, idx) => (
                                 <Avatar key={idx} className="size-5 border-2 border-background">
-                                  <AvatarFallback className="text-[8px] bg-primary/10 text-primary">
+                                  <AvatarFallback className="text-xs bg-primary/10 text-primary">
                                     {initials(a)}
                                   </AvatarFallback>
                                 </Avatar>
                               ))}
                               {e.attendees.length > 4 ? (
-                                <span className="pl-2 text-[10px] text-muted-foreground">+{e.attendees.length - 4}</span>
+                                <span className="pl-2 text-xs text-muted-foreground">+{e.attendees.length - 4}</span>
                               ) : null}
                             </div>
                           ) : null}
@@ -628,7 +628,7 @@ export function CalendarClient() {
               <div className="border-b bg-gradient-to-r from-primary/10 to-transparent px-4 py-3">
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">
                       Range · {rangeDayCount} days
                     </p>
                     <p className="mt-0.5 truncate text-sm font-semibold">
@@ -642,7 +642,7 @@ export function CalendarClient() {
                 <div className="mt-3 grid grid-cols-4 gap-2">
                   {(Object.keys(typeMeta) as CalendarEvent['type'][]).map((t) => (
                     <div key={t} className="rounded-md border bg-background/40 px-2 py-1.5">
-                      <div className="flex items-center gap-1 text-[9px] uppercase tracking-wider text-muted-foreground">
+                      <div className="flex items-center gap-1 text-xs uppercase tracking-wider text-muted-foreground">
                         <span className={['size-1.5 rounded-full', typeMeta[t].dot].join(' ')} />
                         {typeMeta[t].label}
                       </div>
@@ -662,7 +662,7 @@ export function CalendarClient() {
                       onClick={() => openEvent(e)}
                     >
                       <div className="flex w-10 shrink-0 flex-col items-center rounded-md border bg-background/60 px-1 py-1 text-center">
-                        <span className="text-[8px] uppercase text-muted-foreground">
+                        <span className="text-xs uppercase text-muted-foreground">
                           {new Date(e.date).toLocaleDateString('en-US', { month: 'short' })}
                         </span>
                         <span className="text-sm font-semibold leading-none tabular-nums">
@@ -672,12 +672,12 @@ export function CalendarClient() {
                       <div className={['w-0.5 self-stretch shrink-0 rounded-full', typeMeta[e.type].bar].join(' ')} />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-xs font-medium">{e.title}</p>
-                        <p className="text-[11px] text-muted-foreground tabular-nums mt-0.5">
+                        <p className="text-xs text-muted-foreground tabular-nums mt-0.5">
                           {e.start}–{e.end}
                           {e.location ? ` · ${e.location}` : ''}
                         </p>
                       </div>
-                      <span className={['shrink-0 rounded px-1.5 py-0.5 text-[9px] uppercase tracking-wider ring-1 ring-inset', typeMeta[e.type].chip].join(' ')}>
+                      <span className={['shrink-0 rounded px-1.5 py-0.5 text-xs uppercase tracking-wider ring-1 ring-inset', typeMeta[e.type].chip].join(' ')}>
                         {typeMeta[e.type].label}
                       </span>
                     </div>
@@ -690,7 +690,7 @@ export function CalendarClient() {
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="border-b bg-muted/30 px-4 py-2.5">
               <p className="text-sm font-semibold">Up next</p>
-              <p className="text-[11px] text-muted-foreground">After today</p>
+              <p className="text-xs text-muted-foreground">After today</p>
             </div>
             <div className="divide-y">
               {loading ? (
@@ -714,7 +714,7 @@ export function CalendarClient() {
                     onClick={() => openEvent(e)}
                   >
                     <div className="flex size-10 shrink-0 flex-col items-center justify-center rounded-md border bg-background text-center">
-                      <span className="text-[9px] uppercase text-muted-foreground">
+                      <span className="text-xs uppercase text-muted-foreground">
                         {new Date(e.date).toLocaleDateString('en-US', { month: 'short' })}
                       </span>
                       <span className="text-sm font-semibold leading-none tabular-nums">
@@ -726,7 +726,7 @@ export function CalendarClient() {
                         <span className={['size-1.5 rounded-full', typeMeta[e.type].dot].join(' ')} />
                         <p className="truncate text-xs font-medium">{e.title}</p>
                       </div>
-                      <p className="text-[11px] text-muted-foreground tabular-nums mt-0.5">
+                      <p className="text-xs text-muted-foreground tabular-nums mt-0.5">
                         {e.start}–{e.end}
                         {e.location ? ` · ${e.location}` : ''}
                       </p>
@@ -781,7 +781,7 @@ export function CalendarClient() {
                       {selectedEvent.attendees.map((a) => (
                         <div key={a} className="flex items-center gap-1.5 rounded-full bg-muted px-2 py-0.5 text-xs">
                           <Avatar className="size-4">
-                            <AvatarFallback className="text-[8px] bg-primary/10 text-primary">{initials(a)}</AvatarFallback>
+                            <AvatarFallback className="text-xs bg-primary/10 text-primary">{initials(a)}</AvatarFallback>
                           </Avatar>
                           <span>{a}</span>
                         </div>

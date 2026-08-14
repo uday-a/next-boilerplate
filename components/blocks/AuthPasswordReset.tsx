@@ -48,7 +48,7 @@ export function AuthPasswordReset({
           <>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Forgot password?</CardTitle>
-              <CardDescription>Enter your email and we'll send you a reset link.</CardDescription>
+              <CardDescription>Enter your email and we&apos;ll send you a reset link.</CardDescription>
             </CardHeader>
             <CardContent>
               <form className="space-y-4" onSubmit={submitRequest}>
@@ -87,7 +87,7 @@ export function AuthPasswordReset({
             <div className="space-y-1">
               <h3 className="text-lg font-semibold">Check your inbox</h3>
               <p className="text-muted-foreground text-sm">
-                We've sent a reset link to <span className="text-foreground font-medium">{email}</span>.
+                We&apos;ve sent a reset link to <span className="text-foreground font-medium">{email}</span>.
               </p>
             </div>
             <Button variant="outline" className="w-full" onClick={() => setStage('reset')}>
@@ -106,7 +106,7 @@ export function AuthPasswordReset({
           <>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">Set new password</CardTitle>
-              <CardDescription>Pick a strong password you haven't used before.</CardDescription>
+              <CardDescription>Pick a strong password you haven&apos;t used before.</CardDescription>
             </CardHeader>
             <CardContent>
               <form className="space-y-4" onSubmit={submitReset}>
@@ -132,7 +132,7 @@ export function AuthPasswordReset({
                     aria-invalid={!passwordsMatch}
                     required
                   />
-                  {!passwordsMatch && <p className="text-destructive text-xs">Passwords don't match.</p>}
+                  {!passwordsMatch && <p className="text-destructive text-xs">Passwords don&apos;t match.</p>}
                 </div>
                 <Button type="submit" className="w-full">
                   Reset password

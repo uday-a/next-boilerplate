@@ -47,10 +47,10 @@ export function KanbanTaskSheet({
 
             <div className="shrink-0 px-5 pt-4 pb-3">
               <div className="mb-3 flex items-center gap-2">
-                <span className="text-muted-foreground font-mono text-[11px] tracking-tight">{task.id}</span>
+                <span className="text-muted-foreground font-mono text-xs tracking-tight">{task.id}</span>
                 <span className="text-muted-foreground/30">·</span>
                 <Select value={columnIdForTask} onValueChange={(val) => onMoveTask(task, String(val))}>
-                  <SelectTrigger className="hover:bg-secondary h-5 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-[11px] font-medium shadow-none">
+                  <SelectTrigger className="hover:bg-secondary h-5 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -67,22 +67,22 @@ export function KanbanTaskSheet({
                 <PriorityBadge priority={task.priority} iconSize="size-3" className="ml-auto" />
               </div>
 
-              <SheetTitle className="text-[15px] leading-snug font-semibold tracking-tight">{task.title}</SheetTitle>
+              <SheetTitle className="text-base leading-snug font-semibold tracking-tight">{task.title}</SheetTitle>
               <SheetDescription className="sr-only">Task details</SheetDescription>
               {task.description ? (
                 <div
-                  className="text-muted-foreground rich-text-content prose prose-sm dark:prose-invert mt-1.5 max-w-none text-[13px] leading-relaxed"
+                  className="text-muted-foreground rich-text-content prose prose-sm dark:prose-invert mt-1.5 max-w-none text-sm leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: task.description }}
                 />
               ) : (
-                <p className="text-muted-foreground mt-1.5 text-[13px] leading-relaxed">No description provided.</p>
+                <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed">No description provided.</p>
               )}
 
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {task.tags.length ? (
                   task.tags.map((tag) => <TagBadge key={tag.label} label={tag.label} color={tag.color} />)
                 ) : (
-                  <span className="text-muted-foreground text-[11px]">No tags</span>
+                  <span className="text-muted-foreground text-xs">No tags</span>
                 )}
               </div>
             </div>
@@ -94,14 +94,14 @@ export function KanbanTaskSheet({
                 <div className="flex items-center gap-3">
                   <UserAvatar name={task.assignee.name} color={task.assignee.color} size="md" />
                   <div>
-                    <p className="text-[13px] leading-tight font-medium">{task.assignee.name}</p>
-                    <p className="text-muted-foreground text-[11px]">Assignee</p>
+                    <p className="text-sm leading-tight font-medium">{task.assignee.name}</p>
+                    <p className="text-muted-foreground text-xs">Assignee</p>
                   </div>
                   <div className="ml-auto text-right">
                     {task.dueDate ? (
                       <DueDateBadge dueDate={task.dueDate} />
                     ) : (
-                      <p className="text-muted-foreground flex items-center gap-1 text-[13px] leading-tight">
+                      <p className="text-muted-foreground flex items-center gap-1 text-sm leading-tight">
                         <Clock className="size-3" />
                         No due date
                       </p>
@@ -111,10 +111,10 @@ export function KanbanTaskSheet({
 
                 {task.parentId && (
                   <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground text-[11px]">Parent:</span>
+                    <span className="text-muted-foreground text-xs">Parent:</span>
                     <a
                       href={`/dashboard/kanban/${task.parentId}`}
-                      className="text-primary text-[12px] font-medium hover:underline"
+                      className="text-primary text-xs font-medium hover:underline"
                       onClick={() => onOpenChange(false)}
                     >
                       {task.parentId}
@@ -123,7 +123,7 @@ export function KanbanTaskSheet({
                 )}
 
                 <div>
-                  <h4 className="mb-2 text-[13px] font-semibold">
+                  <h4 className="mb-2 text-sm font-semibold">
                     Subtasks
                     {task.subtaskIds.length > 0 && (
                       <span className="text-muted-foreground font-normal"> ({task.subtaskIds.length})</span>
@@ -135,7 +135,7 @@ export function KanbanTaskSheet({
                 <div className="bg-border h-px" />
 
                 <div>
-                  <h4 className="mb-2 text-[13px] font-semibold">
+                  <h4 className="mb-2 text-sm font-semibold">
                     Comments
                     {task.commentItems.length > 0 && (
                       <span className="text-muted-foreground font-normal"> ({task.commentItems.length})</span>
@@ -147,7 +147,7 @@ export function KanbanTaskSheet({
                 <div className="bg-border h-px" />
 
                 <div>
-                  <h4 className="mb-2 text-[13px] font-semibold">
+                  <h4 className="mb-2 text-sm font-semibold">
                     Files
                     {task.fileItems.length > 0 && (
                       <span className="text-muted-foreground font-normal"> ({task.fileItems.length})</span>
@@ -166,8 +166,8 @@ export function KanbanTaskSheet({
                               <FileIcon className="text-muted-foreground size-4" />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-[12px] font-medium">{file.name}</p>
-                              <p className="text-muted-foreground text-[10px]">{file.size}</p>
+                              <p className="truncate text-xs font-medium">{file.name}</p>
+                              <p className="text-muted-foreground text-xs">{file.size}</p>
                             </div>
                             <Button
                               variant="ghost"
@@ -181,7 +181,7 @@ export function KanbanTaskSheet({
                       })}
                     </div>
                   ) : (
-                    <p className="text-muted-foreground text-[12px]">No files attached.</p>
+                    <p className="text-muted-foreground text-xs">No files attached.</p>
                   )}
                 </div>
               </div>

@@ -119,7 +119,7 @@ export function AuthMfa({
             </div>
             <div className="space-y-1">
               <h3 className="text-lg font-semibold">Verified</h3>
-              <p className="text-muted-foreground text-sm">You're all set. Continuing to your dashboard…</p>
+              <p className="text-muted-foreground text-sm">You&apos;re all set. Continuing to your dashboard…</p>
             </div>
             <a href={continueHref} onClick={() => onContinue?.()}>
               <Button className="w-full">Continue</Button>

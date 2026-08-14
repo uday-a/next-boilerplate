@@ -30,7 +30,7 @@ export function SubtaskList({
 
   if (!subtasks.length) {
     return (
-      <p className={compact ? 'text-muted-foreground text-[12px]' : 'text-muted-foreground text-sm'}>
+      <p className="text-muted-foreground text-sm">
         No subtasks yet.
       </p>
     )
@@ -39,10 +39,10 @@ export function SubtaskList({
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <span className={cn('text-muted-foreground tabular-nums', compact ? 'text-[11px]' : 'text-[13px]')}>
+        <span className={cn('text-muted-foreground tabular-nums text-xs font-medium')}>
           {doneCount}/{subtasks.length} done
         </span>
-        <span className={cn('text-muted-foreground tabular-nums', compact ? 'text-[10px]' : 'text-[11px]')}>
+        <span className={cn('text-muted-foreground tabular-nums text-xs font-medium')}>
           {percent}%
         </span>
       </div>
@@ -69,14 +69,13 @@ export function SubtaskList({
           >
             <span className={cn('size-1.5 shrink-0 rounded-full', column?.dotColor ?? 'bg-muted-foreground')} />
             <span
-              className={cn('shrink-0 font-mono', compact ? 'text-[10px]' : 'text-[11px]', 'text-muted-foreground/70')}
+              className={cn('shrink-0 font-mono text-xs text-muted-foreground/70')}
             >
               {task.id}
             </span>
             <span
               className={cn(
-                'min-w-0 flex-1 truncate',
-                compact ? 'text-[12px]' : 'text-[13px]',
+                'min-w-0 flex-1 truncate text-xs font-medium',
                 column?.id === 'done' ? 'text-muted-foreground line-through' : 'text-foreground',
               )}
             >
@@ -84,8 +83,7 @@ export function SubtaskList({
             </span>
             <span
               className={cn(
-                'shrink-0 rounded-md px-1.5 py-0.5 font-medium',
-                compact ? 'text-[9px]' : 'text-[10px]',
+                'shrink-0 rounded-md px-1.5 py-0.5 text-xs font-medium',
                 column?.color ?? 'text-muted-foreground',
               )}
             >

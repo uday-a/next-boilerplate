@@ -113,7 +113,7 @@ export default function SupportPage() {
               <CardDescription>{c.description}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Badge variant="secondary" className="text-[10px]">
+              <Badge variant="secondary" className="text-xs">
                 {c.meta}
               </Badge>
               <Button variant="outline" size="sm" className="w-full gap-1.5" asChild>

@@ -258,7 +258,7 @@ export function FeedbackClient() {
                         {r.status && (
                           <>
                             <span className="text-foreground/60">·</span>
-                            <Badge variant={statusVariant[r.status]} className="text-[9px] capitalize">
+                            <Badge variant={statusVariant[r.status]} className="text-xs capitalize">
                               {r.status.replace('-', ' ')}
                             </Badge>
                           </>

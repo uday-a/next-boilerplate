@@ -81,7 +81,7 @@ export default function SecuritySettingsPage() {
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-medium">{session.device}</p>
                       {session.current && (
-                        <Badge variant="secondary" className="text-[10px]">
+                        <Badge variant="secondary" className="text-xs">
                           This device
                         </Badge>
                       )}
@@ -127,11 +127,11 @@ export default function SecuritySettingsPage() {
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-medium">{token.name}</p>
-                  {token.scopes.map((scope) => (
-                    <Badge key={scope} variant="secondary" className="text-[10px]">
-                      {scope}
-                    </Badge>
-                  ))}
+                    {token.scopes.map((scope) => (
+                      <Badge key={scope} variant="secondary" className="text-xs">
+                        {scope}
+                      </Badge>
+                    ))}
                 </div>
                 <p className="text-muted-foreground text-xs">
                   Created {token.created} · last used {token.lastUsed}

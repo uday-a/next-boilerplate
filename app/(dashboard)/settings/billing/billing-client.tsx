@@ -176,7 +176,7 @@ export function BillingSettingsClient({ justCheckedOut }: BillingSettingsClientP
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
               </div>
               {plan.renews && (
-                <Badge variant="secondary" className="text-[10px]">
+                <Badge variant="secondary" className="text-xs">
                   Renews {new Date(plan.renews).toLocaleDateString()}
                 </Badge>
               )}

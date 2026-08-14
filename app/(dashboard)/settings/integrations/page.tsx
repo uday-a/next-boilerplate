@@ -1,6 +1,6 @@
 'use client'
 
-import { ExternalLink, Github, Plug, Plus, Slack, Webhook } from 'lucide-react'
+import { ExternalLink, GitBranch, MessageSquare, Plug, Plus, Webhook } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -11,7 +11,7 @@ const integrations = [
     id: 'github',
     name: 'GitHub',
     description: 'Link repositories and surface PR activity in the workspace.',
-    icon: Github,
+    icon: GitBranch,
     connected: true,
     account: 'uday',
   },
@@ -19,7 +19,7 @@ const integrations = [
     id: 'slack',
     name: 'Slack',
     description: 'Send notifications and command shortcuts into a Slack workspace.',
-    icon: Slack,
+    icon: MessageSquare,
     connected: false,
   },
   {
@@ -58,7 +58,7 @@ export default function IntegrationsSettingsPage() {
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-medium">{integration.name}</p>
                         {integration.connected && (
-                          <Badge variant="secondary" className="text-[10px]">
+                          <Badge variant="secondary" className="text-xs">
                             Connected{integration.account ? ` · ${integration.account}` : ''}
                           </Badge>
                         )}

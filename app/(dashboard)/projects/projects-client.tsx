@@ -58,18 +58,6 @@ export function ProjectsClient() {
     void load()
   }, [load])
 
-  useEffect(() => {
-    if (slugTouched) return
-    setForm((f) => ({
-      ...f,
-      slug: f.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '')
-        .slice(0, 64),
-    }))
-  }, [form.name, slugTouched])
-
   async function createProject() {
     setSubmitState('submitting')
     setSubmitError(null)
@@ -127,7 +115,20 @@ export function ProjectsClient() {
                 <Input
                   id="np-name"
                   value={form.name}
-                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  onChange={(e) => {
+                    const name = e.target.value
+                    setForm((f) => ({
+                      ...f,
+                      name,
+                      slug: slugTouched
+                        ? f.slug
+                        : name
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-+|-+$/g, '')
+                            .slice(0, 64),
+                    }))
+                  }}
                   placeholder="My new project"
                 />
               </div>

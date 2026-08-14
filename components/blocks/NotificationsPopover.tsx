@@ -248,11 +248,11 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
 
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-2">
-              <p className={['text-[13px] leading-snug', !n.read ? 'font-semibold' : 'font-medium'].join(' ')}>
+              <p className={['text-sm leading-snug', !n.read ? 'font-semibold' : 'font-medium'].join(' ')}>
                 {n.title}
               </p>
               <div className="flex shrink-0 items-center gap-1.5">
-                <span className="text-muted-foreground text-[10px] whitespace-nowrap tabular-nums">
+                <span className="text-muted-foreground text-xs whitespace-nowrap tabular-nums">
                   {formatTime(n.timestamp)}
                 </span>
                 {!n.read ? <span className="bg-primary size-1.5 shrink-0 rounded-full" /> : null}
@@ -288,7 +288,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
           <div className="flex items-center gap-2.5">
             <h3 className="text-sm font-semibold tracking-tight">Notifications</h3>
             {unreadCount > 0 ? (
-              <Badge className="bg-primary/15 text-primary hover:bg-primary/15 h-5 rounded-full px-1.5 text-[10px] font-bold tabular-nums">
+              <Badge className="bg-primary/15 text-primary hover:bg-primary/15 h-5 rounded-full px-1.5 text-xs font-semibold tabular-nums">
                 {unreadCount}
               </Badge>
             ) : null}
@@ -350,7 +350,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
               {groupedNotifications.today.length > 0 ? (
                 <>
                   <div className="px-4 pt-3 pb-1">
-                    <span className="text-muted-foreground text-[10px] font-semibold tracking-widest uppercase">
+                    <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                       Today
                     </span>
                   </div>
@@ -361,7 +361,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
               {groupedNotifications.earlier.length > 0 ? (
                 <>
                   <div className="px-4 pt-3 pb-1">
-                    <span className="text-muted-foreground text-[10px] font-semibold tracking-widest uppercase">
+                    <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                       Earlier
                     </span>
                   </div>

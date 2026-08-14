@@ -48,7 +48,7 @@ export function OnboardingClient() {
             <li key={label} className="flex items-center gap-2">
               <span
                 className={cn(
-                  'flex size-6 items-center justify-center rounded-full border text-[11px] font-medium',
+                  'flex size-6 items-center justify-center rounded-full border text-xs font-medium',
                   i < step && 'bg-primary text-primary-foreground border-primary',
                   i === step && 'border-foreground text-foreground',
                   i > step && 'text-muted-foreground',

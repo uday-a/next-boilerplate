@@ -44,7 +44,7 @@ export function Contact01({ onSubmit }: Contact01Props) {
             <p className="text-primary text-sm font-medium tracking-widest uppercase">Contact</p>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Talk to a human</h2>
             <p className="text-muted-foreground text-lg">
-              Tell us a bit about your team and we'll show you how we'd fit. Average reply: 4 hours.
+              Tell us a bit about your team and we&apos;ll show you how we&apos;d fit. Average reply: 4 hours.
             </p>
 
             <div className="space-y-3 pt-4">
@@ -119,7 +119,7 @@ export function Contact01({ onSubmit }: Contact01Props) {
                       <Input id="contact-company" value={company} onChange={(e) => setCompany(e.target.value)} />
                     </div>
                     <div className="grid gap-2">
-                      <Label htmlFor="contact-subject">I'm interested in</Label>
+                      <Label htmlFor="contact-subject">I&apos;m interested in</Label>
                       <Select value={subject} onValueChange={setSubject}>
                         <SelectTrigger id="contact-subject">
                           <SelectValue />
@@ -150,7 +150,7 @@ export function Contact01({ onSubmit }: Contact01Props) {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-lg font-semibold">Message sent</h3>
-                  <p className="text-muted-foreground text-sm">Thanks {name}, we'll be in touch within a few hours.</p>
+                  <p className="text-muted-foreground text-sm">Thanks {name}, we&apos;ll be in touch within a few hours.</p>
                 </div>
                 <Button variant="outline" onClick={() => setSent(false)}>Send another</Button>
               </CardContent>

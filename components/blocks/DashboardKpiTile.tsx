@@ -23,18 +23,18 @@ export function DashboardKpiTile({
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardDescription className="text-[10px] uppercase tracking-wider flex items-center justify-between">
+        <CardDescription className="text-xs font-medium uppercase tracking-wider flex items-center justify-between">
           {label}
-          {Icon ? <Icon className={['size-3', iconClassName].filter(Boolean).join(' ')} /> : null}
+          {Icon ? <Icon className={['size-4 text-muted-foreground', iconClassName].filter(Boolean).join(' ')} /> : null}
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-3">
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-xl font-semibold tabular-nums">{value}</span>
+        <div className="flex items-baseline gap-2">
+          <span className="text-2xl font-bold tracking-tight tabular-nums">{value}</span>
           {delta ? (
             <span
               className={[
-                'text-[11px] font-medium',
+                'text-xs font-semibold',
                 deltaTone === 'negative' ? 'text-rose-600' : 'text-emerald-600',
               ].join(' ')}
             >

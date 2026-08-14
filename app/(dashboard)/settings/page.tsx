@@ -101,7 +101,7 @@ export default function SettingsPage() {
                   <CardDescription>{section.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Badge variant="secondary" className="text-[10px]">
+                  <Badge variant="secondary" className="text-xs">
                     {section.meta}
                   </Badge>
                 </CardContent>

@@ -70,7 +70,10 @@ export function CommandPalette({
   onSelect,
 }: CommandPaletteProps) {
   const [open, setOpen] = React.useState(false)
-  const [triggerShortcut, setTriggerShortcut] = React.useState('⌘K')
+  const [triggerShortcut] = React.useState(() => {
+    if (typeof navigator === 'undefined') return '⌘K'
+    return /Mac|iPhone|iPad/i.test(navigator.platform) ? '⌘K' : 'Ctrl K'
+  })
 
   function pick(item: CommandPaletteItem) {
     setOpen(false)
@@ -87,11 +90,6 @@ export function CommandPalette({
     }
     window.addEventListener('keydown', onKeydown)
     return () => window.removeEventListener('keydown', onKeydown)
-  }, [])
-
-  React.useEffect(() => {
-    if (typeof navigator === 'undefined') return
-    setTriggerShortcut(/Mac|iPhone|iPad/i.test(navigator.platform) ? '⌘K' : 'Ctrl K')
   }, [])
 
   return (

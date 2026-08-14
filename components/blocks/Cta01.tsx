@@ -23,7 +23,7 @@ export function Cta01() {
 
       <div className="mx-auto max-w-4xl px-6 py-24 text-center">
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Ready to give your team a Monday they'll actually look forward to?
+          Ready to give your team a Monday they&apos;ll actually look forward to?
         </h2>
         <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg">
           Set up takes 12 minutes. Migrate from your current tool with one CSV upload.

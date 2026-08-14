@@ -12,7 +12,7 @@ export function Faq01() {
             <a href="mailto:hello@acme.test" className="hover:text-foreground underline underline-offset-4">
               hello@acme.test
             </a>
-            and we'll reply within a day.
+            and we&apos;ll reply within a day.
           </p>
         </div>
 
