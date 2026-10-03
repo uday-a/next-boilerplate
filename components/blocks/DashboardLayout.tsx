@@ -90,7 +90,7 @@ export function DashboardLayout({
           </div>
           <div className="flex items-center gap-1 px-2 sm:gap-3">
             <a
-              href="https://github.com/uipkge/next-boilerplate"
+              href="https://github.com/uday-a/next-boilerplate"
               data-tour="github"
               target="_blank"
               rel="noreferrer"
