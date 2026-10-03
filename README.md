@@ -9,7 +9,7 @@
 
 A production-grade **Next.js 16 SaaS boilerplate / starter kit** (App Router) with **React 19, TypeScript and Tailwind CSS 4**, built on the shadcn/ui-compatible [**`@uipkge-react`**](https://uipkge.dev/react/components) UI registry. It ships GitHub OAuth + magic-link authentication, Polar billing, a Drizzle ORM + Postgres schema, an admin area with role-based access control (RBAC), team invites, API keys, an audit log, i18n with next-intl, and a full dashboard (charts, kanban, data table, calendar). **Every external integration is gated on env**, so a fresh clone runs in demo mode with no database, OAuth app or API keys.
 
-**[Live demo](https://next-boilerplate-sooty.vercel.app/login)** · **[Vue/Nuxt sibling: nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate)** · **[UI registry: uipkge.dev](https://uipkge.dev)**
+**[Live demo](https://next-boilerplate-sooty.vercel.app/login)** · **[Vue/Nuxt sibling: nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate)** · **[SvelteKit sibling: sveltekit-boilerplate](https://github.com/uday-a/sveltekit-boilerplate)** · **[Angular sibling: angular-boilerplate](https://github.com/uday-a/angular-boilerplate)** · **[UI registry: uipkge.dev](https://uipkge.dev)**
 
 - **Auth:** GitHub OAuth, passwordless magic links, demo sign-in, encrypted `iron-session` cookies, team invites by token
 - **Billing:** Polar checkout, customer portal and signature-verified subscription webhooks
