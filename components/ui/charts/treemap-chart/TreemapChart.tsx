@@ -22,10 +22,12 @@ export interface TreemapChartProps {
   showBreadcrumb?: boolean
   option?: any
   className?: string
+  /** Descriptive label for the `role="img"` frame. */
+  ariaLabel?: string
 }
 
 export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
-  ({ data, height = 320, showBreadcrumb = false, option, className }, ref) => {
+  ({ data, height = 320, showBreadcrumb = false, option, className, ariaLabel }, ref) => {
     const theme = useChartTheme()
 
     const mergedOption = React.useMemo(() => {
@@ -45,8 +47,9 @@ export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
             show: true,
             formatter: ({ name, value }: any) => (value ? `{b|${name}}\n{v|${value}}` : name),
             rich: {
-              b: { color: '#fff', fontSize: 11, fontWeight: 600, lineHeight: 14 },
-              v: { color: 'rgba(255,255,255,0.85)', fontSize: 10, fontWeight: 500, lineHeight: 12 },
+              // Surface colour reads on the saturated tiles in both themes.
+              b: { color: theme.surfaceColor, fontSize: 12, fontWeight: 600, lineHeight: 16 },
+              v: { color: theme.surfaceColor, fontSize: 12, fontWeight: 400, lineHeight: 16 },
             },
             overflow: 'truncate',
             ellipsis: '…',
@@ -80,7 +83,7 @@ export const TreemapChart = React.forwardRef<HTMLDivElement, TreemapChartProps>(
     }, [data, showBreadcrumb, option, theme])
 
     return (
-      <ChartFrame ref={ref} height={height} className={className}>
+      <ChartFrame ref={ref} height={height} className={className} ariaLabel={ariaLabel}>
         <EChart option={mergedOption} />
       </ChartFrame>
     )

@@ -15,7 +15,7 @@ export function UipkgeLogo({ className }: { className?: string }) {
 
 export function UipkgeWordmark({ className }: { className?: string }) {
   return (
-    <span className={cn('inline-flex items-center text-sm font-bold tracking-tight', className)}>
+    <span className={cn('inline-flex items-center text-sm font-semibold tracking-tight', className)}>
       UIPKGE
     </span>
   )

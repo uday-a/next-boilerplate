@@ -771,7 +771,7 @@ function DataTableInner<TData, TValue>(
                     </TableRow>
                     {row.getIsExpanded() && renderExpanded && (
                       <TableRow>
-                        <TableCell colSpan={row.getVisibleCells().length} className="bg-muted/30 px-6 py-4">
+                        <TableCell colSpan={row.getVisibleCells().length} className="bg-muted/30 px-4 py-4">
                           {renderExpanded(row.original, row)}
                         </TableCell>
                       </TableRow>

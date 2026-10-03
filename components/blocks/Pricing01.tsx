@@ -23,7 +23,7 @@ export function Pricing01({ onSubscribe, onContactSales }: Pricing01Props = {}) 
     <section className="bg-background">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mb-10 text-center">
-          <p className="text-primary text-sm font-medium tracking-widest uppercase">Pricing</p>
+          <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Pricing</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Plans for teams of every size</h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-xl text-lg">
             No hidden fees. Cancel anytime. Save 20% with annual billing.
@@ -50,7 +50,7 @@ export function Pricing01({ onSubscribe, onContactSales }: Pricing01Props = {}) 
               <CardTitle className="text-xl">Starter</CardTitle>
               <CardDescription>For small teams trying things out.</CardDescription>
               <div className="mt-4 flex items-baseline gap-1">
-                <span className="text-4xl font-semibold tracking-tight">${cycle === 'monthly' ? 9 : 7}</span>
+                <span className="text-4xl font-semibold tracking-tight tabular-nums">${cycle === 'monthly' ? 9 : 7}</span>
                 <span className="text-muted-foreground text-sm">/ user / month</span>
               </div>
             </CardHeader>
@@ -91,12 +91,14 @@ export function Pricing01({ onSubscribe, onContactSales }: Pricing01Props = {}) 
             <Badge className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 gap-1 shadow-sm">
               <Sparkles className="size-3" /> Most popular
             </Badge>
-            <Card className="border-primary ring-primary/10 shadow-lg ring-1">
+            {/* WHY: flat system -- shadow-sm only. The highlighted
+                plan keeps its ring; elevation doesn't carry the emphasis. */}
+            <Card className="border-primary ring-primary/10 shadow-sm ring-1">
               <CardHeader>
                 <CardTitle className="text-xl">Team</CardTitle>
                 <CardDescription>For growing companies scaling people ops.</CardDescription>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-4xl font-semibold tracking-tight">${cycle === 'monthly' ? 29 : 24}</span>
+                  <span className="text-4xl font-semibold tracking-tight tabular-nums">${cycle === 'monthly' ? 29 : 24}</span>
                   <span className="text-muted-foreground text-sm">/ user / month</span>
                 </div>
               </CardHeader>

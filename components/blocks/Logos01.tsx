@@ -31,14 +31,14 @@ export function Logos01() {
   return (
     <section className="bg-muted/30 border-y">
       <div className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-muted-foreground text-center text-xs font-medium tracking-widest uppercase">
+        <p className="text-muted-foreground text-center text-xs font-medium tracking-wider uppercase">
           Trusted by teams at
         </p>
         <div className="mt-10 grid grid-cols-2 items-center justify-items-center gap-x-10 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
           {LOGOS.map((logo) => (
             <div
               key={logo.label}
-              className="text-foreground/55 hover:text-foreground inline-flex items-center gap-2 transition-colors"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 transition-colors"
             >
               <svg viewBox="0 0 24 24" className="size-5 shrink-0" fill="currentColor" role="img" aria-label={logo.label}>
                 <title>{logo.label}</title>

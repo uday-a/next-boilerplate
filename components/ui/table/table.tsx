@@ -130,7 +130,7 @@ const TableEmpty = React.forwardRef<HTMLTableCellElement, TableEmptyProps>(
         className={cn('text-foreground p-4 align-middle text-sm whitespace-nowrap', className)}
         {...props}
       >
-        <div className="flex items-center justify-center py-10">{children}</div>
+        <div className="flex items-center justify-center py-4">{children}</div>
       </TableCell>
     </TableRow>
   ),

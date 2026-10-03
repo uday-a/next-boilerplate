@@ -14,12 +14,16 @@ export interface LineChartProps {
   xField?: string
   yField?: string | string[]
   height?: number | string
+  /** Unit appended to tooltip values, e.g. 'ms'. */
+  unit?: string
   option?: any
   className?: string
+  /** Descriptive label for the `role="img"` frame. */
+  ariaLabel?: string
 }
 
 export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
-  ({ data, xField = 'x', yField = 'y', height = 300, option, className }, ref) => {
+  ({ data, xField = 'x', yField = 'y', height = 300, unit = '', option, className, ariaLabel }, ref) => {
     const theme = useChartTheme()
 
     const mergedOption = React.useMemo(() => {
@@ -56,7 +60,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
               icon: 'circle',
               itemWidth: 8,
               itemHeight: 8,
-              textStyle: { fontSize: 11, color: theme.textColor },
+              textStyle: { fontSize: 12, color: theme.textColor },
             }
           : undefined
 
@@ -72,6 +76,9 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             backgroundColor: theme.tooltipBg,
             borderColor: theme.tooltipBorder,
             textStyle: { color: theme.tooltipText, fontSize: 12 },
+            // WHY: same unit contract as BarChart -- known units ride
+            // the formatter so defaults never read bare.
+            valueFormatter: (v: number) => `${Number(v).toLocaleString()}${unit ? ` ${unit}` : ''}`,
           },
           userTooltip,
         ),
@@ -81,7 +88,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
             type: 'category',
             data: xData,
             axisLine: { lineStyle: { color: theme.axisColor } },
-            axisLabel: { color: theme.textColor, fontSize: 11 },
+            axisLabel: { color: theme.textColor, fontSize: 12 },
             axisTick: { show: false },
           },
           userXAxis,
@@ -90,7 +97,7 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
           {
             type: 'value',
             splitLine: { lineStyle: { color: theme.splitLineColor } },
-            axisLabel: { color: theme.textColor, fontSize: 11 },
+            axisLabel: { color: theme.textColor, fontSize: 12 },
             axisLine: { show: false },
             axisTick: { show: false },
           },
@@ -99,10 +106,10 @@ export const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>(
         series: mergedSeries,
         ...userRest,
       }
-    }, [data, xField, yField, option, theme])
+    }, [data, xField, yField, unit, option, theme])
 
     return (
-      <ChartFrame ref={ref} height={height} className={className}>
+      <ChartFrame ref={ref} height={height} className={className} ariaLabel={ariaLabel}>
         <EChart option={mergedOption} />
       </ChartFrame>
     )

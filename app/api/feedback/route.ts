@@ -13,6 +13,9 @@ const FeedbackInput = z.object({
 export async function POST(request: Request) {
   return apiHandler(async () => {
     const session = await requireAuth()
+    // Demo sessions are minted by anyone on demand; don't let them relay
+    // email through our sender.
+    if (session.demo) throw apiError('FORBIDDEN', 'Feedback is disabled in demo mode.')
     const parsed = FeedbackInput.safeParse(await request.json())
     if (!parsed.success) {
       throw apiError('VALIDATION_FAILED', 'Invalid feedback payload', { issues: parsed.error.issues })

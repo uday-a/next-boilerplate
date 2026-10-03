@@ -122,6 +122,21 @@ export function magicLinkEmail(args: { email: string; link: string; expiresInMin
   return { to: args.email, subject: `Sign in to ${APP_NAME}`, html, text, tags: [{ name: 'kind', value: 'magic-link' }] }
 }
 
+export function inviteEmail(args: { email: string; link: string; role: string; inviter?: string }): Email {
+  const invitedBy = args.inviter ? ` invited by ${args.inviter}` : ''
+  const text = `You've been invited to join ${APP_NAME}${invitedBy} as ${args.role}.\n\nAccept the invite: ${args.link}\n\nThe link expires in 7 days and can only be used once. If you weren't expecting this, you can safely ignore this email.`
+  const html = shell(
+    `You're invited to ${APP_NAME}`,
+    `
+    <h1 style="margin:0 0 16px;font-size:24px;font-weight:600;line-height:1.3;">You're invited to ${APP_NAME}</h1>
+    <p style="margin:0 0 16px;font-size:16px;line-height:1.6;color:#374151;">You've been invited${invitedBy} as <strong>${args.role}</strong>. Click below to accept — the link expires in 7 days and can only be used once.</p>
+    <p style="margin:24px 0;"><a href="${args.link}" style="display:inline-block;background:#0a0a0a;color:#ffffff;text-decoration:none;padding:12px 20px;border-radius:8px;font-weight:600;font-size:14px;">Accept invite →</a></p>
+    <p style="margin:24px 0 0;font-size:13px;color:#6b7280;line-height:1.6;">Or copy and paste this URL:<br /><span style="word-break:break-all;color:#374151;">${args.link}</span></p>
+  `,
+  )
+  return { to: args.email, subject: `You're invited to ${APP_NAME} as ${args.role}`, html, text, tags: [{ name: 'kind', value: 'invite' }] }
+}
+
 export function feedbackEmail(args: {
   to: string
   reporter: { name: string; email: string; login: string }

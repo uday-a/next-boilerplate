@@ -64,14 +64,14 @@ const richTextEditorCss = `
 
 .rich-text-content .tiptap h1 {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.3;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .rich-text-content .tiptap h2 {
-  font-size: 1.1rem;
+  font-size: var(--text-lg);
   font-weight: 600;
   line-height: 1.3;
   margin-top: 0.75rem;
@@ -111,7 +111,7 @@ const richTextEditorCss = `
   background: var(--muted);
   border-radius: 0.25rem;
   padding: 0.125rem 0.25rem;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   font-family: ui-monospace, monospace;
 }
 
@@ -126,7 +126,7 @@ const richTextEditorCss = `
 .rich-text-content .tiptap pre code {
   background: none;
   padding: 0;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
 }
 
 .rich-text-content .tiptap hr {

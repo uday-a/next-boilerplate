@@ -79,7 +79,7 @@ export function KanbanColumn({
         <>
           <div className="bg-background/95 sticky top-0 z-10 mb-2 flex items-center gap-2 px-2 py-1.5 backdrop-blur-sm">
             <button
-              className="text-muted-foreground/50 hover:text-muted-foreground shrink-0 transition-colors"
+              className="text-muted-foreground hover:text-foreground shrink-0 transition-colors"
               title="Collapse column"
               onClick={() => onToggleCollapse(column.id)}
             >
@@ -173,7 +173,7 @@ export function KanbanColumn({
 
             {column.tasks.length === 0 && (
               <button
-                className="text-muted-foreground/50 hover:text-muted-foreground hover:border-muted-foreground/30 flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed py-10 transition-colors"
+                className="text-muted-foreground hover:text-foreground hover:border-muted-foreground/30 flex flex-1 flex-col items-center justify-center rounded-lg border border-dashed py-4 transition-colors"
                 onClick={() => onAddTask(column.id)}
               >
                 <Plus className="mb-1 size-4" />

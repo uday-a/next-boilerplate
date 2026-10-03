@@ -22,6 +22,8 @@ import {
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { LocaleSwitcher } from '@/components/blocks/LocaleSwitcher'
+import { ThemeCustomizer } from '@/components/blocks/ThemeCustomizer'
 import { ThemeSwitch } from '@/components/ui/theme-switch'
 
 interface Crumb {
@@ -31,7 +33,7 @@ interface Crumb {
 
 export interface DashboardLayoutProps {
   breadcrumbs?: Crumb[]
-  user?: { name: string; email: string; avatar?: string }
+  user?: { name: string; email: string; avatar?: string; role?: string }
   onProfileSelect?: (key: string) => void
   onCommandSelect?: (item: { label: string; hint?: string }) => void
   children?: React.ReactNode
@@ -46,13 +48,19 @@ export function DashboardLayout({
 }: DashboardLayoutProps) {
   return (
     <SidebarProvider>
+      <a
+        href="#main-content"
+        className="bg-background text-foreground ring-ring sr-only z-50 rounded-md text-sm font-medium shadow-md ring-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:px-3 focus:py-2"
+      >
+        Skip to content
+      </a>
       <Sidebar02
         user={user}
         onLogout={() => onProfileSelect?.('logout')}
         onProfileSelect={onProfileSelect}
       />
       <SidebarInset>
-        <header className="bg-background/80 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-30 flex h-14 w-full shrink-0 items-center justify-between border-b px-4 backdrop-blur-xl transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+        <header className="bg-background sticky top-0 z-30 flex h-14 w-full shrink-0 items-center justify-between border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -64,7 +72,7 @@ export function DashboardLayout({
                       {crumb.href && i < breadcrumbs.length - 1 ? (
                         <BreadcrumbLink
                           href={crumb.href}
-                          className="text-muted-foreground/70 hover:text-foreground transition-colors"
+                          className="text-muted-foreground hover:text-foreground transition-colors"
                         >
                           {crumb.label}
                         </BreadcrumbLink>
@@ -83,6 +91,7 @@ export function DashboardLayout({
           <div className="flex items-center gap-1 px-2 sm:gap-3">
             <a
               href="https://github.com/uipkge/next-boilerplate"
+              data-tour="github"
               target="_blank"
               rel="noreferrer"
               className="border-border/80 bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted hidden items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors sm:inline-flex"
@@ -90,9 +99,15 @@ export function DashboardLayout({
               <GithubIcon className="size-3.5" />
               <span>Next.js Starter</span>
             </a>
-            <CommandPalette onSelect={onCommandSelect} />
+            <div data-tour="palette" className="inline-flex">
+              <CommandPalette onSelect={onCommandSelect} />
+            </div>
             <div className="flex items-center gap-0.5">
-              <ThemeSwitch variant="icon-only" />
+              <LocaleSwitcher />
+              <ThemeCustomizer />
+              <div data-tour="theme" className="inline-flex">
+                <ThemeSwitch variant="icon-only" />
+              </div>
               <NotificationsPopover
                 trigger={({ unreadCount }) => (
                   <Button
@@ -111,7 +126,11 @@ export function DashboardLayout({
             </div>
           </div>
         </header>
-        <main className="flex flex-1 flex-col px-4 pt-4 pb-4 lg:px-6 lg:pt-6 lg:pb-6">{children}</main>
+        {/* WHY (Rule18): cap content width so ultra-wide viewports don't
+            stretch charts into noise. */}
+        <main id="main-content" tabIndex={-1} className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col p-4 outline-none">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   )

@@ -1,3 +1,4 @@
+import { keyedMetadata } from '@/lib/page-title'
 import { InviteClient } from './invite-client'
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { token: _token } = await params
-  return { title: 'Join Acme Inc' }
+  return keyedMetadata('invite.joinTitle')
 }
 
 export default async function InvitePage({ params }: Props) {

@@ -48,32 +48,29 @@ export interface KanbanColumn {
 }
 
 export const priorityConfig: Record<string, { icon: LucideIcon; class: string; label: string; bg: string }> = {
-  urgent: { icon: CircleAlert, class: 'text-red-500', label: 'Urgent', bg: 'bg-red-500' },
-  high: { icon: ArrowUp, class: 'text-orange-500', label: 'High', bg: 'bg-orange-500' },
-  medium: { icon: Minus, class: 'text-yellow-500 dark:text-yellow-400', label: 'Medium', bg: 'bg-yellow-500' },
-  low: { icon: ArrowDown, class: 'text-blue-600 dark:text-blue-400', label: 'Low', bg: 'bg-blue-500' },
+  urgent: { icon: CircleAlert, class: 'text-destructive', label: 'Urgent', bg: 'bg-destructive' },
+  high: { icon: ArrowUp, class: 'text-warning', label: 'High', bg: 'bg-warning' },
+  medium: { icon: Minus, class: 'text-muted-foreground', label: 'Medium', bg: 'bg-muted-foreground' },
+  low: { icon: ArrowDown, class: 'text-muted-foreground', label: 'Low', bg: 'bg-muted-foreground' },
 }
 
 export const assignees = {
-  alice: { name: 'Alice Chen', color: 'bg-orange-500/15 text-orange-600 dark:text-orange-400' },
-  bob: { name: 'Bob Martinez', color: 'bg-blue-500/15 text-blue-600 dark:text-blue-400' },
-  carol: { name: 'Carol White', color: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' },
-  david: { name: 'David Kim', color: 'bg-violet-500/15 text-violet-600 dark:text-violet-400' },
-  eva: { name: 'Eva Johnson', color: 'bg-rose-500/15 text-rose-600 dark:text-rose-400' },
-  frank: { name: 'Frank Lee', color: 'bg-cyan-500/15 text-cyan-600 dark:text-cyan-400' },
+  alice: { name: 'Alice Chen', color: 'bg-chart-3/15 text-chart-3' },
+  bob: { name: 'Bob Martinez', color: 'bg-chart-1/15 text-chart-1' },
+  carol: { name: 'Carol White', color: 'bg-chart-2/15 text-chart-2' },
+  david: { name: 'David Kim', color: 'bg-chart-4/15 text-chart-4' },
+  eva: { name: 'Eva Johnson', color: 'bg-chart-5/15 text-chart-5' },
+  frank: { name: 'Frank Lee', color: 'bg-chart-2/15 text-chart-2' },
 }
 
 export const tagPresets = {
-  onboarding: { label: 'Onboarding', color: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 ring-sky-500/20' },
-  compliance: { label: 'Compliance', color: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 ring-amber-500/20' },
-  recruitment: {
-    label: 'Recruitment',
-    color: 'bg-violet-500/10 text-violet-600 dark:text-violet-400 ring-violet-500/20',
-  },
-  payroll: { label: 'Payroll', color: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-emerald-500/20' },
-  training: { label: 'Training', color: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 ring-rose-500/20' },
-  benefits: { label: 'Benefits', color: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 ring-orange-500/20' },
-  policy: { label: 'Policy', color: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 ring-slate-500/20' },
+  onboarding: { label: 'Onboarding', color: 'bg-chart-1/10 text-chart-1 ring-chart-1/20' },
+  compliance: { label: 'Compliance', color: 'bg-chart-3/10 text-chart-3 ring-chart-3/20' },
+  recruitment: { label: 'Recruitment', color: 'bg-chart-4/10 text-chart-4 ring-chart-4/20' },
+  payroll: { label: 'Payroll', color: 'bg-chart-2/10 text-chart-2 ring-chart-2/20' },
+  training: { label: 'Training', color: 'bg-chart-5/10 text-chart-5 ring-chart-5/20' },
+  benefits: { label: 'Benefits', color: 'bg-chart-3/10 text-chart-3 ring-chart-3/20' },
+  policy: { label: 'Policy', color: 'bg-muted text-muted-foreground ring-border' },
 }
 
 export const fileIconMap: Record<string, LucideIcon> = {
@@ -101,9 +98,9 @@ export function getDueStatus(dueDate?: string): 'overdue' | 'soon' | 'normal' | 
   return 'normal'
 }
 
-export function formatDueDate(dueDate: string): string {
+export function formatDueDate(dueDate: string, locale = 'en-US'): string {
   const date = new Date(dueDate + 'T00:00:00')
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' })
 }
 
 export function getAssigneeKey(name: string): keyof typeof assignees {

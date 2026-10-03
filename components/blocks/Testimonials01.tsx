@@ -40,7 +40,7 @@ export function Testimonials01() {
     <section className="bg-muted/30">
       <div className="mx-auto max-w-4xl px-6 py-24">
         <div className="text-center">
-          <p className="text-primary text-sm font-medium tracking-widest uppercase">Testimonials</p>
+          <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Testimonials</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Loved by teams everywhere</h2>
         </div>
 

@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { ArrowLeft, MailCheck } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -20,6 +21,7 @@ export function AuthPasswordReset({
   onRequest,
   onReset,
 }: AuthPasswordResetProps) {
+  const t = useTranslations()
   const [stage, setStage] = React.useState<Stage>('request')
 
   const [email, setEmail] = React.useState('')
@@ -47,24 +49,24 @@ export function AuthPasswordReset({
         {stage === 'request' && (
           <>
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Forgot password?</CardTitle>
-              <CardDescription>Enter your email and we&apos;ll send you a reset link.</CardDescription>
+              <CardTitle className="text-2xl">{t('auth.passwordReset.request.title')}</CardTitle>
+              <CardDescription>{t('auth.passwordReset.request.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <form className="space-y-4" onSubmit={submitRequest}>
                 <div className="grid gap-2">
-                  <Label htmlFor="reset-email">Email</Label>
+                  <Label htmlFor="reset-email">{t('auth.passwordReset.request.emailLabel')}</Label>
                   <Input
                     id="reset-email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     type="email"
-                    placeholder="you@company.com"
+                    placeholder={t('auth.passwordReset.request.emailPlaceholder')}
                     required
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                  Send reset link
+                  {t('auth.passwordReset.request.submit')}
                 </Button>
               </form>
             </CardContent>
@@ -73,7 +75,7 @@ export function AuthPasswordReset({
                 href={signInHref}
                 className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm"
               >
-                <ArrowLeft className="size-3" />Back to sign in
+                <ArrowLeft className="size-3" />{t('auth.passwordReset.request.back')}
               </a>
             </CardFooter>
           </>
@@ -85,19 +87,21 @@ export function AuthPasswordReset({
               <MailCheck className="size-6" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-lg font-semibold">Check your inbox</h3>
+              <h3 className="text-lg font-semibold">{t('auth.passwordReset.sent.title')}</h3>
               <p className="text-muted-foreground text-sm">
-                We&apos;ve sent a reset link to <span className="text-foreground font-medium">{email}</span>.
+                {t('auth.passwordReset.sent.descriptionPrefix')}{' '}
+                <span className="text-foreground font-medium">{email}</span>
+                {t('auth.passwordReset.sent.descriptionSuffix')}
               </p>
             </div>
             <Button variant="outline" className="w-full" onClick={() => setStage('reset')}>
-              Open reset form (demo)
+              {t('auth.passwordReset.sent.openDemo')}
             </Button>
             <button
               className="text-muted-foreground hover:text-foreground text-xs underline-offset-4 hover:underline"
               onClick={() => setStage('request')}
             >
-              Wrong email?
+              {t('auth.passwordReset.sent.wrongEmail')}
             </button>
           </CardContent>
         )}
@@ -105,13 +109,13 @@ export function AuthPasswordReset({
         {stage === 'reset' && (
           <>
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Set new password</CardTitle>
-              <CardDescription>Pick a strong password you haven&apos;t used before.</CardDescription>
+              <CardTitle className="text-2xl">{t('auth.passwordReset.reset.title')}</CardTitle>
+              <CardDescription>{t('auth.passwordReset.reset.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <form className="space-y-4" onSubmit={submitReset}>
                 <div className="grid gap-2">
-                  <Label htmlFor="reset-pw">New password</Label>
+                  <Label htmlFor="reset-pw">{t('auth.passwordReset.reset.passwordLabel')}</Label>
                   <Input
                     id="reset-pw"
                     value={password}
@@ -122,7 +126,7 @@ export function AuthPasswordReset({
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="reset-confirm">Confirm password</Label>
+                  <Label htmlFor="reset-confirm">{t('auth.passwordReset.reset.confirmLabel')}</Label>
                   <Input
                     id="reset-confirm"
                     value={confirm}
@@ -132,10 +136,10 @@ export function AuthPasswordReset({
                     aria-invalid={!passwordsMatch}
                     required
                   />
-                  {!passwordsMatch && <p className="text-destructive text-xs">Passwords don&apos;t match.</p>}
+                  {!passwordsMatch && <p className="text-destructive text-xs">{t('auth.passwordReset.reset.passwordsMismatch')}</p>}
                 </div>
                 <Button type="submit" className="w-full">
-                  Reset password
+                  {t('auth.passwordReset.reset.submit')}
                 </Button>
               </form>
             </CardContent>
@@ -148,13 +152,11 @@ export function AuthPasswordReset({
               <MailCheck className="size-6" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-lg font-semibold">All set</h3>
-              <p className="text-muted-foreground text-sm">
-                Your password has been updated. You can now sign in with the new password.
-              </p>
+              <h3 className="text-lg font-semibold">{t('auth.passwordReset.done.title')}</h3>
+              <p className="text-muted-foreground text-sm">{t('auth.passwordReset.done.description')}</p>
             </div>
             <a href={signInHref}>
-              <Button className="w-full">Continue to sign in</Button>
+              <Button className="w-full">{t('auth.passwordReset.done.submit')}</Button>
             </a>
           </CardContent>
         )}

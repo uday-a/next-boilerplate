@@ -255,7 +255,7 @@ export function DataTableFilterPopover({
                 return (
                   <div key={filter.column} className="bg-muted/40 rounded-lg p-2.5">
                     <div className="mb-2 flex items-center justify-between">
-                      <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                      <Label className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                         {filter.label}
                       </Label>
                       {getDraftText(filter.column) && (
@@ -290,7 +290,7 @@ export function DataTableFilterPopover({
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                        <Label className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                           {filter.label}
                         </Label>
                         {multi.length > 0 && (
@@ -362,7 +362,7 @@ export function DataTableFilterPopover({
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                        <Label className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                           {filter.label}
                         </Label>
                         {hasDate && (

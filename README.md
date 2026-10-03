@@ -1,11 +1,28 @@
-# 🚀 Next.js 16.2 Boilerplate
+# Next.js 16 SaaS Boilerplate — React 19, TypeScript, Tailwind CSS 4
 
-A production-grade [Next.js 16.2](https://nextjs.org) App Router starter for SaaS — session auth, typed API envelope, Drizzle ORM scaffold, billing hooks, and a **full design system** powered by [`@uipkge-react`](https://uipkge.dev/react/setup). **Every external integration is gated on env** so cloning gives you a working app *today*; configuring services flips them on. No accounts required to start.
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React 19](https://img.shields.io/badge/React-19-149eca?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)
+![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8?logo=tailwindcss&logoColor=white)
+![Node 22+](https://img.shields.io/badge/node-%3E%3D22-339933?logo=node.js&logoColor=white)
+
+A production-grade **Next.js 16 SaaS boilerplate / starter kit** (App Router) with **React 19, TypeScript and Tailwind CSS 4**, built on the shadcn/ui-compatible [**`@uipkge-react`**](https://uipkge.dev/react/components) UI registry. It ships GitHub OAuth + magic-link authentication, Polar billing, a Drizzle ORM + Postgres schema, an admin area with role-based access control (RBAC), team invites, API keys, an audit log, i18n with next-intl, and a full dashboard (charts, kanban, data table, calendar). **Every external integration is gated on env**, so a fresh clone runs in demo mode with no database, OAuth app or API keys.
+
+**[Live demo](https://next-boilerplate-sooty.vercel.app/login)** · **[Vue/Nuxt sibling: nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate)** · **[UI registry: uipkge.dev](https://uipkge.dev)**
+
+- **Auth:** GitHub OAuth, passwordless magic links, demo sign-in, encrypted `iron-session` cookies, team invites by token
+- **Billing:** Polar checkout, customer portal and signature-verified subscription webhooks
+- **Database:** Drizzle ORM + Postgres — users, projects, subscriptions, API keys, audit log, invites
+- **Admin & RBAC:** `admin` / `editor` / `user` roles enforced server-side, admin user list, permission-matrix UI
+- **Dashboard:** KPIs, ECharts charts, Leaflet map, kanban, TanStack data table, calendar, messages, activity heatmap
+- **i18n:** next-intl (English + Spanish), cookie-based locale, optional over-the-air translations
+- **DX:** zod-validated env, typed API envelope, structured logging, Vitest + Playwright, one-click Vercel deploy
 
 ![Dashboard preview](./.github/assets/dashboard.png)
 
 <details>
-<summary><b>📸 More screenshots — 6 pages</b></summary>
+<summary><b>More screenshots — 5 pages</b></summary>
 
 ### Kanban board (`/dashboard/kanban`)
 
@@ -29,132 +46,169 @@ A production-grade [Next.js 16.2](https://nextjs.org) App Router starter for Saa
 
 </details>
 
-> ### 🎨 Powered by [UIPKGE](https://uipkge.dev) — the design system that makes this boilerplate *look* like a product, not a starter
+> ### Powered by [UIPKGE](https://uipkge.dev)
 >
-> Every UI element, block, and chart in this repo comes from the **`@uipkge-react`** registry — a curated shadcn-compatible React distribution that ships **the entire shape of a SaaS app**:
+> Every UI element, block and chart in this repo comes from the **`@uipkge-react`** registry — a shadcn/ui-compatible React distribution that covers the whole shape of a SaaS app:
 >
-> - 🔐 **Full auth UI** — sign-in, sign-up, magic-link, forgot-password, MFA, invite-by-token, onboarding stepper
-> - 🌐 **Full public / marketing UI** — hero sections, feature grids, CTA bands, pricing tables, FAQ accordions, testimonials, footer + header navs, terms / privacy shells
-> - 🔒 **Full private / dashboard UI** (protected routes) — collapsible sidebar, breadcrumbs, command palette, team switcher, profile menu, settings shell, kanban board, calendar, data table, messages
-> - 📈 **Charts** — area, bar, line, pie, radar, sparkline (themed light + dark via `echarts-for-react`)
-> - 📋 **Forms + tables** — React Hook Form fields + TanStack Table data grids (sortable, filterable, paginated)
-> - ✏️ **Rich editor** — Tiptap with links, placeholders, task lists, text-align
-> - 🧱 **Elements** — button, dialog, command, combobox, date-picker, drawer, sheet, tooltip, context-menu, ... (the full shadcn/ui surface)
+> - **Auth UI** — sign-in, sign-up, magic link, forgot password, MFA code entry, invite acceptance, onboarding stepper
+> - **Marketing UI** — header, hero, logos, features, bento grid, testimonials, pricing, FAQ, CTA, contact, footer
+> - **Dashboard UI** — collapsible sidebar, breadcrumbs, command palette, notifications popover, theme customizer, locale switcher, kanban, data table, calendar
+> - **Charts** — area, bar, line, funnel, gauge, treemap, calendar heatmap, sparkline (ECharts via `echarts-for-react`, themed for light + dark)
+> - **Forms + tables** — React Hook Form + zod fields, TanStack Table data grids
+> - **Rich text** — Tiptap editor with links, placeholders, task lists, text-align, underline
+> - **Elements** — button, dialog, sheet, command, popover, tooltip, context menu, date/range calendar, pin input, file upload, slider, …
 >
-> All using the same design tokens, same theming, same Tailwind v4 setup. One CLI command:
+> Same design tokens, same theming, same Tailwind CSS 4 setup. One CLI command:
 >
 > ```bash
 > npx shadcn@latest add @uipkge-react/<name> -y
 > ```
 >
-> The component source is copied into your project — **fully owned, fully editable, no runtime dependency, no lock-in.** [Browse the React catalog →](https://uipkge.dev/react/components) · [Jump to the full UIPKGE section ↓](#-uipkge--ready-to-use-elements-blocks--charts)
+> The source is copied into your project — fully owned, fully editable, no runtime dependency. [Browse the React catalog →](https://uipkge.dev/react/components) · [Jump to the UIPKGE section ↓](#uipkge-ui-registry)
 
-🌟 **Try it locally** — clone, run `npm run dev`, open **[`/login`](http://localhost:3000/login)**, and click **Continue as demo user** to explore the protected dashboard without OAuth or a database.
+---
 
-Vue/Nuxt twin with the same registry surface: **[nuxt-boilerplate.uipkge.dev](https://nuxt-boilerplate.uipkge.dev/login)** (also uses demo sign-in on `/login`).
+## Quick start
 
 ```bash
 git clone https://github.com/uday-a/next-boilerplate my-app
 cd my-app
 npm install
 echo "AUTH_SECRET=$(openssl rand -base64 32)" > .env
-echo "DEMO_MODE=true" >> .env
-echo "NEXT_PUBLIC_DEMO_MODE=true" >> .env
 npm run dev
 # → http://localhost:3000
-# → http://localhost:3000/login  (demo sign-in)
+# → http://localhost:3000/login  (Continue as demo user)
 ```
 
-That's it. The boilerplate runs in **demo mode** with no DB, no OAuth app, no API keys. Swap env vars when you're ready to enable real services.
+Demo mode is **on by default in local development only** (`next dev`), so `/login` shows **Continue as demo user** with no further config. Every deployment — production *and* Vercel preview — is **opt-in**: set `DEMO_MODE=true` / `NEXT_PUBLIC_DEMO_MODE=true` to enable it (e.g. for a public live demo), or `false` to force it off. Demo sessions are **admin**, so only enable it where that's intended.
 
-### Key routes (after `npm run dev`)
+### Routes
 
-| Page | Path | Notes |
+| Area | Path | Notes |
 |------|------|-------|
-| Landing | [`/`](http://localhost:3000/) | Marketing blocks — header links to **Sign in** / **Start free trial** |
-| **Sign in** | [`/login`](http://localhost:3000/login) | GitHub OAuth + magic-link form; **Continue as demo user** when demo mode is on |
-| Sign up | [`/sign-up`](http://localhost:3000/sign-up) | Links back to `/login` |
-| Dashboard | [`/dashboard`](http://localhost:3000/dashboard) | Protected — proxy redirects to `/login?next=…` until signed in |
-| Kanban | `/dashboard/kanban` | Full registry kanban block |
-| Customers table | `/dashboard/data-table` | TanStack Table demo |
-| Calendar | `/dashboard/calendar` | Month grid, context menus, event detail dialog |
-| Settings | `/settings` | Account, billing, team, … |
+| Landing | `/` | Marketing blocks; header/hero/CTA adapt when signed in |
+| Pricing | `/pricing` | Plan cards → Polar checkout |
+| Terms / Privacy | `/terms`, `/privacy` | Legal page shells |
+| Sign in | `/login` | GitHub OAuth, magic-link form, demo sign-in bar |
+| Sign up | `/sign-up` | GitHub OAuth (other providers in the block are disabled) |
+| Forgot password | `/forgot-password` | Sends a magic link (no password auth) |
+| MFA | `/mfa` | 6-digit code UI — **mock only**, not enforced |
+| Invite | `/invite/[token]` | Verify + accept a team invite |
+| Onboarding | `/onboarding` | 3-step stepper (profile → workspace → invite) — UI only |
+| Dashboard | `/dashboard` | KPIs, charts, Leaflet map, date-range filter |
+| Messages | `/dashboard/messages` | Inbox / thread UI |
+| Kanban | `/dashboard/kanban` | Registry kanban board |
+| Customers | `/dashboard/data-table` | TanStack Table (sort, filter, paginate) |
+| Calendar | `/dashboard/calendar` | Month grid, context menus, event dialog |
+| Activity | `/dashboard/activity` | Activity heatmap + month grid |
+| Locations | `/dashboard/locations` | Office directory with filters and local times |
+| UI kit | `/dashboard/ui-kit` | Every installed primitive on one page |
+| Forms | `/dashboard/forms`, `/dashboard/form-example` | Form controls + zod / React Hook Form reference |
+| Projects | `/projects`, `/projects/[slug]` | CRUD backed by `/api/projects` |
+| Feedback / Support | `/feedback`, `/support` | Feedback form (emails ops) + help center |
+| Settings | `/settings/*` | general, account, security, notifications, billing, team, api-keys, activity, integrations, limits |
+| Admin | `/admin/users`, `/admin/roles` | Admin-only user list, RBAC permission matrix |
+
+All dashboard, settings, projects, feedback, support, onboarding and admin routes are protected by `proxy.ts`, which redirects to `/login?next=…`.
 
 ---
 
-## 🚀 Features
+## Features
 
 ### Developer experience
 
-- ✅ **Next.js 16.2** App Router + **React 19** + TypeScript
-- ✅ **Turbopack** dev server (`next dev --turbopack`)
-- ✅ **`zod`-validated env** at boot — partial configs fail loud with friendly errors
-- ✅ **`components.json`** pre-wired for `@uipkge-react` registry URLs
-- ✅ **`npm run bootstrap:registry`** — refresh installed registry items from the sibling `uipkge-ui` monorepo
+- **Next.js 16** App Router + **React 19** + **TypeScript**
+- **Turbopack** dev server (`next dev --turbopack`)
+- **zod-validated env** at boot (`lib/env.ts`) — invalid or half-configured integrations (e.g. Polar token without webhook secret, Axiom token without dataset) fail loud
+- **`components.json`** pre-wired for the `@uipkge-react` registry
+- **`npm run bootstrap:registry`** — refresh installed registry items from a sibling `uipkge-ui` checkout
+- **ESLint 9** (`eslint-config-next`), **Vitest** unit tests, **Playwright** end-to-end tests
 
 ### Frontend
 
-- ✅ **Tailwind CSS v4** with UIPKGE OKLCH tokens (`app/globals.css`)
-- ✅ **[`@uipkge-react`](https://uipkge.dev/react/components)** registry — marketing blocks, auth cards, dashboard shell, kanban, data table, calendar
-- ✅ **Radix UI** — the headless layer shadcn/ui is built on
-- ✅ **Three-state theme** (`light` / `dark` / `system`) via `next-themes`
-- ✅ **TanStack Table** + **React Hook Form** + **echarts-for-react** + **Tiptap** + **lucide-react**
-- ✅ Pre-built pages: landing, login/sign-up, dashboard KPIs, kanban, customers table, calendar (context menus), activity heatmap, messages, UI kit, settings, projects
+- **Tailwind CSS 4** with UIPKGE OKLCH design tokens (`app/globals.css`)
+- **Dark mode** — light / dark / system via `next-themes`
+- **Theme customizer** — 14 accent color themes (`lib/color-themes.ts`)
+- **Command palette** — ⌘K / Ctrl K (`cmdk`)
+- **Notifications popover**, breadcrumbs, collapsible sidebar, demo-data banners
+- **Radix UI** primitives, **lucide-react** icons, **sonner** toasts
+- **TanStack Table**, **React Hook Form** + zod, **ECharts**, **Tiptap**, **Leaflet**
 
 ### Backend (Route Handlers)
 
-- ✅ **Typed API envelope** — every `app/api/**` route returns `{ ok: true, data }` or `{ ok: false, error: { code, message, details? } }`
-- ✅ **Structured error codes** — `UNAUTHORIZED` / `FORBIDDEN` / `NOT_FOUND` / `VALIDATION_FAILED` / `RATE_LIMITED` / `INTERNAL`
-- ✅ **`requireAuth()` / `requireRole()`** guards on protected routes
-- ✅ **iron-session** encrypted cookie sessions (like `nuxt-auth-utils`)
-- ✅ **Structured logger** — dot-namespaced events, optional Axiom shipping
-- ✅ **Webhook raw-body handling** — Polar signature verification
+- **Typed API envelope** — routes return `{ ok: true, data }` or `{ ok: false, error: { code, message, details? } }` (`lib/api/response.ts`)
+- **Structured error codes** — `UNAUTHORIZED`, `SESSION_INVALID`, `FORBIDDEN`, `NOT_FOUND`, `VALIDATION_FAILED`, `RATE_LIMITED`, `INTERNAL`
+- **`requireAuth()` / `requireRole()`** guards (`server/utils/guards.ts`)
+- **Rate limiting** — in-memory sliding window per IP on demo sign-in, magic link, team invites and API-key creation (`server/utils/rate-limit.ts`)
+- **Audit log** — append-only `audit_logs` table written by `recordAudit()` for API-key and invite events; surfaced at `/settings/activity`
+- **API keys** — create / list / revoke at `/settings/api-keys`; SHA-256 hashed, shown once, prefixed `uipkge_`, scoped. A `verifyApiKey()` helper is included but not yet wired into any route
+- **Structured logger** — dot-namespaced events to stdout, optional Axiom shipping
+- **Open-redirect-safe** `?next=` handling after sign-in (`lib/auth/redirect.ts`)
 
-### 🔐 Auth
+## Authentication
 
-- ✅ **GitHub OAuth** — `GET /api/auth/github` + callback handler
-- ✅ **Magic-link** sign-in — `POST /api/auth/magic-link` (needs `DATABASE_URL` + Resend)
-- ✅ **Demo mode** — `POST /api/auth/demo` mints a fake-user session; UI at `/login` shows **Continue as demo user**
-- ✅ **Middleware** — protects `/dashboard`, `/settings`, `/projects`, `/feedback`, … redirects to `/login?next=…`
-- ✅ **Admin bootstrap** — `INITIAL_ADMIN_LOGINS` env lists GitHub usernames that land as `role='admin'` on first sign-in
+- **GitHub OAuth** — `GET /api/auth/github` + `/api/auth/github/callback` (GitHub is the only wired OAuth provider)
+- **Magic link** — `POST /api/auth/magic-link` emails a single-use, hashed, expiring token; `GET` verifies it. Needs `DATABASE_URL` (Resend optional — the link is logged to stdout without it)
+- **Demo sign-in** — `POST /api/auth/demo` mints a demo-user session; `/login` shows **Continue as demo user**
+- **Sessions** — `iron-session` encrypted cookies (`AUTH_SECRET`)
+- **Route protection** — `proxy.ts` gates protected prefixes
+- **Team invites** — admins/editors invite by email + role; hashed token, 7-day TTL, single-use, accepted at `/invite/[token]`
+- **Admin bootstrap** — `INITIAL_ADMIN_LOGINS` lists GitHub usernames that get `role='admin'` on sign-in
 
-### 💾 Database
+> The Nuxt sibling wires 44 OAuth providers; this repo currently wires GitHub only. MFA and the onboarding stepper are UI screens, not enforced flows.
 
-- ✅ **Drizzle ORM** + **`postgres`** driver with lazy singleton
-- ✅ Works against **Neon**, **Supabase pooler**, **Railway**, **RDS**, or local Postgres
-- ✅ Schema in `server/db/schema.ts` — `users`, `projects`, `subscriptions`, `magic_link_tokens`
-- ✅ `npm run db:generate` / `npm run db:migrate` via drizzle-kit
+## Admin & RBAC
 
-### 💰 Billing — Polar.sh
+- `user_role` Postgres enum: `user`, `admin`, `editor`
+- Server-side enforcement with `requireRole('admin', …)` — e.g. `/api/admin/users` (admin only), team invites (admin or editor)
+- `/admin/users` — admin user list
+- `/admin/roles` — permission-matrix UI (owner / admin / editor / viewer / billing) backed by mock data, session-only
 
-- ✅ **Checkout** — `POST /api/billing/checkout`
-- ✅ **Customer portal** — `POST /api/billing/portal`
-- ✅ **Signature-verified webhook** — `POST /api/webhooks/polar`
+## Database
 
-### 📧 Email — Resend
+- **Drizzle ORM** + **`postgres`** driver, lazy singleton (`server/db/index.ts`)
+- Works with Neon, Supabase (pooler), Railway, RDS or local Postgres
+- Schema (`server/db/schema.ts`): `users`, `projects`, `subscriptions`, `magic_link_tokens`, `api_keys`, `audit_logs`, `invites`
+- Migrations in `server/db/migrations` — `npm run db:generate` / `npm run db:migrate`
+- Without `DATABASE_URL`, demo sessions and GitHub sign-in still work; demo sessions get sample projects, API keys and team members instead of DB rows
 
-- ✅ **Dev fallback** — without `RESEND_API_KEY`, mailer logs to stdout
+## Billing
 
-### 📊 Observability (optional)
+Polar.sh (`@polar-sh/sdk`):
 
-- ✅ **Sentry** — `NEXT_PUBLIC_SENTRY_DSN`
-- ✅ **PostHog** — client plugin no-ops without key
-- ✅ **Axiom** — structured log shipping
+- **Checkout** — `POST /api/billing/checkout` (Pro / Team / Enterprise product IDs)
+- **Customer portal** — `POST /api/billing/portal`
+- **Subscription status** — `GET /api/me/subscription`, shown at `/settings/billing`
+- **Webhook** — `POST /api/webhooks/polar`, signature-verified, upserts `subscription.*` events
+
+## Email
+
+Resend: magic-link, team-invite and feedback emails (`server/utils/mailer.ts`). Without `RESEND_API_KEY`, emails are logged to stdout. Feedback goes to `EMAIL_OPS` (falls back to `EMAIL_FROM`).
+
+## i18n
+
+- **next-intl** with English and Spanish (`messages/en.json`, `messages/es.json`)
+- Single-URL strategy — locale stored in the `uipkge-locale` cookie, no locale-prefixed routes; switch via the locale switcher
+- **Over-the-air translations (optional)** — set `I18NOW_PROJECT_ID` (+ `I18NOW_API_KEY`) and published CDN translations merge over the local files
+
+## Observability & analytics
+
+- **Axiom** — structured log shipping when `AXIOM_TOKEN` + `AXIOM_DATASET` are set
+- **PostHog** — client analytics with page-view capture when `NEXT_PUBLIC_POSTHOG_KEY` is set
+- **Sentry** — env vars are validated in `lib/env.ts`, but the Sentry SDK is **not installed or wired** yet
 
 ---
 
-## 🎨 UIPKGE — ready-to-use elements, blocks & charts
+## UIPKGE UI registry
 
-This boilerplate is wired to the [**`@uipkge-react`**](https://uipkge.dev/react/setup) registry. Everything installs with the standard shadcn CLI and lands under `components/` — fully owned, fully editable.
+This boilerplate is wired to the [**`@uipkge-react`**](https://uipkge.dev/react/setup) registry. Items install with the standard shadcn CLI and land under `components/` — fully owned, fully editable.
 
 ```bash
 npx shadcn@latest add @uipkge-react/button -y
 npx shadcn@latest add @uipkge-react/kanban-board -y
 ```
 
-### Registry config
-
-Already wired in [`components.json`](./components.json):
+Already configured in [`components.json`](./components.json):
 
 ```json
 {
@@ -164,38 +218,42 @@ Already wired in [`components.json`](./components.json):
 }
 ```
 
-> 🔗 Browse the full catalog at **[uipkge.dev/react/components](https://uipkge.dev/react/components)** · Vue twin uses **`@uipkge`** at [uipkge.dev/vue/components](https://uipkge.dev/vue/components)
+Browse the catalog at **[uipkge.dev/react/components](https://uipkge.dev/react/components)** · the Vue sibling uses **`@uipkge`** at [uipkge.dev/vue/components](https://uipkge.dev/vue/components).
 
 ---
 
-## 🛠 Built with
+## Tech stack
 
 | Layer | Library |
 |---|---|
-| Framework | [Next.js 16.2](https://nextjs.org) (React 19, App Router, TypeScript) |
-| Auth | [iron-session](https://github.com/vvo/iron-session) + GitHub OAuth |
+| Framework | [Next.js 16](https://nextjs.org) (App Router, Turbopack), [React 19](https://react.dev), TypeScript |
+| Auth | [iron-session](https://github.com/vvo/iron-session) + GitHub OAuth + magic links |
 | ORM / DB | [Drizzle ORM](https://orm.drizzle.team) + [postgres](https://github.com/porsager/postgres) |
-| Styling | [Tailwind v4](https://tailwindcss.com) |
-| Primitives | [shadcn/ui](https://ui.shadcn.com) (`@uipkge-react` registry) on [Radix UI](https://www.radix-ui.com) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com), [next-themes](https://github.com/pacocoursey/next-themes) |
+| Components | shadcn/ui-compatible [`@uipkge-react`](https://uipkge.dev) on [Radix UI](https://www.radix-ui.com) |
 | Tables | [TanStack Table](https://tanstack.com/table) |
 | Forms | [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) |
 | Editor | [Tiptap](https://tiptap.dev) |
-| Charts | [echarts-for-react](https://github.com/hustcc/echarts-for-react) |
+| Charts | [ECharts](https://echarts.apache.org) via echarts-for-react |
+| Maps | [Leaflet](https://leafletjs.com) |
+| i18n | [next-intl](https://next-intl.dev) |
 | Icons | [lucide-react](https://lucide.dev) |
 | Billing | [Polar.sh](https://polar.sh) |
 | Email | [Resend](https://resend.com) |
+| Logs / analytics | [Axiom](https://axiom.co), [PostHog](https://posthog.com) |
+| Testing | [Vitest](https://vitest.dev), [Testing Library](https://testing-library.com), [Playwright](https://playwright.dev) |
 
 ---
 
-## 📋 Requirements
+## Requirements
 
-- **Node 22+** (see `engines` in `package.json`)
+- **Node 22+** (`engines` in `package.json`, `.nvmrc`)
 - **npm** (lockfile is `package-lock.json`)
-- *Optional:* a Postgres URL — required only when you want persistence or magic-link auth
+- *Optional:* a Postgres URL — needed for persistence, magic links and team invites
 
 ---
 
-## 🚀 Getting started
+## Getting started
 
 ### 1. Clone + install
 
@@ -209,12 +267,11 @@ npm install
 
 ```bash
 cp .env.example .env
-echo "AUTH_SECRET=$(openssl rand -base64 32)" >> .env
-echo "DEMO_MODE=true" >> .env
-echo "NEXT_PUBLIC_DEMO_MODE=true" >> .env
+# then set AUTH_SECRET in .env to the output of:
+openssl rand -base64 32
 ```
 
-Only `AUTH_SECRET` is *required* (32+ chars). `DEMO_MODE` + `NEXT_PUBLIC_DEMO_MODE` enable the **Continue as demo user** bar on [`/login`](http://localhost:3000/login).
+Only `AUTH_SECRET` is required (32+ chars). Everything else is optional — see the matrix below.
 
 ### 3. Database (optional)
 
@@ -223,34 +280,37 @@ Only `AUTH_SECRET` is *required* (32+ chars). `DEMO_MODE` + `NEXT_PUBLIC_DEMO_MO
 npm run db:migrate
 ```
 
-Without `DATABASE_URL`, demo auth and GitHub OAuth sessions still work — DB upserts silently no-op.
-
 ### 4. Run
 
 ```bash
 npm run dev        # http://localhost:3000
-npm test           # targeted logic tests
 npm run build      # production build
 npm run start      # serve production build
 ```
 
-Open **[http://localhost:3000/login](http://localhost:3000/login)** → **Continue as demo user** → explore `/dashboard`, `/dashboard/kanban`, `/dashboard/calendar`, `/settings`, …
+Open **[http://localhost:3000/login](http://localhost:3000/login)** → **Continue as demo user**.
 
 ---
 
-## 📁 Project structure
+## Project structure
 
 ```
 .
 ├── app/
-│   ├── (marketing)/          # landing, /login, /sign-up, pricing, …
-│   ├── (dashboard)/          # sidebar shell + protected pages
-│   └── api/                  # Route Handlers (auth, me, billing, webhooks, …)
+│   ├── (marketing)/          # landing, pricing, legal, login, sign-up, forgot-password, mfa, invite, onboarding
+│   ├── (dashboard)/          # sidebar shell: dashboard/*, projects, settings/*, admin/*, feedback, support
+│   └── api/                  # Route Handlers: auth, me, projects, keys, team, activity, admin, billing, webhooks, feedback
 ├── components/
-│   ├── blocks/               # @uipkge-react blocks (Header01, kanban-board, …)
-│   └── ui/                   # shadcn primitives
-├── lib/                      # env, api/response, auth/session, demo-mode, utils
-├── server/db/                # Drizzle schema + migrations
+│   ├── blocks/               # @uipkge-react blocks (Header01, Hero01, CommandPalette, kanban-board, …)
+│   └── ui/                   # primitives + charts + leaflet-map
+├── i18n/request.ts           # next-intl request config (cookie locale + OTA merge)
+├── messages/                 # en.json, es.json
+├── lib/                      # env, api/response, auth, demo-mode, i18n, demo data, hooks
+├── server/
+│   ├── db/                   # Drizzle schema + migrations
+│   └── utils/                # guards, audit, api-keys, rate-limit, logger, mailer, polar, tokens, i18now
+├── e2e/                      # Playwright specs
+├── scripts/                  # registry bootstrap, locale converter
 ├── proxy.ts                  # auth gate → /login?next=…
 ├── components.json           # shadcn CLI + @uipkge-react registry
 └── .env.example
@@ -258,32 +318,36 @@ Open **[http://localhost:3000/login](http://localhost:3000/login)** → **Contin
 
 ---
 
-## 🎚 Graceful degradation matrix
+## Graceful degradation matrix
 
-| Env var(s) | Unset behavior | Set behavior |
+| Env var(s) | Unset | Set |
 |---|---|---|
-| `AUTH_SECRET` | **Build fails** — required (32+ chars) | Sessions encrypted |
-| `GITHUB_CLIENT_ID` + `SECRET` | OAuth button hidden / errors gracefully | GitHub sign-in at `/login` |
-| `DEMO_MODE` / `NEXT_PUBLIC_DEMO_MODE` | Auto-on in dev, off in prod | `true` forces demo bar on `/login` |
-| `DATABASE_URL` | OAuth/demo skip DB upsert | Drizzle queries run |
-| `RESEND_API_KEY` + `EMAIL_FROM` | Magic-link logs to stdout | Real email delivery |
-| `POLAR_ACCESS_TOKEN` + `POLAR_WEBHOOK_SECRET` | Billing routes return instructive error | Checkout + portal + webhooks |
-| `NEXT_PUBLIC_SITE_URL` | Defaults `http://localhost:3000` | OAuth redirects + canonical URLs |
+| `AUTH_SECRET` | **Boot fails** — required (32+ chars) | Sessions encrypted |
+| `DEMO_MODE` / `NEXT_PUBLIC_DEMO_MODE` | Auto: on in `next dev` only; off in every deployment (production and preview) | `true` enables demo sign-in (admin session) — required for a public live demo; `false` forces it off |
+| `GITHUB_CLIENT_ID` + `GITHUB_CLIENT_SECRET` | GitHub sign-in unavailable | GitHub OAuth |
+| `INITIAL_ADMIN_LOGINS` | Nobody auto-promoted | Listed GitHub logins become admins |
+| `DATABASE_URL` | Demo sessions use sample data; magic links, invites and persistence unavailable | Drizzle persistence |
+| `RESEND_API_KEY` + `EMAIL_FROM` / `EMAIL_OPS` | Emails logged to stdout | Real delivery |
+| `POLAR_ACCESS_TOKEN` + `POLAR_WEBHOOK_SECRET` (+ `POLAR_*_PRODUCT_ID`, `POLAR_SERVER`) | Billing routes return an instructive error | Checkout, portal, webhooks |
+| `I18NOW_PROJECT_ID` + `I18NOW_API_KEY` | Local `messages/*.json` only | CDN translations merged over local |
+| `AXIOM_TOKEN` + `AXIOM_DATASET` | Logs to stdout only | Logs shipped to Axiom |
+| `NEXT_PUBLIC_POSTHOG_KEY` | No analytics | PostHog page views |
+| `NEXT_PUBLIC_SENTRY_DSN` (+ `SENTRY_*`) | — | Validated only; SDK not wired |
+| `NEXT_PUBLIC_SITE_URL` | `http://localhost:3000` | OAuth redirects + email links |
 
 ---
 
-## ⚡ API conventions
+## API conventions
 
 ```ts
-// app/api/projects/route.ts
-export async function GET(request: Request) {
-  const user = await requireAuth(request)
-  const data = await listProjects(user.id)
-  return ok(data)
+// app/api/projects/route.ts (simplified)
+export async function GET() {
+  return apiHandler(async () => {
+    const session = await requireAuth()
+    return { projects: await listProjects(session.user.id) }
+  })
 }
 ```
-
-Response envelope:
 
 ```ts
 // success
@@ -294,64 +358,80 @@ Response envelope:
 
 ---
 
-## 🚀 Deployment (Vercel)
+## Testing
 
-**One-click deploy** — generate a session secret, then click:
+```bash
+npm test             # Vitest unit tests (lib/*.test.ts, component tests)
+npm run test:watch   # Vitest watch mode
+npm run test:e2e     # Playwright: landing, auth flow, dashboard (starts `next dev` on :3005 unless BASE_URL is set)
+npm run lint         # ESLint
+```
+
+---
+
+## Deployment
+
+> [!WARNING]
+> **`DEMO_MODE` — demo sign-in creates an ADMIN session.** Demo mode is auto-on **only in local development** (`next dev`). Every deployment — production *and* preview — has it **off** unless you set `DEMO_MODE=true` (and `NEXT_PUBLIC_DEMO_MODE=true`) explicitly. Set it only on a deployment meant to offer a public demo; otherwise leave it unset or `false`.
+
+### Vercel
+
+Generate a session secret, then click:
 
 ```bash
 openssl rand -base64 32
 ```
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/uday-a/next-boilerplate&env=AUTH_SECRET,DEMO_MODE,NEXT_PUBLIC_DEMO_MODE&envDescription=AUTH_SECRET%3A%20openssl%20rand%20-base64%2032.%20Set%20DEMO_MODE%20and%20NEXT_PUBLIC_DEMO_MODE%20to%20true%20for%20public%20previews.&project-name=next-boilerplate&repository-name=next-boilerplate)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/uday-a/next-boilerplate&env=AUTH_SECRET,DEMO_MODE,NEXT_PUBLIC_DEMO_MODE&envDescription=AUTH_SECRET%3A%20openssl%20rand%20-base64%2032.%20Set%20DEMO_MODE%20and%20NEXT_PUBLIC_DEMO_MODE%20to%20true%20only%20for%20a%20public%20demo%20(demo%20sessions%20are%20admin).&project-name=next-boilerplate&repository-name=next-boilerplate)
 
-| Variable | Required for preview | Value |
-|----------|---------------------|-------|
+| Variable | Required | Value |
+|----------|----------|-------|
 | `AUTH_SECRET` | **Yes** | output of `openssl rand -base64 32` |
-| `DEMO_MODE` | **Yes** (public demo) | `true` |
-| `NEXT_PUBLIC_DEMO_MODE` | **Yes** (shows demo bar) | `true` |
+| `DEMO_MODE` | Only for a public demo (admin sessions) | `true` — otherwise leave unset or `false` |
+| `NEXT_PUBLIC_DEMO_MODE` | Only for a public demo | `true` — otherwise leave unset or `false` |
 | `NEXT_PUBLIC_SITE_URL` | After first deploy | `https://your-app.vercel.app` |
 
-After deploy, open **`https://<your-app>.vercel.app/login`** and click **Continue as demo user**. Set both demo flags to `false` when you wire real GitHub OAuth.
+If you set `DEMO_MODE=true`, open **`https://<your-app>.vercel.app/login`** and click **Continue as demo user**.
 
 ### Production checklist
 
-- [ ] Generate a *fresh* `AUTH_SECRET` (never reuse dev).
+- [ ] Generate a fresh `AUTH_SECRET` (never reuse dev).
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to your real domain.
-- [ ] Set `DEMO_MODE=false` and `NEXT_PUBLIC_DEMO_MODE=false` to harden the demo route.
-- [ ] Register OAuth callback: `https://<host>/api/auth/github/callback`.
-- [ ] Register Polar webhook: `https://<host>/api/webhooks/polar`.
-- [ ] Run `npm run db:migrate` against production `DATABASE_URL`.
+- [ ] Leave `DEMO_MODE` / `NEXT_PUBLIC_DEMO_MODE` unset or `false` (demo sign-in is an admin session).
+- [ ] Register the OAuth callback: `https://<host>/api/auth/github/callback`.
+- [ ] Register the Polar webhook: `https://<host>/api/webhooks/polar`.
+- [ ] Run `npm run db:migrate` against the production `DATABASE_URL`.
+- [ ] Note: rate limits are in-memory per instance — swap in a shared store if you need global limits.
 
 ---
 
-## ↔ Parity with [nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate)
+## Parity with [nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate)
 
-This is the **React/Next.js twin** of the Nuxt 4 SaaS starter. Same registry-driven UI (`@uipkge-react` vs `@uipkge`), same demo-mode ergonomics on **`/login`**, same envelope-shaped APIs, same dashboard routes.
+This is the React/Next.js sibling of the Nuxt 4 SaaS starter: same registry-driven UI (`@uipkge-react` vs `@uipkge`), same demo sign-in on `/login`, same API envelope, same dashboard routes and translations.
 
 | | Nuxt | Next.js (this repo) |
 |---|---|---|
-| Live demo | [nuxt-boilerplate.uipkge.dev/login](https://nuxt-boilerplate.uipkge.dev/login) | Deploy to Vercel → `/login` |
 | Registry CLI | `npx shadcn-vue add @uipkge/<name>` | `npx shadcn@latest add @uipkge-react/<name>` |
 | Session | `nuxt-auth-utils` | `iron-session` |
+| OAuth | 44 providers | GitHub |
+| i18n | `@nuxtjs/i18n` | `next-intl` |
 | Demo sign-in | `POST /auth/demo` | `POST /api/auth/demo` |
+
+Not ported yet: the multi-provider OAuth catalog, the onboarding tour, Sentry wiring, and the Nuxt SEO module setup.
 
 ---
 
-## 📝 Contributing
+## Contributing
 
 PRs welcome. For non-trivial changes, open an issue first.
 
----
-
-## 📄 License
+## License
 
 MIT — see [LICENSE](./LICENSE).
 
----
-
-## 💖 Acknowledgments
+## Acknowledgments
 
 - [Next.js](https://nextjs.org) team
-- [shadcn/ui](https://ui.shadcn.com) + [`@uipkge`](https://uipkge.dev) for the component system
-- [nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate) — the Vue twin this repo mirrors
+- [shadcn/ui](https://ui.shadcn.com) + [UIPKGE](https://uipkge.dev) for the component system
+- [nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate) — the Vue sibling this repo mirrors
 - [Drizzle](https://orm.drizzle.team) for the ORM

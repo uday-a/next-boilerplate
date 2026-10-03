@@ -89,7 +89,7 @@ AvatarFallback.displayName = 'AvatarFallback'
 /* ------------------------------------------------------------------ */
 
 const overflowSizeClasses: Record<NonNullable<AvatarGroupProps['size']>, string> = {
-  xs: 'size-4 text-[8px]',
+  xs: 'size-4 text-xs',
   sm: 'size-6 text-xs',
   default: 'size-8 text-sm',
   lg: 'size-12 text-base',

@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 import {
   BadgeCheck,
   Bell,
@@ -44,6 +45,7 @@ export interface NavUserProps {
 export function NavUser({ user, onLogout, onProfileSelect }: NavUserProps) {
   const { isMobile } = useSidebar()
   const { theme, setTheme } = useTheme()
+  const t = useTranslations()
 
   const initials = React.useMemo(() => {
     const parts = user.name.trim().split(/\s+/).slice(0, 2)
@@ -59,15 +61,15 @@ export function NavUser({ user, onLogout, onProfileSelect }: NavUserProps) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground group-data-[collapsible=icon]:!justify-center"
             >
-              <Avatar className="h-8 w-8 shrink-0 rounded-lg group-data-[collapsible=icon]:size-6">
+              <Avatar className="size-8 shrink-0 rounded-lg group-data-[collapsible=icon]:size-6">
                 {user.avatar ? <AvatarImage src={user.avatar} alt={user.name} /> : null}
-                <AvatarFallback className="rounded-lg text-xs group-data-[collapsible=icon]:text-[10px]">
+                <AvatarFallback className="rounded-lg text-xs group-data-[collapsible=icon]:text-xs">
                   {initials}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight group-data-[collapsible=icon]:hidden">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium" title={user.name}>{user.name}</span>
+                <span className="truncate text-xs" title={user.email}>{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4 group-data-[collapsible=icon]:hidden" />
             </SidebarMenuButton>
@@ -80,13 +82,13 @@ export function NavUser({ user, onLogout, onProfileSelect }: NavUserProps) {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
+                <Avatar className="size-8 rounded-lg">
                   {user.avatar ? <AvatarImage src={user.avatar} alt={user.name} /> : null}
                   <AvatarFallback className="rounded-lg text-xs">{initials}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold" title={user.name}>{user.name}</span>
+                  <span className="truncate text-xs" title={user.email}>{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -94,22 +96,22 @@ export function NavUser({ user, onLogout, onProfileSelect }: NavUserProps) {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
-                Upgrade to Pro
+                {t('nav.user.upgrade')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={() => onProfileSelect?.('account')}>
                 <BadgeCheck />
-                Account
+                {t('nav.user.account')}
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => onProfileSelect?.('billing')}>
                 <CreditCard />
-                Billing
+                {t('nav.user.billing')}
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => onProfileSelect?.('notifications')}>
                 <Bell />
-                Notifications
+                {t('nav.user.notifications')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -136,7 +138,7 @@ export function NavUser({ user, onLogout, onProfileSelect }: NavUserProps) {
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={() => onLogout?.()}>
               <LogOut />
-              Log out
+              {t('nav.user.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

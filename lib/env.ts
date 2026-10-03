@@ -17,6 +17,7 @@ const Env = z.object({
 
   I18NOW_PROJECT_ID: z.string().optional(),
   I18NOW_API_KEY: z.string().optional(),
+  I18NOW_ENVIRONMENT: z.string().optional(),
 
   AXIOM_TOKEN: z.string().optional(),
   AXIOM_DATASET: z.string().optional(),
@@ -60,6 +61,8 @@ if (!parsed.success) {
 export const env = parsed.data
 
 export const hasGithubOAuth = Boolean(env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET)
+
+export const hasI18now = Boolean(env.I18NOW_PROJECT_ID)
 
 export const hasAxiom = Boolean(env.AXIOM_TOKEN && env.AXIOM_DATASET)
 if (env.AXIOM_TOKEN && !env.AXIOM_DATASET) {

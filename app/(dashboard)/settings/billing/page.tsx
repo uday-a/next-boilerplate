@@ -1,6 +1,9 @@
+import { localizedMetadata } from '@/lib/page-title'
 import { BillingSettingsClient } from './billing-client'
 
-export const metadata = { title: 'Billing · Settings' }
+export function generateMetadata() {
+  return localizedMetadata('/settings/billing', 'nav.items.settings')
+}
 
 interface BillingSettingsPageProps {
   searchParams: Promise<{ status?: string }>

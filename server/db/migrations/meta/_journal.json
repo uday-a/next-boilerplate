@@ -29,6 +29,13 @@
       "when": 1779033172100,
       "tag": "0003_dark_microchip",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790838069490,
+      "tag": "0004_tranquil_yellow_claw",
+      "breakpoints": true
     }
   ]
 }

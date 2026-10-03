@@ -10,8 +10,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { localizedMetadata } from '@/lib/page-title'
+import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
 
-export const metadata = { title: 'Support' }
+export function generateMetadata() {
+  return localizedMetadata('/support')
+}
 
 const faq = [
   {
@@ -79,74 +83,75 @@ const status = { level: 'all-systems-go', label: 'All systems operational', upda
 
 export default function SupportPage() {
   return (
-    <div className="space-y-6">
-      <header className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Support</h1>
-        <p className="text-muted-foreground text-sm">
-          Documentation, community, and human help — pick whichever gets you unstuck fastest.
-        </p>
-      </header>
-
-      <Card className="border-emerald-500/30 bg-emerald-500/5">
-        <CardContent className="flex items-center gap-3 py-4">
-          <CheckCircle2 className="text-emerald-500 size-5 shrink-0" />
-          <div className="flex-1 space-y-0.5">
-            <p className="text-sm font-semibold">{status.label}</p>
-            <p className="text-muted-foreground text-xs">
-              Updated {status.updated}.{' '}
-              <a href="#" className="text-foreground underline-offset-4 hover:underline">
-                View status page →
-              </a>
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        {channels.map((c) => (
-          <Card key={c.title}>
-            <CardHeader>
-              <div className="bg-primary/10 text-primary flex size-10 items-center justify-center rounded-lg">
-                <c.icon className="size-5" />
-              </div>
-              <CardTitle className="text-base pt-3">{c.title}</CardTitle>
-              <CardDescription>{c.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Badge variant="secondary" className="text-xs">
-                {c.meta}
-              </Badge>
-              <Button variant="outline" size="sm" className="w-full gap-1.5" asChild>
-                <a href={c.href}>
-                  {c.cta}
-                  <ExternalLink className="size-3" />
+    <Page>
+      <PageHeader>
+        <PageHeaderHeading
+          title="Support"
+          description="Documentation, community, and human help — pick whichever gets you unstuck fastest."
+        />
+      </PageHeader>
+      <PageBody className="space-y-4">
+        <Card className="border-success/30 bg-success/10">
+          <CardContent className="flex items-center gap-3 py-4">
+            <CheckCircle2 className="text-success size-5 shrink-0" />
+            <div className="flex-1 space-y-0.5">
+              <p className="text-sm font-semibold">{status.label}</p>
+              <p className="text-muted-foreground text-xs">
+                Updated {status.updated}.{' '}
+                <a href="#" className="text-foreground underline-offset-4 hover:underline">
+                  View status page →
                 </a>
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base flex items-center gap-2">
-            <LifeBuoy className="size-4" /> Frequently asked
-          </CardTitle>
-          <CardDescription>Eight questions that account for ~70% of inbound tickets.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Accordion type="single" collapsible className="w-full">
-            {faq.map((f, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="text-left text-sm">{f.q}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm leading-relaxed">
-                  {f.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </CardContent>
-      </Card>
-    </div>
+        <div className="grid gap-4 lg:grid-cols-3">
+          {channels.map((c) => (
+            <Card key={c.title}>
+              <CardHeader>
+                <div className="bg-muted text-muted-foreground flex size-10 items-center justify-center rounded-lg">
+                  <c.icon className="size-5" />
+                </div>
+                <CardTitle className="text-base pt-3">{c.title}</CardTitle>
+                <CardDescription>{c.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <Badge variant="secondary" className="text-xs">
+                  {c.meta}
+                </Badge>
+                <Button variant="outline" size="sm" className="w-full gap-1.5" asChild>
+                  <a href={c.href}>
+                    {c.cta}
+                    <ExternalLink className="size-3" />
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <LifeBuoy className="size-4" /> Frequently asked
+            </CardTitle>
+            <CardDescription>Eight questions that account for ~70% of inbound tickets.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              {faq.map((f, i) => (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger className="text-left text-sm">{f.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-sm leading-relaxed">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
+      </PageBody>
+    </Page>
   )
 }

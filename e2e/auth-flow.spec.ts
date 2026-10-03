@@ -18,6 +18,7 @@ test.describe('Authentication and demo user session', () => {
     // Should redirect to /dashboard
     await page.waitForURL('**/dashboard')
     await expect(page.getByRole('heading', { name: 'Dashboard', level: 1 })).toBeVisible()
-    await expect(page.getByText('Demo User')).toBeVisible()
+    // Demo session identity comes from app/api/auth/demo/route.ts (John Doe).
+    await expect(page.getByText('John Doe').first()).toBeVisible()
   })
 })

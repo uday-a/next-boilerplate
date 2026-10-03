@@ -1,7 +1,11 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { Boxes } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Separator } from '@/components/ui/separator'
 
 const Github = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -9,21 +13,13 @@ const Github = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const Twitter = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z" />
-  </svg>
-)
+const REPO_URL = 'https://github.com/uday-a/next-boilerplate'
 
-const Linkedin = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
-  </svg>
-)
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
-
+/**
+ * Concise marketing footer — real destinations only. Port of Nuxt
+ * `Footer01.vue` @462c304: a boilerplate footer full of href="#"
+ * teaches dead links. Add columns back as the pages exist.
+ */
 export function Footer01() {
   const [newsletter, setNewsletter] = React.useState('')
   const [subscribed, setSubscribed] = React.useState(false)
@@ -37,17 +33,19 @@ export function Footer01() {
 
   return (
     <footer className="bg-background border-t">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 lg:grid-cols-12">
+      <div className="mx-auto max-w-6xl px-4 py-4">
+        <div className="grid gap-4 lg:grid-cols-12">
           <div className="space-y-4 lg:col-span-4">
             <div className="flex items-center gap-2">
               <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-md">
-                <Boxes className="size-4" />
+                <Boxes className="size-4" aria-hidden="true" />
               </div>
               <span className="text-base font-semibold">Acme</span>
             </div>
-            <p className="text-muted-foreground max-w-sm text-sm">Built on shadcn/ui. Get product updates monthly.</p>
-            <form className="flex max-w-sm gap-2" onSubmit={subscribe} suppressHydrationWarning>
+            <p className="text-muted-foreground max-w-sm text-sm">
+              Projects, billing and permissions for growing teams. Product updates once a month.
+            </p>
+            <form className="flex max-w-sm gap-2" onSubmit={subscribe}>
               <Input
                 value={newsletter}
                 onChange={(e) => setNewsletter(e.target.value)}
@@ -58,43 +56,27 @@ export function Footer01() {
               />
               <Button type="submit">Subscribe</Button>
             </form>
-            {subscribed && (
-              <p className="text-xs text-[var(--success)]">Thanks — check your inbox to confirm.</p>
-            )}
+            {subscribed ? <p className="text-success text-xs">Thanks — check your inbox to confirm.</p> : null}
           </div>
 
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-8">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:col-span-8">
             <div className="space-y-3">
               <h3 className="text-sm font-semibold">Product</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Features</a>
+                  <Link href="/#features" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Features
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Pricing</a>
+                  <Link href="/pricing" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Pricing
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Changelog</a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Roadmap</a>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-3">
-              <h3 className="text-sm font-semibold">Company</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">About</a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Blog</a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Careers</a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Contact</a>
+                  <Link href="/login" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Sign in
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -102,14 +84,19 @@ export function Footer01() {
               <h3 className="text-sm font-semibold">Resources</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Documentation</a>
-                </li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">API</a></li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Help center</a>
+                  <a href={REPO_URL} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Documentation
+                  </a>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Status</a>
+                  <Link href="/support" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Help center
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/feedback" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Feedback
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -117,35 +104,27 @@ export function Footer01() {
               <h3 className="text-sm font-semibold">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Terms</a>
+                  <Link href="/terms" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Terms
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Privacy</a>
+                  <Link href="/privacy" className="text-muted-foreground hover:text-foreground text-sm transition-colors">
+                    Privacy
+                  </Link>
                 </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Security</a>
-                </li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">DPA</a></li>
               </ul>
             </div>
           </div>
         </div>
 
-        <Separator className="my-10" />
+        <Separator className="my-4" />
 
         <div className="flex flex-wrap items-center justify-between gap-4">
           <p className="text-muted-foreground text-xs">© 2026 Acme. All rights reserved.</p>
-          <div className="flex items-center gap-3">
-            <a href="#" aria-label="GitHub" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Github className="size-4" />
-            </a>
-            <a href="#" aria-label="Twitter" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Twitter className="size-4" />
-            </a>
-            <a href="#" aria-label="LinkedIn" className="text-muted-foreground hover:text-foreground transition-colors">
-              <Linkedin className="size-4" />
-            </a>
-          </div>
+          <a href={REPO_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Github className="size-4" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </footer>

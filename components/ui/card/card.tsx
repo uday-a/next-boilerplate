@@ -17,7 +17,7 @@ Card.displayName = 'Card'
 
 const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} data-uipkge="" data-slot="card-header" className={cn('flex flex-col space-y-1.5 p-6', className)} {...props} />
+    <div ref={ref} data-uipkge="" data-slot="card-header" className={cn('grid auto-rows-min grid-cols-[minmax(0,1fr)] items-start gap-1.5 p-4 has-data-[slot=card-action]:grid-cols-[minmax(0,1fr)_auto]', className)} {...props} />
   ),
 )
 CardHeader.displayName = 'CardHeader'
@@ -28,7 +28,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTML
       ref={ref}
       data-uipkge=""
       data-slot="card-title"
-      className={cn('leading-none font-semibold tracking-tight', className)}
+      className={cn('leading-tight font-semibold tracking-tight', className)}
       {...props}
     />
   ),
@@ -57,14 +57,14 @@ CardAction.displayName = 'CardAction'
 
 const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} data-uipkge="" data-slot="card-content" className={cn('p-6 pt-0', className)} {...props} />
+    <div ref={ref} data-uipkge="" data-slot="card-content" className={cn('p-4 pt-0', className)} {...props} />
   ),
 )
 CardContent.displayName = 'CardContent'
 
 const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} data-uipkge="" data-slot="card-footer" className={cn('flex items-center p-6 pt-0', className)} {...props} />
+    <div ref={ref} data-uipkge="" data-slot="card-footer" className={cn('flex items-center p-4 pt-0', className)} {...props} />
   ),
 )
 CardFooter.displayName = 'CardFooter'

@@ -21,6 +21,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '@/components/ui/command'
+import { Kbd } from '@/components/ui/kbd'
 
 export interface CommandPaletteItem {
   label: string
@@ -65,7 +66,7 @@ const defaultGroups: CommandPaletteGroup[] = [
 export function CommandPalette({
   groups = defaultGroups,
   placeholder = 'Search pages, commands…',
-  triggerLabel = 'Search pages, commands…',
+  triggerLabel = 'Search…',
   showTrigger = true,
   onSelect,
 }: CommandPaletteProps) {
@@ -97,15 +98,13 @@ export function CommandPalette({
       {showTrigger && (
         <button
           type="button"
-          className="bg-secondary/50 hover:bg-secondary text-muted-foreground focus-visible:ring-ring relative hidden h-8 w-full items-center gap-2 rounded-lg border border-transparent px-2.5 text-sm shadow-none transition-colors focus-visible:ring-1 focus-visible:outline-none sm:flex md:w-[220px] lg:w-[300px]"
+          className="bg-background border-input hover:bg-accent hover:text-foreground text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 relative hidden h-8 w-full items-center gap-2 rounded-lg border px-2.5 text-sm shadow-xs transition-colors outline-none focus-visible:ring-[3px] sm:flex md:w-[180px] lg:w-[240px]"
           aria-label="Open command palette"
           onClick={() => setOpen(true)}
         >
           <Search className="size-3.5 shrink-0" />
           <span className="flex-1 truncate text-left">{triggerLabel}</span>
-          <kbd className="bg-muted/80 text-muted-foreground pointer-events-none flex h-5 items-center justify-center rounded-md border px-1.5 font-mono text-[10px] font-medium">
-            <span>{triggerShortcut}</span>
-          </kbd>
+          <Kbd>{triggerShortcut}</Kbd>
         </button>
       )}
 
@@ -132,7 +131,7 @@ export function CommandPalette({
                       {Icon && <Icon className="size-4" />}
                       <span>{item.label}</span>
                       {item.hint && (
-                        <CommandShortcut className="text-muted-foreground/70">{item.hint}</CommandShortcut>
+                        <CommandShortcut className="text-muted-foreground">{item.hint}</CommandShortcut>
                       )}
                     </CommandItem>
                   )

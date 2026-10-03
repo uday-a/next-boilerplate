@@ -14,12 +14,16 @@ export interface BarChartProps {
   xField?: string
   yField?: string | string[]
   height?: number | string
+  /** Unit appended to tooltip values, e.g. 'requests'. */
+  unit?: string
   option?: any
   className?: string
+  /** Descriptive label for the `role="img"` frame. */
+  ariaLabel?: string
 }
 
 export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
-  ({ data, xField = 'x', yField = 'y', height = 300, option, className }, ref) => {
+  ({ data, xField = 'x', yField = 'y', height = 300, unit = '', option, className, ariaLabel }, ref) => {
     const theme = useChartTheme()
 
     const mergedOption = React.useMemo(() => {
@@ -27,7 +31,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
       const xData = data.map((d) => d[xField])
 
       const series = fields.map((field, i) => ({
-        name: field,
+        name: fields.length > 1 ? field : '',
         type: 'bar',
         barMaxWidth: 32,
         itemStyle: { color: theme.colors[i % theme.colors.length] },
@@ -53,7 +57,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
               icon: 'circle',
               itemWidth: 8,
               itemHeight: 8,
-              textStyle: { fontSize: 11, color: theme.textColor },
+              textStyle: { fontSize: 12, color: theme.textColor },
             }
           : { show: false }
 
@@ -69,6 +73,9 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             backgroundColor: theme.tooltipBg,
             borderColor: theme.tooltipBorder,
             textStyle: { color: theme.tooltipText, fontSize: 12 },
+            // WHY: series with known units format through here so the
+            // default tooltip never shows a bare number.
+            valueFormatter: (v: number) => `${Number(v).toLocaleString()}${unit ? ` ${unit}` : ''}`,
           },
           userTooltip,
         ),
@@ -78,7 +85,7 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
             type: 'category',
             data: xData,
             axisLine: { lineStyle: { color: theme.axisColor } },
-            axisLabel: { color: theme.textColor, fontSize: 11 },
+            axisLabel: { color: theme.textColor, fontSize: 12 },
             axisTick: { show: false },
           },
           userXAxis,
@@ -86,8 +93,11 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
         yAxis: mergeOptionBlock(
           {
             type: 'value',
+            // WHY: bars encode value as length from zero -- a truncated
+            // baseline turns small deltas into cliffs. Always zero-based.
+            min: 0,
             splitLine: { lineStyle: { color: theme.splitLineColor } },
-            axisLabel: { color: theme.textColor, fontSize: 11 },
+            axisLabel: { color: theme.textColor, fontSize: 12 },
             axisLine: { show: false },
             axisTick: { show: false },
           },
@@ -96,10 +106,10 @@ export const BarChart = React.forwardRef<HTMLDivElement, BarChartProps>(
         series: mergedSeries,
         ...userRest,
       }
-    }, [data, xField, yField, option, theme])
+    }, [data, xField, yField, unit, option, theme])
 
     return (
-      <ChartFrame ref={ref} height={height} className={className}>
+      <ChartFrame ref={ref} height={height} className={className} ariaLabel={ariaLabel}>
         <EChart option={mergedOption} />
       </ChartFrame>
     )

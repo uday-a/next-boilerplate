@@ -10,11 +10,19 @@ import { Logos01 } from '@/components/blocks/Logos01'
 import { Pricing01 } from '@/components/blocks/Pricing01'
 import { Testimonials01 } from '@/components/blocks/Testimonials01'
 
+export const metadata = { title: 'The workspace your team will actually use' }
+
 export default function LandingPage() {
   return (
     <div className="bg-background text-foreground min-h-screen">
+      <a
+        href="#main-content"
+        className="bg-background text-foreground ring-ring sr-only z-50 rounded-md text-sm font-medium shadow-md ring-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:px-3 focus:py-2"
+      >
+        Skip to content
+      </a>
       <Header01 />
-      <main className="[&>section]:scroll-mt-20">
+      <main id="main-content" tabIndex={-1} className="outline-none [&>section]:scroll-mt-20">
         <section id="top">
           <Hero01 />
         </section>

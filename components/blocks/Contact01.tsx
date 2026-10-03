@@ -41,7 +41,7 @@ export function Contact01({ onSubmit }: Contact01Props) {
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <div className="space-y-6">
-            <p className="text-primary text-sm font-medium tracking-widest uppercase">Contact</p>
+            <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Contact</p>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Talk to a human</h2>
             <p className="text-muted-foreground text-lg">
               Tell us a bit about your team and we&apos;ll show you how we&apos;d fit. Average reply: 4 hours.

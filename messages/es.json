@@ -1,0 +1,679 @@
+{
+  "auth": {
+    "signIn": {
+      "title": "Bienvenido de nuevo",
+      "description": "Inicia sesión en tu cuenta para continuar",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@empresa.com",
+      "passwordLabel": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "rememberMe": "Recuérdame durante 30 días",
+      "submit": "Iniciar sesión",
+      "orContinueWith": "o continúa con",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUpLink": "Regístrate"
+    },
+    "signUp": {
+      "title": "Crea tu cuenta",
+      "description": "Empieza tu prueba gratuita de 14 días. No se requiere tarjeta de crédito.",
+      "nameLabel": "Nombre completo",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "tu@empresa.com",
+      "passwordLabel": "Contraseña",
+      "passwordHint": "8+ caracteres, mezcla de letras, números y símbolos.",
+      "confirmLabel": "Confirmar contraseña",
+      "passwordsMismatch": "Las contraseñas no coinciden.",
+      "agreePrefix": "Acepto los",
+      "termsLink": "Términos del servicio",
+      "agreeJoiner": "y la",
+      "privacyLink": "Política de privacidad",
+      "submit": "Crear cuenta",
+      "orContinueWith": "o continúa con",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signInLink": "Inicia sesión"
+    },
+    "passwordReset": {
+      "srTitle": "Restablecer contraseña",
+      "request": {
+        "title": "¿Olvidaste tu contraseña?",
+        "description": "Introduce tu correo y te enviaremos un enlace de restablecimiento.",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "tu@empresa.com",
+        "submit": "Enviar enlace",
+        "back": "Volver a iniciar sesión"
+      },
+      "sent": {
+        "title": "Revisa tu bandeja de entrada",
+        "descriptionPrefix": "Hemos enviado un enlace de restablecimiento a",
+        "descriptionSuffix": ".",
+        "openDemo": "Abrir formulario (demo)",
+        "wrongEmail": "¿Correo equivocado?"
+      },
+      "reset": {
+        "title": "Establece una nueva contraseña",
+        "description": "Elige una contraseña fuerte que no hayas usado antes.",
+        "passwordLabel": "Nueva contraseña",
+        "confirmLabel": "Confirmar contraseña",
+        "passwordsMismatch": "Las contraseñas no coinciden.",
+        "submit": "Restablecer contraseña"
+      },
+      "done": {
+        "title": "Todo listo",
+        "description": "Tu contraseña ha sido actualizada. Ya puedes iniciar sesión con la nueva.",
+        "submit": "Continuar a iniciar sesión"
+      }
+    },
+    "mfa": {
+      "title": "Verificación en dos pasos",
+      "description": "Introduce el código de 6 dígitos de tu app de autenticación.",
+      "verifying": "Verificando…",
+      "invalidCode": "Código no válido. Prueba {code} para la demo.",
+      "resend": "Reenviar código",
+      "resendCooldown": "Reenviar disponible en {seconds}s",
+      "lostDevicePrefix": "¿Perdiste tu dispositivo?",
+      "recoveryLink": "Usa un código de recuperación",
+      "verifiedTitle": "Verificado",
+      "verifiedDescription": "Todo listo. Continuando a tu panel…",
+      "continue": "Continuar"
+    }
+  },
+  "settings": {
+    "activity": {
+      "title": "Actividad",
+      "description": "Registro de quién hizo qué en tu espacio de trabajo.",
+      "filters": {
+        "action": "Filtrar por acción…",
+        "entity": "Filtrar por entidad…"
+      },
+      "table": {
+        "event": "Evento",
+        "actor": "Autor",
+        "entity": "Entidad",
+        "time": "Hora"
+      },
+      "states": {
+        "loading": "Cargando actividad…",
+        "error": "No se pudo cargar la actividad.",
+        "empty": "Aún no hay actividad.",
+        "retry": "Reintentar",
+        "emptyDescription": "Los eventos aparecen aquí cuando inicias sesión, creas proyectos, invitas a compañeros o cambias la configuración. Los espacios de demostración y las apps sin base de datos no registran eventos.",
+        "noMatchTitle": "No hay eventos que coincidan",
+        "noMatchDescription": "Nada coincide con estos filtros. Prueba con una búsqueda más amplia.",
+        "clearFilters": "Borrar filtros"
+      },
+      "feed": {
+        "title": "Eventos recientes",
+        "demoNote": "Mostrando datos de ejemplo — los eventos en vivo aparecerán aquí cuando haya una base de datos conectada.",
+        "deletedUser": "Usuario eliminado"
+      }
+    },
+    "apikeys": {
+      "title": "Claves de API",
+      "description": "Credenciales con ámbito para scripts, CLIs e integraciones.",
+      "createTitle": "Crear clave",
+      "createDescription": "La clave sin procesar se muestra una sola vez — cópiala antes de cerrar el diálogo.",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Despliegues de CI",
+      "scopeLabel": "Ámbitos",
+      "scopeRead": "Solo lectura",
+      "scopeReadWrite": "Lectura + escritura",
+      "expiryLabel": "Caduca",
+      "expiry30": "30 días",
+      "expiry90": "90 días",
+      "expiryNever": "Nunca",
+      "submit": "Crear clave",
+      "submitting": "Creando…",
+      "listTitle": "Claves activas",
+      "listDescription": "Solo los prefijos son visibles — los hashes nunca salen del servidor.",
+      "loading": "Cargando claves…",
+      "emptyTitle": "Aún no hay claves de API",
+      "emptyDescription": "Crea tu primera clave arriba para llamar a la API programáticamente.",
+      "colName": "Nombre",
+      "colKey": "Clave",
+      "colScopes": "Ámbitos",
+      "colCreated": "Creada",
+      "colExpires": "Caduca",
+      "colLastUsed": "Último uso",
+      "colActions": "Acciones",
+      "revoked": "Revocada",
+      "never": "Nunca",
+      "neverUsed": "Sin usar",
+      "revoke": "Revocar",
+      "revokeAria": "Revocar clave {name}",
+      "revokeTitle": "¿Revocar «{name}»?",
+      "revokeDescription": "Las llamadas que usen esta clave empezarán a fallar con 401. No se puede deshacer.",
+      "revokeCancel": "Cancelar",
+      "rawTitle": "Copia tu clave",
+      "rawDescription": "Esta es la única vez que se muestra la clave completa.",
+      "rawWarning": "Guárdala en un lugar seguro ahora — no podrás volver a verla. Quien tenga esta clave puede actuar como tú dentro de sus ámbitos.",
+      "rawCopy": "Copiar",
+      "rawCopied": "Copiado",
+      "rawDone": "Listo"
+    },
+    "team": {
+      "title": "Equipo",
+      "subtitle": "{members} miembros · {pending} invitaciones pendientes",
+      "invite": "Invitar miembro",
+      "search": "Buscar por nombre o correo…",
+      "member": "Miembro",
+      "role": "Rol",
+      "status": "Estado",
+      "joined": "Registro",
+      "active": "activo",
+      "loading": "Cargando equipo…",
+      "loadFailed": "No se pudo cargar el equipo. Inténtalo de nuevo.",
+      "emptyMembers": "Aún no hay miembros.",
+      "pendingTitle": "Invitaciones pendientes",
+      "pendingDescription": "Reenvía o revoca las invitaciones aún no aceptadas.",
+      "emptyPending": "No hay invitaciones pendientes.",
+      "resend": "Reenviar",
+      "revoke": "Revocar",
+      "invitedAs": "Invitado como {role}",
+      "expires": "Expira el {date}",
+      "dialogTitle": "Invitar miembro",
+      "dialogDescription": "Recibirá un correo con un enlace para unirse.",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "compañero@empresa.com",
+      "invalidEmail": "Introduce un correo válido, como nombre@empresa.com.",
+      "roleLabel": "Rol",
+      "cancel": "Cancelar",
+      "send": "Enviar invitación",
+      "sending": "Enviando…",
+      "inviteSent": "Invitación enviada a {email}",
+      "inviteFailed": "No se pudo enviar la invitación. Inténtalo de nuevo.",
+      "revokeFailed": "No se pudo revocar la invitación. Inténtalo de nuevo.",
+      "demoDisabled": "Las invitaciones están desactivadas en modo demo.",
+      "viewerNote": "Solo admins y editores pueden invitar miembros.",
+      "remove": "Quitar del espacio",
+      "removeFor": "Quitar a {name}",
+      "removeTitle": "¿Quitar a {name}?",
+      "removeDescription": "Pierde el acceso a este espacio de inmediato. Puedes deshacerlo desde la notificación durante unos segundos.",
+      "removed": "{name} quitado",
+      "editTitle": "Editar miembro",
+      "editDescription": "Actualiza su nombre, correo o rol.",
+      "editInvalid": "Añade un nombre y un correo válido."
+    }
+  },
+  "nav": {
+    "groups": {
+      "platform": "Plataforma",
+      "projects": "Proyectos",
+      "teams": "Equipos"
+    },
+    "actions": {
+      "toggle": "Alternar",
+      "more": "Más",
+      "addTeam": "Añadir equipo",
+      "viewProject": "Ver proyecto",
+      "shareProject": "Compartir proyecto",
+      "deleteProject": "Eliminar proyecto"
+    },
+    "user": {
+      "upgrade": "Mejorar a Pro",
+      "account": "Cuenta",
+      "billing": "Facturación",
+      "notifications": "Notificaciones",
+      "logout": "Cerrar sesión"
+    },
+    "items": {
+      "dashboard": "Panel",
+      "messages": "Mensajes",
+      "kanban": "Kanban",
+      "dataTable": "Clientes",
+      "calendar": "Calendario",
+      "activity": "Actividad",
+      "locations": "Ubicaciones",
+      "uiKit": "Kit UI",
+      "forms": "Formularios",
+      "settings": "Ajustes",
+      "general": "General",
+      "account": "Cuenta",
+      "security": "Seguridad",
+      "apiKeys": "Claves de API",
+      "notifications": "Notificaciones",
+      "integrations": "Integraciones",
+      "team": "Equipo",
+      "activityLog": "Registro de actividad",
+      "billing": "Facturación",
+      "limits": "Límites",
+      "support": "Soporte",
+      "feedback": "Comentarios",
+      "admin": "Admin",
+      "users": "Usuarios",
+      "projects": "Proyectos",
+      "formExample": "Formulario validado",
+      "roles": "Roles y permisos"
+    }
+  },
+  "admin": {
+    "title": "Usuarios",
+    "subtitle": "{count} usuarios registrados",
+    "user": "Usuario",
+    "role": "Rol",
+    "joined": "Registro",
+    "loading": "Cargando usuarios…",
+    "loadFailed": "No se pudieron cargar los usuarios. Inténtalo de nuevo.",
+    "empty": "Aún no hay usuarios.",
+    "forbidden": "No tienes permiso para ver esta página.",
+    "forbiddenRole": "Tu rol: {role} · Requerido: admin",
+    "forbiddenHelp": "Contacta con un administrador para obtener acceso.",
+    "roles": {
+      "description": "Decide qué puede ver y cambiar cada rol en el espacio de trabajo.",
+      "unsaved": "{n, plural, =0 {sin cambios} =1 {1 cambio sin guardar} other {# cambios sin guardar}}",
+      "saved": "Guardado",
+      "discard": "Descartar",
+      "save": "Guardar cambios",
+      "demo": "Roles de ejemplo. Los cambios solo duran esta sesión.",
+      "locked": "Rol del sistema, no editable",
+      "members": "{n, plural, =0 {sin miembros} =1 {1 miembro} other {# miembros}}",
+      "risky": "Permiso de alto riesgo",
+      "riskyHint": "Destructivo o sensible. Concédelo con cuidado.",
+      "matrix": {
+        "title": "Permisos",
+        "description": "Marca un grupo para conceder todo lo que incluye. El rol Owner siempre tiene acceso total.",
+        "search": "Filtrar permisos…",
+        "permission": "Permiso",
+        "groupAria": "Todos los permisos de {group} para {role}",
+        "emptyTitle": "Ningún permiso coincide",
+        "emptyDescription": "Prueba otra búsqueda."
+      },
+      "legend": {
+        "risky": "Alto riesgo",
+        "changed": "Cambio sin guardar",
+        "locked": "Rol del sistema bloqueado"
+      }
+    },
+    "everyone": "Todas las personas con cuenta en este espacio.",
+    "adminsOnly": "Solo administradores",
+    "loadFailedTitle": "No se pudieron cargar los usuarios",
+    "actions": "Acciones",
+    "noMatchTitle": "Ningún usuario coincide",
+    "noMatchDescription": "Prueba otra búsqueda, rol o rango de fechas.",
+    "roleNames": {
+      "admin": "Admin",
+      "editor": "Editor",
+      "user": "Miembro"
+    },
+    "filters": {
+      "search": "Buscar nombre o usuario…",
+      "role": "Filtrar por rol",
+      "allRoles": "Todos los roles",
+      "joined": "Alta en cualquier fecha",
+      "reset": "Restablecer",
+      "showing": "{shown} de {total}"
+    },
+    "menu": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "edit": {
+      "title": "Editar usuario",
+      "description": "Actualiza su nombre, usuario o rol.",
+      "name": "Nombre completo",
+      "username": "Usuario",
+      "save": "Guardar cambios",
+      "cancel": "Cancelar",
+      "required": "El nombre y el usuario son obligatorios."
+    },
+    "delete": {
+      "title": "¿Eliminar a {name}?",
+      "description": "Pierde el acceso a este espacio de inmediato. Puedes deshacerlo desde la notificación durante unos segundos.",
+      "confirm": "Eliminar usuario"
+    },
+    "toast": {
+      "updated": "{name} actualizado",
+      "deleted": "{name} eliminado",
+      "undo": "Deshacer",
+      "restored": "{name} restaurado"
+    },
+    "editFor": "Editar a {name}",
+    "deleteFor": "Eliminar a {name}"
+  },
+  "invite": {
+    "joinTitle": "Únete al espacio de trabajo",
+    "description": "Te han invitado a unirte como {role}.",
+    "invitedEmail": "Correo invitado",
+    "roleLabel": "Rol",
+    "accept": "Aceptar invitación",
+    "accepting": "Aceptando…",
+    "decline": "Rechazar",
+    "needSignin": "Inicia sesión como {email} para aceptar esta invitación.",
+    "signinCta": "Iniciar sesión",
+    "signinTitle": "Inicia sesión para aceptar esta invitación",
+    "signinDescription": "Inicia sesión para ver esta invitación y unirte al espacio de trabajo.",
+    "invalidTitle": "Invitación no disponible",
+    "invalidDescription": "Este enlace no es válido, expiró o ya fue usado. Pide a tu admin uno nuevo.",
+    "backHome": "Volver al inicio",
+    "loading": "Verificando invitación…",
+    "acceptFailed": "No se pudo aceptar la invitación. Inténtalo de nuevo."
+  },
+  "feedback": {
+    "attachments": {
+      "label": "Capturas (opcional)",
+      "hint": "Hasta 3 imágenes, 5 MB cada una. PNG, JPG, GIF o WebP.",
+      "tooMany": "Puedes adjuntar hasta 3 imágenes.",
+      "tooBig": "{name} supera los 5 MB.",
+      "badType": "{name} no es una imagen."
+    }
+  },
+  "dashboard": {
+    "asOf": "Datos al {date}",
+    "alerts": {
+      "emptyTitle": "Sin alertas abiertas",
+      "emptyDescription": "Las nuevas alertas aparecerán aquí."
+    },
+    "quota": {
+      "unit": "llamadas a la API"
+    },
+    "heatmap": {
+      "asOf": "Al {date}"
+    },
+    "kpiDefs": {
+      "mrr": "Ingresos recurrentes mensuales de todos los planes.",
+      "users": "Cuentas activas únicas en el periodo.",
+      "rpm": "Peticiones medias servidas por minuto.",
+      "latency": "Tiempo de respuesta p95 de la API.",
+      "churn": "Proporción de MRR cancelado, últimos 30 días."
+    },
+    "table": {
+      "headers": {
+        "mrr": "MRR ($)",
+        "seats": "Plazas (cantidad)"
+      },
+      "chips": {
+        "status": "Estado",
+        "plan": "Plan",
+        "search": "Búsqueda",
+        "clear": "Borrar el filtro {label}"
+      },
+      "rowActions": "Acciones de fila",
+      "pagination": {
+        "first": "Primera página",
+        "prev": "Página anterior",
+        "next": "Página siguiente",
+        "last": "Última página"
+      },
+      "copied": "ID de cliente copiado"
+    },
+    "kanban": {
+      "priority": "Prioridad",
+      "assignee": "Responsable",
+      "search": "Búsqueda",
+      "clearFilter": "Borrar filtro",
+      "boardView": "Vista de tablero",
+      "listView": "Vista de lista",
+      "dueOverdue": "Vencida · {date}",
+      "dueSoon": "Vence {date}"
+    },
+    "messages": {
+      "emptySearchTitle": "Ningún mensaje coincide con tu búsqueda",
+      "emptySearchDescription": "Prueba otro término u otra carpeta.",
+      "clearSearch": "Borrar búsqueda"
+    },
+    "billing": {
+      "amount": "Importe ($)",
+      "copied": "ID de factura copiado",
+      "downloadAria": "Descargar {id}",
+      "copyAria": "Copiar {id}"
+    },
+    "locations": {
+      "title": "Ubicaciones",
+      "description": "Todas las oficinas, centros y la sede en un mapa en vivo.",
+      "widgetTitle": "Clientes por región",
+      "widgetDescription": "Dónde se concentran clientes y equipos.",
+      "viewAll": "Ver todas las ubicaciones",
+      "officeCount": "{n, plural, =0 {ninguna oficina} =1 {una oficina} other {# oficinas}}",
+      "headcount": "{count} personas",
+      "kind": {
+        "hq": "Sede",
+        "hub": "Centro",
+        "office": "Oficina"
+      },
+      "stats": {
+        "offices": "Oficinas",
+        "countries": "Países",
+        "headcount": "Personal total",
+        "growthCaption": "frente al año pasado",
+        "openRoles": "Vacantes",
+        "openRolesCaption": "contratando en {n} oficinas",
+        "officesCaption": "{hq} sede · {hub} hubs · {office} oficinas",
+        "newest": "Más reciente: {city}, {year}",
+        "countriesCaption": "en {n} regiones",
+        "timezones": "El equipo abarca {n} zonas horarias"
+      },
+      "search": {
+        "placeholder": "Buscar ciudad o país…"
+      },
+      "filter": {
+        "label": "Tipo",
+        "all": "Todos"
+      },
+      "empty": {
+        "title": "Sin resultados",
+        "description": "Prueba otra búsqueda o borra el filtro de tipo."
+      },
+      "sizeLegend": "Tamaño = plantilla",
+      "openRolesShort": "{n, plural, =0 {sin vacantes} =1 {1 vacante} other {# vacantes}}",
+      "accounts": "{n, plural, =0 {sin cuentas} =1 {1 cuenta} other {# cuentas}}",
+      "layers": {
+        "label": "Capa del mapa",
+        "offices": "Oficinas",
+        "customers": "Clientes",
+        "both": "Ambas"
+      },
+      "popup": {
+        "people": "Personas",
+        "openRoles": "Vacantes",
+        "lead": "Responsable",
+        "opened": "Apertura",
+        "roles": "Vacantes",
+        "hiring": "abiertas",
+        "since": "Apertura"
+      },
+      "regions": {
+        "title": "Plantilla por región",
+        "description": "Dónde está el equipo y dónde contratamos.",
+        "americas": "América",
+        "emea": "Europa",
+        "apac": "Asia-Pacífico",
+        "meta": "{offices} oficinas · {roles} vacantes",
+        "largest": "Región más grande",
+        "hiring": "Contrata más rápido"
+      },
+      "customers": {
+        "title": "Ciudades con más clientes",
+        "description": "Ingresos recurrentes anuales y número de cuentas por ciudad."
+      },
+      "controls": {
+        "zoomIn": "Acercar",
+        "zoomOut": "Alejar",
+        "reset": "Restablecer vista"
+      }
+    },
+    "tableLink": {
+      "label": "Abrir la tabla de datos completa"
+    },
+    "range": {
+      "custom": "Personalizado",
+      "pickCustom": "Elige un rango personalizado",
+      "customLabel": "{start} – {end}",
+      "staticNote": "No le afecta el rango"
+    },
+    "tour": {
+      "back": "Atrás",
+      "next": "Siguiente",
+      "finish": "Terminar",
+      "dontShowAgain": "No mostrar de nuevo",
+      "replay": "Hacer el recorrido",
+      "steps": {
+        "kpis": {
+          "title": "Tus métricas clave",
+          "description": "MRR, usuarios activos, latencia y churn de un vistazo. Cada tarjeta trae su propio mini-gráfico."
+        },
+        "charts": {
+          "title": "Tendencias y desgloses",
+          "description": "Los gráficos de ingresos y embudo siguen las pestañas de rango — cámbialas para recalcular."
+        },
+        "table": {
+          "title": "Explora las filas",
+          "description": "Abre la tabla de datos completa para ordenar, filtrar y exportar los registros tras estos gráficos."
+        },
+        "palette": {
+          "title": "Paleta de comandos",
+          "description": "Pulsa ⌘K en cualquier lugar para saltar entre páginas y ejecutar comandos sin el ratón."
+        },
+        "theme": {
+          "title": "Selector de tema",
+          "description": "Alterna entre tema claro, oscuro y sistema. Gráficos y superficies lo siguen automáticamente."
+        },
+        "github": {
+          "title": "¿Te gusta UIPKGE?",
+          "description": "Si este starter te ahorra tiempo, una estrella en GitHub ayuda a que otros lo encuentren.",
+          "action": "Dar estrella en GitHub"
+        },
+        "sidebar": {
+          "title": "Navegación",
+          "description": "Todo está aquí: panel, kanban, clientes, calendario, ubicaciones, ajustes y administración. Contráela a iconos con el botón de arriba."
+        },
+        "profile": {
+          "title": "Tu perfil",
+          "description": "Abre tu cuenta, facturación y notificaciones, o cierra sesión."
+        }
+      }
+    }
+  },
+  "projects": {
+    "empty": {
+      "title": "Aún no hay proyectos",
+      "description": "Crea tu primer proyecto para agrupar trabajo, miembros y recursos.",
+      "action": "Nuevo proyecto"
+    }
+  },
+  "uiKit": {
+    "description": "Encuentra el componente adecuado para cada tarea, mira dónde lo usa ya la app y copia el comando de instalación.",
+    "foundations": {
+      "title": "Fundamentos",
+      "description": "Tokens y reglas que sigue cada página. Las muestras leen el tema actual.",
+      "colour": "Color",
+      "colourRule": "La interfaz usa neutros y primario. Los estados usan success, warning, info y destructive. Las categorías y series de gráficos usan chart-1 a chart-5. Nada de clases de paleta directas, valores hex ni degradados decorativos.",
+      "neutrals": "Neutros",
+      "primary": "Primario",
+      "status": "Estado",
+      "chart": "Series de gráficos",
+      "type": "Roles tipográficos",
+      "spacing": "Espaciado",
+      "icons": "Tamaños de icono",
+      "roles": {
+        "h1": "Título de página",
+        "cardTitle": "Título de tarjeta",
+        "body": "Cuerpo",
+        "meta": "Meta / ayuda",
+        "eyebrow": "Antetítulo",
+        "metric": "Métrica"
+      },
+      "gaps": {
+        "inline": "Icono + texto",
+        "field": "Grupo de campos",
+        "card": "Dentro de tarjetas",
+        "section": "Entre secciones"
+      },
+      "iconUses": {
+        "xs": "Junto a text-xs",
+        "sm": "Junto a text-sm, botones",
+        "box": "Dentro de IconBox",
+        "empty": "Ilustración de estado vacío"
+      }
+    },
+    "toolbar": {
+      "searchLabel": "Buscar componentes",
+      "searchPlaceholder": "Busca por nombre o caso de uso, p. ej. rango de fechas",
+      "category": "Categoría",
+      "status": "Estado",
+      "results": "{count, plural, =0 {Ningún componente} =1 {1 componente} other {# componentes}}"
+    },
+    "category": {
+      "all": "Todas las categorías",
+      "forms": "Formularios",
+      "actions": "Acciones",
+      "overlays": "Superposiciones",
+      "navigation": "Navegación",
+      "feedback": "Estado y avisos",
+      "dataDisplay": "Visualización de datos",
+      "layout": "Diseño",
+      "charts": "Gráficos",
+      "utility": "Utilidades",
+      "blocks": "Bloques"
+    },
+    "status": {
+      "all": "Todos",
+      "installed": "Instalado",
+      "available": "Disponible",
+      "demoOnly": "Solo demo"
+    },
+    "card": {
+      "usedIn": "Se usa en",
+      "notUsed": "Ninguna página lo usa todavía.",
+      "install": "Instalar",
+      "copy": "Copiar comando de instalación",
+      "copied": "Copiado",
+      "docs": "Documentación",
+      "localBlock": "Bloque local, no está en el registro.",
+      "source": "Código",
+      "demo": "Demo",
+      "loadingDemo": "Cargando demo…",
+      "partOf": "Viene dentro de Charts. Consulta la demo de Charts.",
+      "layout": "Diseño {name}",
+      "appShell": "Estructura de la app",
+      "errorPage": "Página de error",
+      "home": "Inicio",
+      "block": "Bloque"
+    },
+    "empty": {
+      "title": "Ningún componente coincide",
+      "description": "Prueba otra palabra o borra los filtros.",
+      "clear": "Borrar filtros"
+    }
+  },
+  "header": {
+    "language": {
+      "label": "Idioma"
+    },
+    "theme": {
+      "aria": "Personalizar tema",
+      "title": "Personalizar",
+      "hint": "Previsualiza la app con tus tokens preferidos.",
+      "saved": "guardado en tu navegador",
+      "primary": "Color principal",
+      "radius": "Radio",
+      "mode": "Modo de color",
+      "modes": {
+        "light": "Claro",
+        "dark": "Oscuro",
+        "system": "Sistema"
+      },
+      "reset": "Restablecer",
+      "names": {
+        "default": "Predeterminado",
+        "blue": "Azul",
+        "indigo": "Índigo",
+        "violet": "Violeta",
+        "purple": "Morado",
+        "rose": "Rosa",
+        "orange": "Naranja",
+        "amber": "Ámbar",
+        "emerald": "Esmeralda",
+        "teal": "Verde azulado",
+        "cyan": "Cian",
+        "sky": "Celeste",
+        "slate": "Pizarra"
+      },
+      "icons": "Paquete de iconos",
+      "iconPacks": {
+        "lucide": "Lucide",
+        "hugeicons": "Hugeicons",
+        "phosphor": "Phosphor",
+        "tabler": "Tabler"
+      }
+    }
+  }
+}

@@ -42,7 +42,13 @@ export function OnboardingClient() {
 
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-6 py-12">
+      <a
+        href="#main-content"
+        className="bg-background text-foreground ring-ring sr-only z-50 rounded-md text-sm font-medium shadow-md ring-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:px-3 focus:py-2"
+      >
+        Skip to content
+      </a>
+      <main id="main-content" tabIndex={-1} className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-6 py-12 outline-none">
         <ol className="mb-6 flex items-center gap-3 text-xs">
           {steps.map((label, i) => (
             <li key={label} className="flex items-center gap-2">
@@ -64,7 +70,7 @@ export function OnboardingClient() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">
+            <CardTitle className="text-2xl">
               {step === 0 && 'Tell us about you'}
               {step === 1 && 'Create your workspace'}
               {step === 2 && 'Invite your team'}

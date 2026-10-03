@@ -51,7 +51,13 @@ export interface ThemeSwitchProps {
 const ThemeSwitch = React.forwardRef<HTMLDivElement, ThemeSwitchProps>(
   ({ value, onValueChange, variant = 'cards', title, description, className }, ref) => {
     const { theme, setTheme } = useTheme()
-    const modelValue = (value ?? (theme as Theme) ?? 'system') as Theme
+    // next-themes resolves the stored theme only on the client — SSR always
+    // renders 'system'. Hold the SSR value until mount so the first client
+    // render matches the server HTML (no hydration mismatch for returning
+    // visitors with a saved light/dark theme).
+    const [mounted, setMounted] = React.useState(false)
+    React.useEffect(() => setMounted(true), [])
+    const modelValue = (value ?? (!mounted ? 'system' : ((theme as Theme) ?? 'system'))) as Theme
 
     const options = VARIANT_OPTIONS[variant]
     const activeIndex = React.useMemo(() => {
@@ -213,7 +219,7 @@ const ThemeSwitch = React.forwardRef<HTMLDivElement, ThemeSwitchProps>(
         >
           <span
             aria-hidden
-            className="bg-primary pointer-events-none absolute top-0.5 bottom-0.5 left-0.5 rounded-full transition-transform duration-300 ease-out"
+            className="bg-primary pointer-events-none absolute top-0.5 bottom-0.5 left-0.5 rounded-full transition-transform duration-200 ease-out"
             style={indicatorStyle}
           />
           {options.map((t) => {
@@ -226,7 +232,7 @@ const ThemeSwitch = React.forwardRef<HTMLDivElement, ThemeSwitchProps>(
                 aria-checked={modelValue === t}
                 aria-label={LABELS[t]}
                 className={[
-                  'focus-visible:ring-ring relative z-[1] inline-flex h-7 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none',
+                  'focus-visible:ring-ring relative z-[1] inline-flex h-8 flex-1 items-center justify-center gap-1.5 rounded-full px-3 text-xs font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none',
                   modelValue === t ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground',
                 ].join(' ')}
                 onClick={() => set(t)}
@@ -249,8 +255,7 @@ const ThemeSwitch = React.forwardRef<HTMLDivElement, ThemeSwitchProps>(
         aria-checked={modelValue === 'dark'}
         aria-label={LABELS[modelValue]}
         className={[
-          'border-border focus-visible:ring-ring relative inline-flex h-8 w-16 items-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none',
-          modelValue === 'dark' ? 'bg-zinc-900' : 'bg-amber-100',
+          'border-border bg-muted focus-visible:ring-ring relative inline-flex h-8 w-16 items-center rounded-full border transition-colors focus-visible:ring-2 focus-visible:outline-none',
           className,
         ]
           .filter(Boolean)
@@ -259,21 +264,21 @@ const ThemeSwitch = React.forwardRef<HTMLDivElement, ThemeSwitchProps>(
       >
         <Sun
           className={[
-            'absolute left-1.5 size-4 text-amber-500 transition-opacity',
+            'absolute left-1.5 size-4 text-foreground transition-opacity',
             modelValue === 'dark' ? 'opacity-30' : 'opacity-100',
           ].join(' ')}
           aria-hidden="true"
         />
         <Moon
           className={[
-            'absolute right-1.5 size-4 text-zinc-300 transition-opacity',
+            'absolute right-1.5 size-4 text-muted-foreground transition-opacity',
             modelValue === 'light' ? 'opacity-30' : 'opacity-100',
           ].join(' ')}
           aria-hidden="true"
         />
         <span
           aria-hidden
-          className="bg-card border-border absolute size-6 rounded-full border shadow transition-transform duration-300 ease-out"
+          className="bg-card border-border absolute size-6 rounded-full border shadow transition-transform duration-200 ease-out"
           style={{ transform: `translateX(${modelValue === 'dark' ? '36px' : '4px'})` }}
         />
       </button>

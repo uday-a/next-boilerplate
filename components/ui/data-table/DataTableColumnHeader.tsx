@@ -304,7 +304,7 @@ export function DataTableColumnHeader<TData, TValue>({
 
             {/* Active selection summary */}
             {isFilterActive && (filter.type === 'multiselect' || filter.type === 'select') && (
-              <div className="border-border text-muted-foreground border-t px-3 py-2 text-[11px]">
+              <div className="border-border text-muted-foreground border-t px-3 py-2 text-xs">
                 {filter.type === 'multiselect' ? (
                   <span>
                     {selectedLabels().length} selected:{' '}

@@ -1,6 +1,9 @@
+import { localizedMetadata } from '@/lib/page-title'
 import { GeneralSettingsClient } from './general-client'
 
-export const metadata = { title: 'General · Settings' }
+export function generateMetadata() {
+  return localizedMetadata('/settings/general', 'nav.items.settings')
+}
 
 export default function GeneralSettingsPage() {
   return <GeneralSettingsClient />

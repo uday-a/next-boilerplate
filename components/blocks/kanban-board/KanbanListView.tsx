@@ -56,6 +56,12 @@ export function KanbanListView({
     }
   }
 
+  // WHY: sort buttons announce their state like the data table's.
+  function ariaSort(field: SortField): 'ascending' | 'descending' | 'none' {
+    if (sortField !== field) return 'none'
+    return sortDir === 'asc' ? 'ascending' : 'descending'
+  }
+
   function toggleGroup(columnId: string) {
     setCollapsedGroups((prev) => {
       const next = new Set(prev)
@@ -130,10 +136,15 @@ export function KanbanListView({
     <div className="kanban-list flex min-h-0 flex-1 flex-col overflow-auto pb-3">
       <div className="bg-muted/50 sticky top-0 z-10 grid grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 rounded-t-lg border px-3 py-2 text-xs font-medium tracking-wider uppercase">
         {headerCols.map((h) => (
-          <button key={h.field} className="flex items-center gap-1 text-left" onClick={() => toggleSort(h.field)}>
+          <button
+            key={h.field}
+            className="focus-visible:ring-ring flex items-center gap-1 rounded-sm text-left focus-visible:ring-2 focus-visible:outline-none"
+            aria-sort={ariaSort(h.field)}
+            onClick={() => toggleSort(h.field)}
+          >
             {h.label}
             <ArrowUpDown
-              className={cn('size-3', sortField === h.field ? 'text-foreground' : 'text-muted-foreground/50')}
+              className={cn('size-3', sortField === h.field ? 'text-foreground' : 'text-muted-foreground')}
             />
           </button>
         ))}
@@ -170,6 +181,7 @@ export function KanbanListView({
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span
+                      title={item.task.title}
                       className={cn(
                         'truncate text-sm font-medium',
                         item.columnId === 'done' ? 'text-muted-foreground line-through' : '',
@@ -237,14 +249,14 @@ export function KanbanListView({
 
                 <div className="flex items-center gap-2">
                   <UserAvatar name={item.task.assignee.name} color={item.task.assignee.color} size="xs" />
-                  <span className="truncate text-xs">{item.task.assignee.name}</span>
+                  <span className="truncate text-xs" title={item.task.assignee.name}>{item.task.assignee.name}</span>
                 </div>
 
                 <div>
                   {item.task.dueDate ? (
                     <DueDateBadge dueDate={item.task.dueDate} variant="chip" />
                   ) : (
-                    <span className="text-muted-foreground/50 text-xs">—</span>
+                    <span className="text-muted-foreground text-xs">—</span>
                   )}
                 </div>
 
@@ -253,7 +265,7 @@ export function KanbanListView({
                     {item.task.commentItems.length > 0 && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-muted-foreground/70 flex items-center gap-0.5 text-xs">
+                          <span className="text-muted-foreground flex items-center gap-0.5 text-xs">
                             <MessageSquare className="size-3" />
                             {item.task.commentItems.length}
                           </span>
@@ -264,7 +276,7 @@ export function KanbanListView({
                     {item.task.fileItems.length > 0 && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-muted-foreground/70 flex items-center gap-0.5 text-xs">
+                          <span className="text-muted-foreground flex items-center gap-0.5 text-xs">
                             <Paperclip className="size-3" />
                             {item.task.fileItems.length}
                           </span>
@@ -280,7 +292,7 @@ export function KanbanListView({
       ))}
 
       {flatTasks.length === 0 && (
-        <div className="text-muted-foreground flex flex-1 items-center justify-center rounded-b-lg border-x border-b py-12 text-sm">
+        <div className="text-muted-foreground flex flex-1 items-center justify-center rounded-b-lg border-x border-b py-4 text-sm">
           No tasks match your filters.
         </div>
       )}

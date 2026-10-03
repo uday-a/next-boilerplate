@@ -19,12 +19,18 @@
 /test-results/
 /playwright-report/
 /blob-report/
+/coverage/
 
 # misc
 .DS_Store
 *.pem
 .env
 .env*.local
+.env.*
+!.env.example
+
+# Playwright MCP screenshots (local debug artifacts)
+.playwright-mcp/
 
 # debug
 npm-debug.log*

@@ -116,7 +116,7 @@ export function LoginClient({ demoMode }: { demoMode: boolean }) {
             </div>
           )}
           {!errorBanner && linkState.kind === 'sent' && (
-            <div className="bg-background/95 pointer-events-auto flex items-center gap-2 rounded-full border border-emerald-500/30 px-4 py-2 text-sm text-emerald-700 shadow-lg backdrop-blur dark:text-emerald-400">
+            <div className="bg-background/95 pointer-events-auto flex items-center gap-2 rounded-full border border-success/30 px-4 py-2 text-sm text-success shadow-lg backdrop-blur">
               <CheckCircle2 className="size-4" />
               Sign-in link sent to <strong>{linkState.email}</strong>.
             </div>
@@ -141,7 +141,7 @@ export function LoginClient({ demoMode }: { demoMode: boolean }) {
         <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex flex-col items-center gap-2 px-4">
           <div className="bg-background/95 ring-border/60 pointer-events-auto flex flex-wrap items-center justify-center gap-3 rounded-full border px-4 py-2 shadow-lg backdrop-blur ring-1">
             <Sparkles className="text-primary size-4" />
-            <span className="text-muted-foreground text-sm">No GitHub OAuth configured.</span>
+            <span className="text-muted-foreground text-sm">Just looking around? Try the demo workspace.</span>
             <Button size="sm" disabled={demoLoading} onClick={signInAsDemo}>
               {demoLoading ? 'Signing in…' : 'Continue as demo user'}
             </Button>

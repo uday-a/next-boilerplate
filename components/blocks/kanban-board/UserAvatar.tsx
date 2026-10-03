@@ -5,7 +5,7 @@ import { getInitials } from '@/lib/use-kanban'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 const userAvatarSizeMap = {
-  xs: { avatar: 'size-6', text: 'text-[10px]' },
+  xs: { avatar: 'size-6', text: 'text-xs' },
   sm: { avatar: 'size-7', text: 'text-xs' },
   md: { avatar: 'size-8', text: 'text-xs' },
 }
@@ -23,7 +23,7 @@ export function UserAvatar({
 }) {
   return (
     <Avatar className={cn(userAvatarSizeMap[size].avatar, 'shrink-0', className)}>
-      <AvatarFallback className={cn(userAvatarSizeMap[size].text, 'font-bold', color)}>
+      <AvatarFallback className={cn(userAvatarSizeMap[size].text, 'font-semibold', color)}>
         {getInitials(name)}
       </AvatarFallback>
     </Avatar>

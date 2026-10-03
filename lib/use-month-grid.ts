@@ -7,6 +7,8 @@ export type DateKey = string
 export interface UseMonthGridOptions {
   initialDate?: Date | DateKey
   weekStartsOn?: 0 | 1
+  /** BCP-47 locale for the month label (defaults to en-US). */
+  locale?: string
 }
 
 export function isoDate(d: Date): DateKey {
@@ -43,8 +45,8 @@ export function useMonthGrid(options: UseMonthGridOptions = {}) {
   const [isDragging, setIsDragging] = useState(false)
 
   const monthLabel = useMemo(
-    () => cursor.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-    [cursor],
+    () => cursor.toLocaleDateString(options.locale ?? 'en-US', { month: 'long', year: 'numeric' }),
+    [cursor, options.locale],
   )
 
   const gridDays = useMemo(() => {
@@ -66,9 +68,13 @@ export function useMonthGrid(options: UseMonthGridOptions = {}) {
   }, [cursor, weekStartsOn])
 
   const weekdays = useMemo(() => {
-    const base = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    return [...base.slice(weekStartsOn), ...base.slice(0, weekStartsOn)]
-  }, [weekStartsOn])
+    // Short weekday names in the active locale. Jan 4 2026 is a Sunday,
+    // so Jan 4–10 walks Sun..Sat regardless of locale.
+    const names = Array.from({ length: 7 }, (_, i) =>
+      new Date(2026, 0, 4 + i).toLocaleDateString(options.locale ?? 'en-US', { weekday: 'short' }),
+    )
+    return [...names.slice(weekStartsOn), ...names.slice(0, weekStartsOn)]
+  }, [weekStartsOn, options.locale])
 
   const rangeBounds = useMemo(() => {
     const a = rangeStart

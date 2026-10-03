@@ -15,6 +15,8 @@ export interface RawChartProps {
   /** Auto-resize on container width change. Default true. */
   autoresize?: boolean
   className?: string
+  /** Descriptive label for the `role="img"` frame. */
+  ariaLabel?: string
 }
 
 /**
@@ -32,8 +34,8 @@ export interface RawChartProps {
  * option for visual consistency with the rest of the registry's charts.
  */
 export const RawChart = React.forwardRef<HTMLDivElement, RawChartProps>(
-  ({ option, height = 300, autoresize = true, className }, ref) => (
-    <ChartFrame ref={ref} height={height} className={className}>
+  ({ option, height = 300, autoresize = true, className, ariaLabel }, ref) => (
+    <ChartFrame ref={ref} height={height} className={className} ariaLabel={ariaLabel}>
       <ReactECharts
         echarts={echartsCoreModule as any}
         option={option}
@@ -106,13 +108,15 @@ export const SegmentedGauge = React.forwardRef<HTMLDivElement, SegmentedGaugePro
       height = 200,
       stroke = 18,
       gap = 4,
-      colors = ['#3b82f6', '#0ea5e9', '#34d399', '#facc15', '#fb7185', '#a855f7'],
+      colors: colorsProp,
       showTrack = true,
       className,
       children,
     },
     ref,
   ) => {
+    const theme = useChartTheme()
+    const colors = colorsProp ?? theme.colors
     const startAngle = 180
     const sweep = 180
 
@@ -215,11 +219,13 @@ export const SmoothFunnel = React.forwardRef<HTMLDivElement, SmoothFunnelProps>(
       height = 240,
       showLabels = true,
       minHeight = 18,
-      colors = ['#3b82f6', '#a855f7', '#34d399', '#facc15', '#fb7185', '#06b6d4'],
+      colors: colorsProp,
       className,
     },
     ref,
   ) => {
+    const theme = useChartTheme()
+    const colors = colorsProp ?? theme.colors
     const segments = React.useMemo(() => {
       const stages = data
       const n = stages.length
@@ -283,7 +289,7 @@ export const SmoothFunnel = React.forwardRef<HTMLDivElement, SmoothFunnelProps>(
               <path d={seg.d} fill={seg.color} />
               {showLabels && (
                 <foreignObject x={seg.labelX - 28} y={seg.labelY - 12} width={56} height={24}>
-                  <div className="bg-background text-foreground inline-flex h-6 items-center rounded-full border px-2 text-[11px] font-semibold shadow-sm">
+                  <div className="bg-background text-foreground inline-flex h-6 items-center rounded-full border px-2 text-xs font-semibold shadow-sm">
                     {Math.round(seg.percent * 10) / 10}%
                   </div>
                 </foreignObject>

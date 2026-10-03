@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 
 const Page = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
-    <div ref={ref} data-uipkge="" data-slot="page" className={cn('space-y-6', className)} {...props} />
+    <div ref={ref} data-uipkge="" data-slot="page" className={cn('space-y-4', className)} {...props} />
   ),
 )
 Page.displayName = 'Page'
@@ -30,7 +30,9 @@ const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(
       {...props}
     >
       <div className="flex-1">{children}</div>
-      {actions}
+      {actions != null && actions !== false && (
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">{actions}</div>
+      )}
     </div>
   ),
 )
@@ -44,8 +46,8 @@ export interface PageHeaderHeadingProps extends React.HTMLAttributes<HTMLDivElem
 const PageHeaderHeading = React.forwardRef<HTMLDivElement, PageHeaderHeadingProps>(
   ({ className, title, description, ...props }, ref) => (
     <div ref={ref} data-uipkge="" data-slot="page-header-heading" className={cn('', className)} {...props}>
-      <h2 className="text-xl font-bold tracking-tight">{title}</h2>
-      {description && <p className="text-muted-foreground mt-1 text-sm leading-relaxed">{description}</p>}
+      <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+      {description && <p className="text-muted-foreground mt-1 text-sm">{description}</p>}
     </div>
   ),
 )

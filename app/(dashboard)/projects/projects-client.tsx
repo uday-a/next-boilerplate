@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Folder, Plus, Loader2, AlertCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,6 +19,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import type { ApiResponse } from '@/lib/api/response'
+import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
 
 interface Project {
   id: number
@@ -30,6 +32,7 @@ interface Project {
 }
 
 export function ProjectsClient() {
+  const t = useTranslations()
   const [projects, setProjects] = useState<Project[]>([])
   const [pending, setPending] = useState(true)
   const [fetchError, setFetchError] = useState<string | null>(null)
@@ -89,123 +92,128 @@ export function ProjectsClient() {
   }
 
   return (
-    <div className="space-y-6">
-      <header className="flex items-start justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Projects</h1>
-          <p className="text-muted-foreground text-sm">
-            Workspaces grouping related work, members, and assets.
-          </p>
-        </div>
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button size="sm">
-              <Plus className="size-4" />
-              New project
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>New project</DialogTitle>
-              <DialogDescription>Slug becomes part of the URL: /projects/&lt;slug&gt;.</DialogDescription>
-            </DialogHeader>
-            <div className="space-y-3">
-              <div className="grid gap-1.5">
-                <Label htmlFor="np-name">Name</Label>
-                <Input
-                  id="np-name"
-                  value={form.name}
-                  onChange={(e) => {
-                    const name = e.target.value
-                    setForm((f) => ({
-                      ...f,
-                      name,
-                      slug: slugTouched
-                        ? f.slug
-                        : name
-                            .toLowerCase()
-                            .replace(/[^a-z0-9]+/g, '-')
-                            .replace(/^-+|-+$/g, '')
-                            .slice(0, 64),
-                    }))
-                  }}
-                  placeholder="My new project"
-                />
-              </div>
-              <div className="grid gap-1.5">
-                <Label htmlFor="np-slug">Slug</Label>
-                <Input
-                  id="np-slug"
-                  value={form.slug}
-                  onChange={(e) => {
-                    setSlugTouched(true)
-                    setForm((f) => ({ ...f, slug: e.target.value }))
-                  }}
-                  placeholder="my-new-project"
-                />
-                <p className="text-muted-foreground text-xs">Lowercase letters, numbers, hyphens. Must be unique.</p>
-              </div>
-              <div className="grid gap-1.5">
-                <Label htmlFor="np-desc">Description (optional)</Label>
-                <Textarea
-                  id="np-desc"
-                  value={form.description}
-                  onValueChange={(v) => setForm((f) => ({ ...f, description: v }))}
-                  rows={3}
-                />
-              </div>
-              {submitError ? (
-                <div className="text-destructive flex items-center gap-2 text-sm">
-                  <AlertCircle className="size-4" />
-                  {submitError}
+    <Page>
+      <PageHeader
+        actions={
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <Plus className="size-4" />
+                {t('projects.empty.action')}
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>New project</DialogTitle>
+                <DialogDescription>Slug becomes part of the URL: /projects/&lt;slug&gt;.</DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3">
+                <div className="grid gap-2">
+                  <Label htmlFor="np-name">Name</Label>
+                  <Input
+                    id="np-name"
+                    value={form.name}
+                    onChange={(e) => {
+                      const name = e.target.value
+                      setForm((f) => ({
+                        ...f,
+                        name,
+                        slug: slugTouched
+                          ? f.slug
+                          : name
+                              .toLowerCase()
+                              .replace(/[^a-z0-9]+/g, '-')
+                              .replace(/^-+|-+$/g, '')
+                              .slice(0, 64),
+                      }))
+                    }}
+                    placeholder="My new project"
+                  />
                 </div>
-              ) : null}
-            </div>
-            <DialogFooter>
-              <Button variant="outline" disabled={submitState === 'submitting'} onClick={() => setOpen(false)}>
-                Cancel
-              </Button>
-              <Button
-                disabled={submitState === 'submitting' || !form.name || !form.slug}
-                onClick={() => void createProject()}
-              >
-                {submitState === 'submitting' ? <Loader2 className="size-4 animate-spin" /> : null}
-                Create
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </header>
-
-      {fetchError ? (
-        <div className="border-destructive/30 bg-destructive/10 text-destructive flex items-center gap-2 rounded-md border px-3 py-2 text-sm">
-          <AlertCircle className="size-4" />
-          {fetchError}
-        </div>
-      ) : pending ? (
-        <div className="text-muted-foreground text-sm">Loading projects…</div>
-      ) : !projects.length ? (
-        <div className="text-muted-foreground text-sm">No projects yet. Create one to get started.</div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <Link key={p.id} href={`/projects/${p.slug}`} className="group">
-              <Card className="h-full transition-colors group-hover:border-foreground/20">
-                <CardHeader>
-                  <div className="flex items-center gap-2">
-                    <Folder className="text-muted-foreground size-4" />
-                    <CardTitle className="text-base">{p.name}</CardTitle>
+                <div className="grid gap-2">
+                  <Label htmlFor="np-slug">Slug</Label>
+                  <Input
+                    id="np-slug"
+                    value={form.slug}
+                    onChange={(e) => {
+                      setSlugTouched(true)
+                      setForm((f) => ({ ...f, slug: e.target.value }))
+                    }}
+                    placeholder="my-new-project"
+                  />
+                  <p className="text-muted-foreground text-xs">Lowercase letters, numbers, hyphens. Must be unique.</p>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="np-desc">Description (optional)</Label>
+                  <Textarea
+                    id="np-desc"
+                    value={form.description}
+                    onValueChange={(v) => setForm((f) => ({ ...f, description: v }))}
+                    rows={3}
+                  />
+                </div>
+                {submitError ? (
+                  <div className="text-destructive flex items-center gap-2 text-sm">
+                    <AlertCircle className="size-4" />
+                    {submitError}
                   </div>
-                  <CardDescription>{p.description ?? '—'}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-muted-foreground text-xs">Open project →</span>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
+                ) : null}
+              </div>
+              <DialogFooter>
+                <Button variant="outline" disabled={submitState === 'submitting'} onClick={() => setOpen(false)}>
+                  Cancel
+                </Button>
+                <Button
+                  disabled={submitState === 'submitting' || !form.name || !form.slug}
+                  onClick={() => void createProject()}
+                >
+                  {submitState === 'submitting' ? <Loader2 className="size-4 animate-spin" /> : null}
+                  Create
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        }
+      >
+        <PageHeaderHeading
+          title={t('nav.items.projects')}
+          description="Workspaces grouping related work, members, and assets."
+        />
+      </PageHeader>
+      <PageBody className="space-y-4">
+        {fetchError ? (
+          <div className="border-destructive/30 bg-destructive/10 text-destructive flex items-center gap-2 rounded-md border px-3 py-2 text-sm">
+            <AlertCircle className="size-4" />
+            {fetchError}
+          </div>
+        ) : pending ? (
+          <div className="text-muted-foreground text-sm">Loading projects…</div>
+        ) : !projects.length ? (
+          <div className="space-y-1 text-sm">
+            <p className="font-medium">{t('projects.empty.title')}</p>
+            <p className="text-muted-foreground text-sm">{t('projects.empty.description')}</p>
+          </div>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((p) => (
+              <Link key={p.id} href={`/projects/${p.slug}`} className="group">
+                <Card className="h-full transition-colors group-hover:border-foreground/20">
+                  <CardHeader>
+                    <div className="flex items-center gap-2">
+                      <Folder className="text-muted-foreground size-4" />
+                      <CardTitle className="text-base">{p.name}</CardTitle>
+                    </div>
+                    <CardDescription>{p.description ?? '—'}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <span className="text-muted-foreground text-xs">Open project →</span>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
+      </PageBody>
+    </Page>
   )
 }

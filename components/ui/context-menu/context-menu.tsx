@@ -155,7 +155,7 @@ function ContextMenuShortcut({ className, ...props }: React.HTMLAttributes<HTMLS
     <span
       data-uipkge=""
       data-slot="context-menu-shortcut"
-      className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}
+      className={cn('text-muted-foreground ml-auto text-xs', className)}
       {...props}
     />
   )

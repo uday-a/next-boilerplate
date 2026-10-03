@@ -7,7 +7,7 @@ export function Bento01() {
     <section className="bg-background">
       <div className="mx-auto max-w-6xl px-6 py-24">
         <div className="mb-12 max-w-2xl space-y-3">
-          <p className="text-primary text-sm font-medium tracking-widest uppercase">Built for scale</p>
+          <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Built for scale</p>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">A workspace your team grows into, not out of.</h2>
           <p className="text-muted-foreground text-lg">
             Four surfaces that work end-to-end. Replace any one without touching the rest.
@@ -35,22 +35,22 @@ export function Bento01() {
               <div className="bg-muted/30 mt-auto rounded-lg border p-5">
                 <div className="text-muted-foreground flex items-center justify-between text-xs">
                   <span>Draft quality</span>
-                  <span className="font-mono">92 / 100</span>
+                  <span className="tabular-nums">92 / 100</span>
                 </div>
                 <div className="bg-muted mt-3 h-2 overflow-hidden rounded-full">
                   <div className="bg-primary h-full w-[92%] rounded-full" />
                 </div>
                 <div className="mt-4 grid grid-cols-3 gap-3 text-center text-xs">
                   <div>
-                    <p className="text-foreground font-mono text-base">12</p>
+                    <p className="text-foreground text-base tabular-nums">12</p>
                     <p className="text-muted-foreground">Goals</p>
                   </div>
                   <div>
-                    <p className="text-foreground font-mono text-base">34</p>
+                    <p className="text-foreground text-base tabular-nums">34</p>
                     <p className="text-muted-foreground">1:1 notes</p>
                   </div>
                   <div>
-                    <p className="text-foreground font-mono text-base">8</p>
+                    <p className="text-foreground text-base tabular-nums">8</p>
                     <p className="text-muted-foreground">Peers</p>
                   </div>
                 </div>

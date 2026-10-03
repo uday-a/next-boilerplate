@@ -9,6 +9,7 @@ import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
 import { sendEmail, magicLinkEmail } from '@/server/utils/mailer'
 import { generateToken, hashToken } from '@/server/utils/tokens'
+import { requireRateLimit } from '@/server/utils/rate-limit'
 
 const TOKEN_TTL_MIN = 15
 const TOKEN_TTL_MS = TOKEN_TTL_MIN * 60 * 1000
@@ -19,6 +20,7 @@ const RequestSchema = z.object({
 
 export async function POST(request: Request) {
   return apiHandler(async () => {
+    requireRateLimit(request, { key: 'auth:magic-link' })
     const body = await request.json()
     const parsed = RequestSchema.safeParse(body)
     if (!parsed.success) {

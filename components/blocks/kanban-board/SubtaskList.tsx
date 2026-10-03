@@ -69,13 +69,14 @@ export function SubtaskList({
           >
             <span className={cn('size-1.5 shrink-0 rounded-full', column?.dotColor ?? 'bg-muted-foreground')} />
             <span
-              className={cn('shrink-0 font-mono text-xs text-muted-foreground/70')}
+              className={cn('shrink-0 font-mono text-xs text-muted-foreground')}
             >
               {task.id}
             </span>
             <span
+              title={task.title}
               className={cn(
-                'min-w-0 flex-1 truncate text-xs font-medium',
+                'min-w-0 flex-1 truncate text-sm font-medium',
                 column?.id === 'done' ? 'text-muted-foreground line-through' : 'text-foreground',
               )}
             >

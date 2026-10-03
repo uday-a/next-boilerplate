@@ -12,7 +12,7 @@ export async function requireAuth(): Promise<SessionData & { user: NonNullable<S
   return session as SessionData & { user: NonNullable<SessionData['user']> }
 }
 
-export async function requireRole(...allowedInput: (Role | Role)[]) {
+export async function requireRole(...allowedInput: (Role | Role[])[]) {
   const allowed = allowedInput.flat()
   const session = await requireAuth()
 
@@ -35,6 +35,14 @@ export async function requireRole(...allowedInput: (Role | Role)[]) {
   }
 
   return session
+}
+
+/**
+ * Explicit no-op guard for public routes.
+ * Use it at the top of a handler to signal "this endpoint is intentionally public".
+ */
+export function requirePublic() {
+  // no-op
 }
 
 type RoleLookup = { state: 'found'; role: Role } | { state: 'not-found' } | { state: 'db-unavailable' }

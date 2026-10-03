@@ -16,6 +16,7 @@ const Chrome = ({ className }: { className?: string }) => (
   </svg>
 )
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -35,14 +36,15 @@ export interface AuthSignInProps {
 }
 
 export function AuthSignIn({
-  title = 'Welcome back',
-  description = 'Sign in to your account to continue',
+  title,
+  description,
   signUpHref = '/sign-up',
   forgotPasswordHref = '/forgot-password',
   oauthProviders = ['github', 'google'],
   onSubmit,
   onOauth,
 }: AuthSignInProps) {
+  const t = useTranslations()
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [remember, setRemember] = React.useState(false)
@@ -56,31 +58,31 @@ export function AuthSignIn({
     <div className="bg-background flex min-h-svh items-center justify-center p-6">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className="text-2xl">{title ?? t('auth.signIn.title')}</CardTitle>
+          <CardDescription>{description ?? t('auth.signIn.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('auth.signIn.emailLabel')}</Label>
               <Input
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder="you@company.com"
+                placeholder={t('auth.signIn.emailPlaceholder')}
                 autoComplete="email"
                 required
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('auth.signIn.passwordLabel')}</Label>
                 <a
                   href={forgotPasswordHref}
                   className="text-muted-foreground hover:text-foreground text-xs underline-offset-4 hover:underline"
                 >
-                  Forgot password?
+                  {t('auth.signIn.forgotPassword')}
                 </a>
               </div>
               <Input
@@ -99,11 +101,11 @@ export function AuthSignIn({
                 onCheckedChange={(checked) => setRemember(checked === true)}
               />
               <Label htmlFor="remember" className="text-sm font-normal">
-                Remember me for 30 days
+                {t('auth.signIn.rememberMe')}
               </Label>
             </div>
             <Button type="submit" className="w-full">
-              Sign in
+              {t('auth.signIn.submit')}
             </Button>
           </form>
 
@@ -111,7 +113,7 @@ export function AuthSignIn({
             <>
               <div className="my-6 flex items-center gap-3">
                 <Separator className="flex-1" />
-                <span className="text-muted-foreground text-xs uppercase">or continue with</span>
+                <span className="text-muted-foreground text-xs uppercase">{t('auth.signIn.orContinueWith')}</span>
                 <Separator className="flex-1" />
               </div>
               <div className={`grid gap-2 ${oauthProviders.length > 1 ? 'sm:grid-cols-2' : ''}`}>
@@ -133,9 +135,9 @@ export function AuthSignIn({
         </CardContent>
         <CardFooter className="justify-center">
           <p className="text-muted-foreground text-sm">
-            Don&apos;t have an account?{' '}
+            {t('auth.signIn.noAccount')}{' '}
             <a href={signUpHref} className="text-foreground font-medium underline-offset-4 hover:underline">
-              Sign up
+              {t('auth.signIn.signUpLink')}
             </a>
           </p>
         </CardFooter>

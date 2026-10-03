@@ -40,7 +40,7 @@ const thumbTranslate = {
 }
 
 const textSizes = {
-  sm: 'text-[7px]',
+  sm: 'text-xs',
   default: 'text-xs',
   lg: 'text-xs',
 }

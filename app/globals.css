@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
+@import './color-themes.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -77,21 +78,23 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.54 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.52 0.21 27.3);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   /* Chart palette held as hex (not OKLCH) so ECharts' canvas renderer
-   * can hex-concat opacity (`color + '40'`) for gradient fills. */
-  --chart-1: #e76e50;
-  --chart-2: #2a9d90;
-  --chart-3: #264653;
-  --chart-4: #e9c468;
-  --chart-5: #f4a261;
+   * can hex-concat opacity (`color + '40'`) for gradient fills.
+   * Hue order mirrors the Nuxt reference (blue / teal / amber / violet /
+   * rose) so a series keeps its identity across frameworks. */
+  --chart-1: #2563eb;
+  --chart-2: #0d9488;
+  --chart-3: #d97706;
+  --chart-4: #7c3aed;
+  --chart-5: #e11d48;
 
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -103,9 +106,9 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* App extensions (not part of shadcn) */
-  --success: oklch(0.55 0.18 145);
-  --warning: oklch(0.7 0.16 75);
-  --info: oklch(0.55 0.22 260);
+  --success: oklch(0.5 0.15 145);
+  --warning: oklch(0.52 0.12 60);
+  --info: oklch(0.5 0.2 260);
 }
 
 .dark {
@@ -129,17 +132,18 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  /* Dark mode chart palette: blue / green / orange / violet / pink. */
-  --chart-1: #3b82f6;
-  --chart-2: #22c55e;
-  --chart-3: #f97316;
-  --chart-4: #a855f7;
-  --chart-5: #ec4899;
+  /* Dark mode chart palette mirrors the Nuxt reference (lighter variants
+   * of the same blue / teal / amber / violet / rose order). */
+  --chart-1: #60a5fa;
+  --chart-2: #2dd4bf;
+  --chart-3: #fbbf24;
+  --chart-4: #a78bfa;
+  --chart-5: #fb7185;
 
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.922 0 0);
+  --sidebar-primary-foreground: oklch(0.205 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
@@ -234,28 +238,6 @@
       0 20px 25px -5px rgba(0, 0, 0, 0.4),
       0 8px 10px -6px rgba(0, 0, 0, 0.3);
   }
-}
-
-/* Card hover lift */
-[data-slot='card']:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
-}
-
-.dark [data-slot='card']:hover {
-  box-shadow: var(--shadow-md);
-}
-
-/* Subtle background texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-image:
-    radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.02) 0%, transparent 50%);
 }
 
 /* Scrollbar styling */

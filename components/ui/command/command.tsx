@@ -98,7 +98,7 @@ const CommandEmpty = React.forwardRef<
     ref={ref}
     data-uipkge=""
     data-slot="command-empty"
-    className={cn('py-6 text-center text-sm', className)}
+    className={cn('py-4 text-center text-sm', className)}
     {...props}
   />
 ))
@@ -156,7 +156,7 @@ const CommandShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanE
   <span
     data-uipkge=""
     data-slot="command-shortcut"
-    className={cn('text-muted-foreground ml-auto text-xs tracking-widest', className)}
+    className={cn('text-muted-foreground ml-auto text-xs', className)}
     {...props}
   />
 )

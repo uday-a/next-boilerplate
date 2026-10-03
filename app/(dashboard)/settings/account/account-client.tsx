@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
+import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
 
 interface Profile {
   name: string | null
@@ -101,137 +102,137 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
   }
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Account</h1>
-        <p className="text-muted-foreground text-sm">Your personal profile and credentials.</p>
-      </header>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Profile</CardTitle>
-          <CardDescription>How you appear in the workspace.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center gap-4">
-            <Avatar className="size-16">
-              {userAvatar && <AvatarImage src={userAvatar} alt={name} />}
-              <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
-            <div className="space-y-1">
-              <Button variant="outline" size="sm">
-                Upload photo
-              </Button>
-              <p className="text-muted-foreground text-xs">PNG or JPG, up to 2MB.</p>
+    <Page>
+      <PageHeader>
+        <PageHeaderHeading title="Account" description="Your personal profile and credentials." />
+      </PageHeader>
+      <PageBody className="space-y-4 max-w-3xl">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Profile</CardTitle>
+            <CardDescription>How you appear in the workspace.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Avatar className="size-16">
+                {userAvatar && <AvatarImage src={userAvatar} alt={name} />}
+                <AvatarFallback>{initials}</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <Button variant="outline" size="sm">
+                  Upload photo
+                </Button>
+                <p className="text-muted-foreground text-xs">PNG or JPG, up to 2MB.</p>
+              </div>
             </div>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="acct-name">Full name</Label>
-            <Input id="acct-name" value={name} onChange={(e) => setName(e.target.value)} />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="acct-bio">Bio</Label>
-            <Textarea
-              id="acct-bio"
-              value={bio}
-              onValueChange={setBio}
-              rows={3}
-              placeholder="A short paragraph about yourself."
-            />
-            <p className="text-muted-foreground text-xs">500 characters max. Visible to workspace members.</p>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="acct-email">Email</Label>
-            <Input id="acct-email" type="email" value={userEmail} disabled />
-            <p className="text-muted-foreground text-xs">
-              Email comes from your GitHub account. Change it there or add email/password auth to edit here.
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Password</CardTitle>
-          <CardDescription>Use 12+ characters with a mix of letters, numbers, and symbols.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-2">
-            <Label htmlFor="pw-current">Current password</Label>
-            <Input
-              id="pw-current"
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="pw-new">New password</Label>
-            <Input
-              id="pw-new"
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="pw-confirm">Confirm new password</Label>
-            <Input
-              id="pw-confirm"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="border-destructive/40">
-        <CardHeader>
-          <CardTitle className="text-destructive text-base">Danger zone</CardTitle>
-          <CardDescription>Irreversible account actions.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-start justify-between gap-6">
-            <div className="space-y-0.5">
-              <p className="text-sm font-medium">Delete account</p>
+            <div className="grid gap-2">
+              <Label htmlFor="acct-name">Full name</Label>
+              <Input id="acct-name" value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="acct-bio">Bio</Label>
+              <Textarea
+                id="acct-bio"
+                value={bio}
+                onValueChange={setBio}
+                rows={3}
+                placeholder="A short paragraph about yourself."
+              />
+              <p className="text-muted-foreground text-xs">500 characters max. Visible to workspace members.</p>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="acct-email">Email</Label>
+              <Input id="acct-email" type="email" value={userEmail} disabled />
               <p className="text-muted-foreground text-xs">
-                Permanently remove your account and all personal data. Workspace data is retained per your billing
-                plan.
+                Email comes from your GitHub account. Change it there or add email/password auth to edit here.
               </p>
             </div>
-            <Button variant="destructive">Delete account</Button>
-          </div>
-          <Separator />
-          <div className="flex items-start justify-between gap-6">
-            <div className="space-y-0.5">
-              <p className="text-sm font-medium">Export data</p>
-              <p className="text-muted-foreground text-xs">Download a JSON archive of your personal data.</p>
-            </div>
-            <Button variant="outline">Request export</Button>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <div className="flex items-center justify-end gap-3">
-        {status.kind === 'saved' && (
-          <div className="flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-400">
-            <CheckCircle2 className="size-4" />
-            {status.demo ? 'Saved (demo — not persisted)' : 'Saved'}
-          </div>
-        )}
-        {status.kind === 'error' && (
-          <div className="text-destructive flex items-center gap-2 text-sm">
-            <AlertCircle className="size-4" />
-            {status.message}
-          </div>
-        )}
-        <Button variant="outline">Cancel</Button>
-        <Button disabled={status.kind === 'saving' || !name} onClick={() => void save()}>
-          {status.kind === 'saving' && <Loader2 className="size-4 animate-spin" />}
-          Save changes
-        </Button>
-      </div>
-    </div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Password</CardTitle>
+            <CardDescription>Use 12+ characters with a mix of letters, numbers, and symbols.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-2">
+              <Label htmlFor="pw-current">Current password</Label>
+              <Input
+                id="pw-current"
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="pw-new">New password</Label>
+              <Input
+                id="pw-new"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="pw-confirm">Confirm new password</Label>
+              <Input
+                id="pw-confirm"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-destructive/40">
+          <CardHeader>
+            <CardTitle className="text-destructive text-base">Danger zone</CardTitle>
+            <CardDescription>Irreversible account actions.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium">Delete account</p>
+                <p className="text-muted-foreground text-xs">
+                  Permanently remove your account and all personal data. Workspace data is retained per your billing
+                  plan.
+                </p>
+              </div>
+              <Button variant="destructive">Delete account</Button>
+            </div>
+            <Separator />
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium">Export data</p>
+                <p className="text-muted-foreground text-xs">Download a JSON archive of your personal data.</p>
+              </div>
+              <Button variant="outline">Request export</Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <div className="flex items-center justify-end gap-3">
+          {status.kind === 'saved' && (
+            <div className="flex items-center gap-2 text-sm text-success">
+              <CheckCircle2 className="size-4" />
+              {status.demo ? 'Saved (demo — not persisted)' : 'Saved'}
+            </div>
+          )}
+          {status.kind === 'error' && (
+            <div className="text-destructive flex items-center gap-2 text-sm">
+              <AlertCircle className="size-4" />
+              {status.message}
+            </div>
+          )}
+          <Button variant="outline">Cancel</Button>
+          <Button disabled={status.kind === 'saving' || !name} onClick={() => void save()}>
+            {status.kind === 'saving' && <Loader2 className="size-4 animate-spin" />}
+            Save changes
+          </Button>
+        </div>
+      </PageBody>
+    </Page>
   )
 }

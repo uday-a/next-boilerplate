@@ -91,7 +91,7 @@ function resolveVar(name: string, fallback: string): string {
 // SSR / pre-hydration fallback palette. Hex values picked to roughly
 // match the shadcn Neutral defaults in `tailwind.css` so the first paint
 // doesn't flicker.
-const CHART_FALLBACK = ['#f59e0b', '#14b8a6', '#3b82f6', '#f97316', '#eab308']
+const CHART_FALLBACK = ['#2563eb', '#0d9488', '#d97706', '#7c3aed', '#e11d48']
 
 /** The resolved chart theme tokens. All values are canvas-safe hex/rgba. */
 export interface ChartTheme {
@@ -102,6 +102,19 @@ export interface ChartTheme {
   tooltipBg: string
   tooltipBorder: string
   tooltipText: string
+  /** Theme primary (--primary) -- single hue for sequential charts (funnel
+   *  bars fade it 1.0 -> 0.45 by depth via per-item opacity). */
+  primaryColor: string
+  /** Muted track (--muted) -- bar backgrounds, gauge tracks. */
+  mutedColor: string
+  /** Foreground (--foreground) -- category axis names, inside contrast. */
+  foregroundColor: string
+  /** Card surface (--card) -- inside-tile label text on saturated fills. */
+  surfaceColor: string
+  /** Status tokens (--success / --warning / --destructive) -- gauge bands. */
+  successColor: string
+  warningColor: string
+  destructiveColor: string
 }
 
 function resolveTheme(): ChartTheme {
@@ -113,6 +126,13 @@ function resolveTheme(): ChartTheme {
     tooltipBg: resolveVar('--popover', 'rgba(255,255,255,0.96)'),
     tooltipBorder: resolveVar('--border', '#e5e5e5'),
     tooltipText: resolveVar('--popover-foreground', '#333333'),
+    primaryColor: resolveVar('--primary', '#171717'),
+    mutedColor: resolveVar('--muted', '#f5f5f5'),
+    foregroundColor: resolveVar('--foreground', '#171717'),
+    surfaceColor: resolveVar('--card', '#ffffff'),
+    successColor: resolveVar('--success', '#14b8a6'),
+    warningColor: resolveVar('--warning', '#f59e0b'),
+    destructiveColor: resolveVar('--destructive', '#dc2626'),
   }
 }
 
@@ -175,12 +195,10 @@ export function mergeOptionBlock<T extends Record<string, any>>(base: T, user: P
   return out
 }
 
-// Default gauge stoplight: teal (safe) -> amber (warning) -> red (danger).
-// Pulled off saturated green and onto teal so the gauge ties back to the
-// dashboard palette; red is kept as the universal "limit reached" cue.
-// GaugeChart consumes this via its `thresholds` prop default; consumers
-// pass their own array to override. Static because gauges have semantic
-// meaning (green safe / red danger) that we deliberately don't theme-flip.
+// Static gauge stoplight: teal (safe) -> amber (warning) -> red (danger).
+// Kept for consumers that import it; GaugeChart's default now reads the
+// resolved --success / --warning / --destructive tokens from useChartTheme
+// so the bands follow light/dark mode.
 export const gaugeThresholds: [number, string][] = [
   [0.6, '#14b8a6'],
   [0.85, '#f59e0b'],

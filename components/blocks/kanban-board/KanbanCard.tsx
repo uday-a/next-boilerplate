@@ -36,14 +36,32 @@ export function KanbanCard({
     return task.subtaskIds.filter((id) => getTaskColumn(columns, id)?.id === 'done').length
   }, [columns, task.subtaskIds])
 
+  // Screen-reader name: title first, then status + priority for context.
+  const status = getTaskColumn(columns, task.id)?.title
+  const ariaLabel = [task.title, status, `${priorityConfig[task.priority].label} priority`]
+    .filter(Boolean)
+    .join(', ')
+
+  function onKeyDown(e: React.KeyboardEvent) {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
+      e.preventDefault()
+      onClick?.(task)
+    }
+  }
+
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-label={ariaLabel}
       className={cn(
         'kanban-card group/card bg-card relative cursor-grab rounded-lg border p-3 transition-all duration-150',
         'hover:border-border hover:shadow-md active:scale-[0.97] active:cursor-grabbing',
-        isDone ? 'opacity-75 hover:opacity-100' : '',
+        'focus-visible:border-ring focus-visible:ring-ring/50 outline-none focus-visible:ring-[3px]',
+        isDone ? 'opacity-75 hover:opacity-100 focus-visible:opacity-100' : '',
       )}
       onClick={() => onClick?.(task)}
+      onKeyDown={onKeyDown}
     >
       <div
         className={cn(
@@ -54,16 +72,17 @@ export function KanbanCard({
       />
 
       <div className="mb-1 flex items-center justify-between pl-2">
-        <span className="text-muted-foreground/70 font-mono text-xs">{task.id}</span>
+        <span className="text-muted-foreground font-mono text-xs">{task.id}</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
               size="icon"
-              className="text-muted-foreground -mr-1 size-6 opacity-0 transition-opacity group-hover/card:opacity-100"
+              aria-label={`More actions for ${task.id}`}
+              className="text-muted-foreground -mr-1 size-6 opacity-0 transition-opacity group-focus-within/card:opacity-100 group-hover/card:opacity-100 data-[state=open]:opacity-100"
               onClick={(e) => e.stopPropagation()}
             >
-              <MoreHorizontal className="size-3.5" />
+              <MoreHorizontal className="size-3.5" aria-hidden="true" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-36">
@@ -117,14 +136,14 @@ export function KanbanCard({
         {task.dueDate && <DueDateBadge dueDate={task.dueDate} variant="chip" />}
 
         {task.commentItems.length > 0 && (
-          <div className="text-muted-foreground/70 flex items-center gap-1 text-xs">
+          <div className="text-muted-foreground flex items-center gap-1 text-xs">
             <MessageSquare className="size-3" />
             {task.commentItems.length}
           </div>
         )}
 
         {task.fileItems.length > 0 && (
-          <div className="text-muted-foreground/70 flex items-center gap-1 text-xs">
+          <div className="text-muted-foreground flex items-center gap-1 text-xs">
             <Paperclip className="size-3" />
             {task.fileItems.length}
           </div>

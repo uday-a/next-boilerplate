@@ -1,7 +1,13 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// next-intl request config (single-URL strategy: locale from the
+// `uipkge-locale` cookie, no locale-prefixed routing). Works under
+// Turbopack dev and production builds alike.
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,4 +16,4 @@ const nextConfig = {
   outputFileTracingRoot: path.join(__dirname),
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)

@@ -231,10 +231,10 @@ export function KanbanBoard({
     <div
       ref={kanbanEl}
       data-slot="kanban-board"
-      className="kanban-page flex h-[calc(100dvh-3.5rem-3rem)] flex-col overflow-hidden lg:h-[calc(100dvh-3.5rem-3rem)]"
+      className="kanban-page flex h-[calc(100dvh-3.5rem-2rem)] flex-col overflow-hidden"
     >
       {!hideHeader && (
-        <div className="mb-3 shrink-0">
+        <div className="mb-4 shrink-0">
           <PageHeader>
             <div className="flex items-start justify-between gap-4">
               <PageHeaderHeading title={title ?? ''} description={description ?? ''} />
@@ -317,14 +317,14 @@ export function KanbanBoard({
       <style>{`
         .kanban-board {
           scrollbar-width: thin;
-          scrollbar-color: hsl(var(--border)) transparent;
+          scrollbar-color: var(--border) transparent;
         }
         .kanban-board::-webkit-scrollbar {
           height: 6px;
           width: 6px;
         }
         .kanban-board::-webkit-scrollbar-thumb {
-          background-color: hsl(var(--border));
+          background-color: var(--border);
           border-radius: 3px;
         }
         .kanban-board::-webkit-scrollbar-corner {
@@ -347,14 +347,14 @@ export function KanbanBoard({
         }
         .kanban-list {
           scrollbar-width: thin;
-          scrollbar-color: hsl(var(--border)) transparent;
+          scrollbar-color: var(--border) transparent;
         }
         .kanban-list::-webkit-scrollbar {
           height: 6px;
           width: 6px;
         }
         .kanban-list::-webkit-scrollbar-thumb {
-          background-color: hsl(var(--border));
+          background-color: var(--border);
           border-radius: 3px;
         }
       `}</style>

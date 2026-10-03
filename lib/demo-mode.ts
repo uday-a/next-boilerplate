@@ -7,8 +7,7 @@ export function resolveDemoMode(): boolean {
   const flag = (process.env.DEMO_MODE ?? process.env.NEXT_PUBLIC_DEMO_MODE)?.trim().toLowerCase()
   if (flag === 'true') return true
   if (flag === 'false') return false
-  // Vercel preview deployments: default demo on unless explicitly disabled.
-  if (process.env.VERCEL_ENV === 'preview') return true
-  // Auto-on in dev when unset; auto-off in production.
-  return process.env.NODE_ENV !== 'production'
+  // Demo sessions are admin, so anything deployed (prod or Vercel preview)
+  // is opt-in via DEMO_MODE=true. Auto-on only for local `next dev`.
+  return process.env.NODE_ENV === 'development'
 }

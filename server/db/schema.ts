@@ -1,4 +1,4 @@
-import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core'
+import { boolean, integer, jsonb, pgEnum, pgTable, serial, text, timestamp, uniqueIndex, varchar } from 'drizzle-orm/pg-core'
 
 export const userRole = pgEnum('user_role', ['user', 'admin', 'editor'])
 export type Role = (typeof userRole.enumValues)[number]
@@ -66,3 +66,55 @@ export const magicLinkTokens = pgTable('magic_link_tokens', {
   usedAt: timestamp('used_at'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
+
+// API keys — scoped credentials for programmatic access. Stores the
+// SHA-256 hash, never the raw key (shown once at creation). `prefix`
+// identifies a key from logs without touching the hash.
+export const apiKeys = pgTable('api_keys', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  name: varchar('name', { length: 64 }).notNull(),
+  keyHash: varchar('key_hash', { length: 64 }).notNull().unique(),
+  prefix: varchar('prefix', { length: 24 }).notNull(),
+  scopes: varchar('scopes', { length: 128 }).notNull().default('read'),
+  lastUsedAt: timestamp('last_used_at'),
+  expiresAt: timestamp('expires_at'),
+  revokedAt: timestamp('revoked_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
+export type ApiKey = typeof apiKeys.$inferSelect
+export type NewApiKey = typeof apiKeys.$inferInsert
+
+// Audit log — append-only record of who did what. Written via
+// recordAudit() (server/utils/audit.ts), never by clients. No updatedAt:
+// corrections are new rows. SET NULL keeps history when users are deleted.
+export const auditLogs = pgTable('audit_logs', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => users.id, { onDelete: 'set null' }),
+  action: varchar('action', { length: 64 }).notNull(),
+  entity: varchar('entity', { length: 32 }),
+  entityId: varchar('entity_id', { length: 64 }),
+  metadata: jsonb('metadata').$type<Record<string, unknown>>(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
+export type AuditLog = typeof auditLogs.$inferSelect
+export type NewAuditLog = typeof auditLogs.$inferInsert
+
+// Team invites — email + role invitations. Same token discipline as
+// magic-link tokens: SHA-256 hash persisted, raw token only in the emailed
+// link, single-use via acceptedAt, 7-day TTL.
+export const invites = pgTable('invites', {
+  id: serial('id').primaryKey(),
+  email: varchar('email', { length: 256 }).notNull(),
+  role: userRole('role').notNull().default('user'),
+  tokenHash: varchar('token_hash', { length: 64 }).notNull().unique(),
+  invitedBy: integer('invited_by').references(() => users.id, { onDelete: 'set null' }),
+  expiresAt: timestamp('expires_at').notNull(),
+  acceptedAt: timestamp('accepted_at'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+})
+
+export type Invite = typeof invites.$inferSelect
+export type NewInvite = typeof invites.$inferInsert

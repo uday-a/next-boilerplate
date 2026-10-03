@@ -75,7 +75,7 @@ export function DataTableFilterSheet({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className={['flex flex-col gap-0 p-0 sm:max-w-[400px]', borderless ? 'border-0' : ''].join(' ')}>
         {/* Header */}
-        <div className={borderless ? 'px-5 pt-5 pb-2' : 'border-b px-5 pt-5 pb-4'}>
+        <div className={borderless ? 'px-4 pt-4 pb-2' : 'border-b px-4 pt-4 pb-4'}>
           <div className="flex items-center gap-3">
             <div className="bg-muted flex size-9 items-center justify-center rounded-lg">
               <SlidersHorizontal className="text-muted-foreground size-4" />
@@ -115,7 +115,7 @@ export function DataTableFilterSheet({
                 return (
                   <div key={filter.column} className={borderless ? 'py-2' : 'bg-muted/40 rounded-lg p-3'}>
                     <div className="mb-2 flex items-center justify-between">
-                      <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                      <Label className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                         {filter.label}
                       </Label>
                       {textValue && (
@@ -153,7 +153,7 @@ export function DataTableFilterSheet({
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                        <Label className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                           {filter.label}
                         </Label>
                         {multi.length > 0 && (
@@ -227,7 +227,7 @@ export function DataTableFilterSheet({
                   >
                     <div className="mb-2 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Label className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                        <Label className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                           {filter.label}
                         </Label>
                         {hasDate && (

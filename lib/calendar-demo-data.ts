@@ -38,49 +38,39 @@ export const typeMeta: Record<
     chip: string
     bar: string
     dot: string
-    glow: string
     text: string
-    ring: string
   }
 > = {
   meeting: {
     label: 'Meeting',
     icon: Video,
-    chip: 'bg-sky-500/10 text-sky-800 ring-sky-500/25 dark:text-sky-300',
-    bar: 'bg-sky-500',
-    dot: 'bg-sky-500',
-    glow: 'bg-sky-500/10',
-    text: 'text-sky-700 dark:text-sky-300',
-    ring: 'hover:ring-sky-500/30',
+    chip: 'bg-chart-1/10 text-chart-1 ring-chart-1/20',
+    bar: 'bg-chart-1',
+    dot: 'bg-chart-1',
+    text: 'text-chart-1',
   },
   task: {
     label: 'Task',
     icon: CheckCircle2,
-    chip: 'bg-emerald-500/10 text-emerald-800 ring-emerald-500/25 dark:text-emerald-300',
-    bar: 'bg-emerald-500',
-    dot: 'bg-emerald-500',
-    glow: 'bg-emerald-500/10',
-    text: 'text-emerald-700 dark:text-emerald-300',
-    ring: 'hover:ring-emerald-500/30',
+    chip: 'bg-chart-2/10 text-chart-2 ring-chart-2/20',
+    bar: 'bg-chart-2',
+    dot: 'bg-chart-2',
+    text: 'text-chart-2',
   },
   reminder: {
     label: 'Reminder',
     icon: AlertCircle,
-    chip: 'bg-amber-500/10 text-amber-900 ring-amber-500/25 dark:text-amber-300',
-    bar: 'bg-amber-500',
-    dot: 'bg-amber-500',
-    glow: 'bg-amber-500/10',
-    text: 'text-amber-800 dark:text-amber-300',
-    ring: 'hover:ring-amber-500/30',
+    chip: 'bg-chart-3/10 text-chart-3 ring-chart-3/20',
+    bar: 'bg-chart-3',
+    dot: 'bg-chart-3',
+    text: 'text-chart-3',
   },
   travel: {
     label: 'Travel',
     icon: Plane,
-    chip: 'bg-violet-500/10 text-violet-800 ring-violet-500/25 dark:text-violet-300',
-    bar: 'bg-violet-500',
-    dot: 'bg-violet-500',
-    glow: 'bg-violet-500/10',
-    text: 'text-violet-700 dark:text-violet-300',
-    ring: 'hover:ring-violet-500/30',
+    chip: 'bg-chart-4/10 text-chart-4 ring-chart-4/20',
+    bar: 'bg-chart-4',
+    dot: 'bg-chart-4',
+    text: 'text-chart-4',
   },
 }

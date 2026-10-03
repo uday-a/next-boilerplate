@@ -8,7 +8,8 @@ test.describe('Landing page', () => {
     await expect(page.locator('h1')).toContainText('The platform your team will actually use')
 
     // Navigation links
-    await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible()
+    const header = page.getByRole('banner')
+    await expect(header.getByRole('link', { name: 'Sign in' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Start free trial' }).first()).toBeVisible()
   })
 

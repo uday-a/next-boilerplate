@@ -45,10 +45,10 @@ export function KanbanTaskSheet({
           <>
             <div className={cn('h-1 w-full shrink-0', priorityConfig[task.priority]?.bg)} />
 
-            <div className="shrink-0 px-5 pt-4 pb-3">
+            <div className="shrink-0 px-4 pt-4 pb-3">
               <div className="mb-3 flex items-center gap-2">
                 <span className="text-muted-foreground font-mono text-xs tracking-tight">{task.id}</span>
-                <span className="text-muted-foreground/30">·</span>
+                <span className="text-muted-foreground">·</span>
                 <Select value={columnIdForTask} onValueChange={(val) => onMoveTask(task, String(val))}>
                   <SelectTrigger className="hover:bg-secondary h-5 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none">
                     <SelectValue />
@@ -87,10 +87,10 @@ export function KanbanTaskSheet({
               </div>
             </div>
 
-            <div className="bg-border mx-5 h-px" />
+            <div className="bg-border mx-4 h-px" />
 
             <div className="flex-1 overflow-y-auto">
-              <div className="space-y-4 px-5 py-3">
+              <div className="space-y-4 px-4 py-3">
                 <div className="flex items-center gap-3">
                   <UserAvatar name={task.assignee.name} color={task.assignee.color} size="md" />
                   <div>
@@ -166,7 +166,7 @@ export function KanbanTaskSheet({
                               <FileIcon className="text-muted-foreground size-4" />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-xs font-medium">{file.name}</p>
+                              <p className="truncate text-sm font-medium" title={file.name}>{file.name}</p>
                               <p className="text-muted-foreground text-xs">{file.size}</p>
                             </div>
                             <Button
@@ -187,7 +187,7 @@ export function KanbanTaskSheet({
               </div>
             </div>
 
-            <SheetFooter className="shrink-0 border-t px-5 py-3">
+            <SheetFooter className="shrink-0 border-t px-4 py-3">
               <div className="flex w-full items-center gap-2">
                 <a href={`/dashboard/kanban/${task.id}`} className="flex-1" onClick={() => onOpenChange(false)}>
                   <Button variant="outline" size="sm" className="w-full gap-1.5">

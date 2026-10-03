@@ -1,15 +1,18 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { DashboardLayout } from '@/components/blocks/DashboardLayout'
-import { breadcrumbSegmentLabel } from '@/lib/breadcrumb-labels'
+import { Toaster } from '@/components/ui/sonner'
+import { routeLabel } from '@/lib/breadcrumb-labels'
 import type { SessionUser } from '@/lib/auth/types'
 import type { ApiResponse } from '@/lib/api/response'
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
+  const t = useTranslations()
   const [user, setUser] = useState<SessionUser | null>(null)
 
   useEffect(() => {
@@ -23,12 +26,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
   const breadcrumbs = useMemo(() => {
     const parts = pathname.split('/').filter(Boolean)
-    if (parts.length === 0) return [{ label: 'Dashboard' }]
-    return parts.map((p, i) => ({
-      label: breadcrumbSegmentLabel(p),
-      href: i < parts.length - 1 ? `/${parts.slice(0, i + 1).join('/')}` : undefined,
-    }))
-  }, [pathname])
+    if (parts.length === 0) return [{ label: t('nav.items.dashboard') }]
+    return parts.map((_, i) => {
+      const path = `/${parts.slice(0, i + 1).join('/')}`
+      return { label: routeLabel(path, t), href: i < parts.length - 1 ? path : undefined }
+    })
+  }, [pathname, t])
 
   async function onProfileSelect(key: string) {
     if (key === 'logout') {
@@ -47,7 +50,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       breadcrumbs={breadcrumbs}
       user={
         user
-          ? { name: user.name, email: user.email, avatar: user.avatar ?? undefined }
+          ? { name: user.name, email: user.email, avatar: user.avatar ?? undefined, role: user.role }
           : undefined
       }
       onProfileSelect={onProfileSelect}
@@ -56,6 +59,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
+      {/* WHY: copy-to-clipboard confirmations (data table, billing) need a
+          mounted Toaster to render anywhere under the dashboard shell. */}
+      <Toaster />
     </DashboardLayout>
   )
 }

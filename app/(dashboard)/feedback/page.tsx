@@ -1,6 +1,9 @@
+import { localizedMetadata } from '@/lib/page-title'
 import { FeedbackClient } from './feedback-client'
 
-export const metadata = { title: 'Feedback' }
+export function generateMetadata() {
+  return localizedMetadata('/feedback')
+}
 
 export default function FeedbackPage() {
   return <FeedbackClient />

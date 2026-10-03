@@ -14,24 +14,29 @@ export interface CalendarHeatmapProps {
   data: [string, number][]
   range: string | [string, string]
   height?: number | string
-  /** Cell colour ramp [from, to] - default: chart-1 from light to saturated. */
+  /** Cell colour ramp [from, to] - default: --muted to --chart-1. */
   colorRange?: [string, string]
   option?: any
   className?: string
+  /** Descriptive label for the `role="img"` frame. */
+  ariaLabel?: string
 }
 
 export const CalendarHeatmap = React.forwardRef<HTMLDivElement, CalendarHeatmapProps>(
-  ({ data, range, height = 200, colorRange = ['#fef3c7', '#d97706'], option, className }, ref) => {
+  ({ data, range, height = 200, colorRange: colorRangeProp, option, className, ariaLabel }, ref) => {
     const theme = useChartTheme()
 
     const mergedOption = React.useMemo(() => {
+      const colorRange = colorRangeProp ?? [theme.mutedColor, theme.colors[0] ?? theme.primaryColor]
       const maxValue = data.reduce((m, [, v]) => Math.max(m, v), 0) || 1
 
       return {
         color: theme.colors,
         tooltip: {
           position: 'top',
-          formatter: (p: any) => `<strong>${p.value[0]}</strong><br>${p.value[1]} contributions`,
+          // WHY: this heatmap counts deploys, not "contributions",
+          // and the value carries its unit so the tooltip never reads bare.
+          formatter: (p: any) => `<strong>${p.value[0]}</strong><br>${p.value[1]} deploys`,
           backgroundColor: theme.tooltipBg,
           borderColor: theme.tooltipBorder,
           textStyle: { color: theme.tooltipText, fontSize: 12 },
@@ -52,11 +57,11 @@ export const CalendarHeatmap = React.forwardRef<HTMLDivElement, CalendarHeatmapP
           splitLine: { show: false },
           dayLabel: {
             color: theme.textColor,
-            fontSize: 10,
+            fontSize: 12,
             firstDay: 1,
             nameMap: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
           },
-          monthLabel: { color: theme.textColor, fontSize: 10, fontWeight: 600 },
+          monthLabel: { color: theme.textColor, fontSize: 12, fontWeight: 600 },
           yearLabel: { show: false },
         },
         series: (() => {
@@ -70,10 +75,10 @@ export const CalendarHeatmap = React.forwardRef<HTMLDivElement, CalendarHeatmapP
           return rest
         })(),
       }
-    }, [data, range, colorRange, option, theme])
+    }, [data, range, colorRangeProp, option, theme])
 
     return (
-      <ChartFrame ref={ref} height={height} className={className}>
+      <ChartFrame ref={ref} height={height} className={className} ariaLabel={ariaLabel}>
         <EChart option={mergedOption} />
       </ChartFrame>
     )

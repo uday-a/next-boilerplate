@@ -5,7 +5,7 @@ export function Faq01() {
     <section className="bg-background">
       <div className="mx-auto max-w-3xl px-6 py-24">
         <div className="text-center">
-          <p className="text-primary text-sm font-medium tracking-widest uppercase">FAQ</p>
+          <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">FAQ</p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Questions, answered</h2>
           <p className="text-muted-foreground mx-auto mt-3 max-w-xl text-lg">
             Anything we missed? Email

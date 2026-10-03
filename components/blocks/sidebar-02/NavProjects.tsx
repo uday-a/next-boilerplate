@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { Folder, Forward, type LucideIcon, MoreHorizontal, Trash2 } from 'lucide-react'
 
@@ -31,14 +32,25 @@ export function NavProjects({
   }[]
 }) {
   const { isMobile } = useSidebar()
+  const t = useTranslations()
 
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Projects</SidebarGroupLabel>
+    // Upstream shadcn hides this entire group on icon-mode collapse with
+    // `group-data-[collapsible=icon]:hidden`. We keep it visible so the
+    // project icons stay reachable in the narrow column; the
+    // SidebarGroupLabel and the `<span>` children of each SidebarMenuButton
+    // already self-hide on collapse, leaving an icon-only column that lines
+    // up with NavMain. (Mirrors Nuxt NavProjects.)
+    <SidebarGroup>
+      <SidebarGroupLabel>{t('nav.groups.projects')}</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild isActive={item.isActive}>
+            <SidebarMenuButton
+              asChild
+              isActive={item.isActive}
+              className="data-[active=true]:bg-sidebar-primary/10 data-[active=true]:text-sidebar-primary data-[active=true]:font-medium data-[active=true]:[&>svg]:text-sidebar-primary"
+            >
               <Link href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>
@@ -48,7 +60,7 @@ export function NavProjects({
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction showOnHover>
                   <MoreHorizontal />
-                  <span className="sr-only">More</span>
+                  <span className="sr-only">{t('nav.actions.more')}</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -58,25 +70,25 @@ export function NavProjects({
               >
                 <DropdownMenuItem>
                   <Folder className="text-muted-foreground" />
-                  <span>View Project</span>
+                  <span>{t('nav.actions.viewProject')}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Forward className="text-muted-foreground" />
-                  <span>Share Project</span>
+                  <span>{t('nav.actions.shareProject')}</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Trash2 className="text-muted-foreground" />
-                  <span>Delete Project</span>
+                  <span>{t('nav.actions.deleteProject')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         ))}
         <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <MoreHorizontal className="text-sidebar-foreground/60" />
-            <span>More</span>
+          <SidebarMenuButton>
+            <MoreHorizontal />
+            <span>{t('nav.actions.more')}</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

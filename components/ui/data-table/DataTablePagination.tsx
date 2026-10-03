@@ -19,7 +19,7 @@ export function DataTablePagination({ table, totalRows, isServerSide, borderless
         {table.getFilteredSelectedRowModel().rows.length} of{' '}
         {isServerSide ? totalRows : table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
-      <div className="flex items-center gap-6 lg:gap-8">
+      <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <p className="text-sm font-medium whitespace-nowrap">Rows per page</p>
           <Select
@@ -41,7 +41,7 @@ export function DataTablePagination({ table, totalRows, isServerSide, borderless
             </SelectContent>
           </Select>
         </div>
-        <div className="flex items-center justify-center text-sm font-medium whitespace-nowrap">
+        <div className="flex items-center justify-center text-sm font-medium whitespace-nowrap tabular-nums">
           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
         </div>
         <div className="flex items-center gap-1">

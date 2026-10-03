@@ -16,22 +16,29 @@ export interface GaugeChartProps {
   unit?: string
   label?: string
   height?: number | string
-  /** Colour stops as [percentage, hex] pairs. Default: teal->amber->red,
-   *  pulled from `gaugeThresholds` in useChartTheme so the safe-zone
-   *  colour ties back to the dashboard palette. Pass your own to override. */
+  /** Colour stops as [percentage, hex] pairs. Default: the resolved
+   *  --success -> --warning -> --destructive tokens, so the bands follow
+   *  light/dark mode. Pass your own to override. */
   thresholds?: [number, string][]
   option?: any
   className?: string
+  /** Descriptive label for the `role="img"` frame. */
+  ariaLabel?: string
 }
 
 export const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
   (
-    { value, min = 0, max = 100, unit = '', label, height = 220, thresholds = gaugeThresholds, option, className },
+    { value, min = 0, max = 100, unit = '', label, height = 220, thresholds: thresholdsProp, option, className, ariaLabel },
     ref,
   ) => {
     const theme = useChartTheme()
 
     const mergedOption = React.useMemo(() => {
+      const thresholds: [number, string][] = thresholdsProp ?? [
+        [0.6, theme.successColor],
+        [0.85, theme.warningColor],
+        [1, theme.destructiveColor],
+      ]
       const series = [
         {
           type: 'gauge',
@@ -51,12 +58,12 @@ export const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
           },
           axisTick: { distance: -22, length: 4, lineStyle: { color: theme.textColor, width: 1 } },
           splitLine: { distance: -26, length: 8, lineStyle: { color: theme.textColor, width: 2 } },
-          axisLabel: { color: theme.textColor, fontSize: 10, distance: -34 },
+          axisLabel: { color: theme.textColor, fontSize: 12, distance: -34 },
           anchor: { show: false },
           title: {
             offsetCenter: [0, '88%'],
             color: theme.textColor,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 500,
           },
           detail: {
@@ -64,7 +71,7 @@ export const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
             formatter: `{value}${unit ? ' ' + unit : ''}`,
             color: theme.colors[0],
             fontSize: 28,
-            fontWeight: 700,
+            fontWeight: 600,
             offsetCenter: [0, '40%'],
           },
           data: [{ value, name: label ?? '' }],
@@ -85,10 +92,10 @@ export const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
         series: mergedSeries,
         ...userRest,
       }
-    }, [value, min, max, unit, label, thresholds, option, theme])
+    }, [value, min, max, unit, label, thresholdsProp, option, theme])
 
     return (
-      <ChartFrame ref={ref} height={height} className={className}>
+      <ChartFrame ref={ref} height={height} className={className} ariaLabel={ariaLabel}>
         <EChart option={mergedOption} />
       </ChartFrame>
     )

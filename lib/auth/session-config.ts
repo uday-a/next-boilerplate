@@ -10,7 +10,8 @@ export function getSessionConfig(): SessionOptions {
     password,
     cookieName: 'uipkge_session',
     cookieOptions: {
-      secure: process.env.NODE_ENV === 'production',
+      // Secure unless explicitly in development (unset NODE_ENV = prod).
+      secure: process.env.NODE_ENV !== 'development',
       httpOnly: true,
       sameSite: 'lax',
       path: '/',

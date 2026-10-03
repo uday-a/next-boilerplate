@@ -16,6 +16,7 @@ const Chrome = ({ className }: { className?: string }) => (
   </svg>
 )
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -36,8 +37,8 @@ export interface AuthSignUpProps {
 }
 
 export function AuthSignUp({
-  title = 'Create your account',
-  description = 'Start your 14-day free trial. No credit card required.',
+  title,
+  description,
   signInHref = '/login',
   termsHref = '#',
   privacyHref = '#',
@@ -45,6 +46,7 @@ export function AuthSignUp({
   onSubmit,
   onOauth,
 }: AuthSignUpProps) {
+  const t = useTranslations()
   const [name, setName] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
@@ -64,13 +66,13 @@ export function AuthSignUp({
     <div className="bg-background flex min-h-svh items-center justify-center p-6">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className="text-2xl">{title ?? t('auth.signUp.title')}</CardTitle>
+          <CardDescription>{description ?? t('auth.signUp.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid gap-2">
-              <Label htmlFor="signup-name">Full name</Label>
+              <Label htmlFor="signup-name">{t('auth.signUp.nameLabel')}</Label>
               <Input
                 id="signup-name"
                 value={name}
@@ -80,19 +82,19 @@ export function AuthSignUp({
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="signup-email">Email</Label>
+              <Label htmlFor="signup-email">{t('auth.signUp.emailLabel')}</Label>
               <Input
                 id="signup-email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder="you@company.com"
+                placeholder={t('auth.signUp.emailPlaceholder')}
                 autoComplete="email"
                 required
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="signup-password">Password</Label>
+              <Label htmlFor="signup-password">{t('auth.signUp.passwordLabel')}</Label>
               <Input
                 id="signup-password"
                 value={password}
@@ -101,10 +103,10 @@ export function AuthSignUp({
                 autoComplete="new-password"
                 required
               />
-              <p className="text-muted-foreground text-xs">8+ characters, mix of letters, numbers and symbols.</p>
+              <p className="text-muted-foreground text-xs">{t('auth.signUp.passwordHint')}</p>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="signup-confirm">Confirm password</Label>
+              <Label htmlFor="signup-confirm">{t('auth.signUp.confirmLabel')}</Label>
               <Input
                 id="signup-confirm"
                 value={confirm}
@@ -114,7 +116,7 @@ export function AuthSignUp({
                 aria-invalid={!passwordsMatch}
                 required
               />
-              {!passwordsMatch && <p className="text-destructive text-xs">Passwords don&apos;t match.</p>}
+              {!passwordsMatch && <p className="text-destructive text-xs">{t('auth.signUp.passwordsMismatch')}</p>}
             </div>
             <div className="flex items-start gap-2">
               <Checkbox
@@ -123,19 +125,19 @@ export function AuthSignUp({
                 onCheckedChange={(checked) => setAccept(checked === true)}
               />
               <Label htmlFor="signup-accept" className="text-sm leading-snug font-normal">
-                I agree to the{' '}
+                {t('auth.signUp.agreePrefix')}{' '}
                 <a href={termsHref} className="text-foreground underline-offset-4 hover:underline">
-                  Terms of Service
+                  {t('auth.signUp.termsLink')}
                 </a>{' '}
-                and{' '}
+                {t('auth.signUp.agreeJoiner')}{' '}
                 <a href={privacyHref} className="text-foreground underline-offset-4 hover:underline">
-                  Privacy Policy
+                  {t('auth.signUp.privacyLink')}
                 </a>
                 .
               </Label>
             </div>
             <Button type="submit" className="w-full" disabled={!canSubmit}>
-              Create account
+              {t('auth.signUp.submit')}
             </Button>
           </form>
 
@@ -143,7 +145,7 @@ export function AuthSignUp({
             <>
               <div className="my-6 flex items-center gap-3">
                 <Separator className="flex-1" />
-                <span className="text-muted-foreground text-xs uppercase">or continue with</span>
+                <span className="text-muted-foreground text-xs uppercase">{t('auth.signUp.orContinueWith')}</span>
                 <Separator className="flex-1" />
               </div>
               <div className={`grid gap-2 ${oauthProviders.length > 1 ? 'sm:grid-cols-2' : ''}`}>
@@ -165,9 +167,9 @@ export function AuthSignUp({
         </CardContent>
         <CardFooter className="justify-center">
           <p className="text-muted-foreground text-sm">
-            Already have an account?{' '}
+            {t('auth.signUp.hasAccount')}{' '}
             <a href={signInHref} className="text-foreground font-medium underline-offset-4 hover:underline">
-              Sign in
+              {t('auth.signUp.signInLink')}
             </a>
           </p>
         </CardFooter>

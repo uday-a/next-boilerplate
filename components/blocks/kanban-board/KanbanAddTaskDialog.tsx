@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { Plus, X, CheckCircle2, Calendar as CalendarIcon } from 'lucide-react'
+import { useLocale } from 'next-intl'
 import { cn } from '@/lib/utils'
 import {
   type KanbanColumn as KanbanColumnType,
@@ -64,6 +65,7 @@ export function KanbanAddTaskDialog({
   onCreate: (columnId: string, tasks: KanbanTask[]) => void
 }) {
   const [columnId, setColumnId] = React.useState(initialColumnId)
+  const locale = useLocale()
   const [dueDate, setDueDate] = React.useState<Date | undefined>(undefined)
   const [form, setForm] = React.useState<AddTaskForm>(emptyForm)
   const [newSubtaskText, setNewSubtaskText] = React.useState('')
@@ -149,7 +151,7 @@ export function KanbanAddTaskDialog({
         </DialogHeader>
 
         <div className="grid gap-4 py-2">
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label htmlFor="task-title">Title</Label>
             <Input
               id="task-title"
@@ -159,7 +161,7 @@ export function KanbanAddTaskDialog({
             />
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label>
               Description
               <span className="text-muted-foreground text-xs">(optional)</span>
@@ -171,7 +173,7 @@ export function KanbanAddTaskDialog({
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div className="grid gap-1.5">
+            <div className="grid gap-2">
               <Label htmlFor="task-priority">Priority</Label>
               <Select
                 value={form.priority}
@@ -190,7 +192,7 @@ export function KanbanAddTaskDialog({
               </Select>
             </div>
 
-            <div className="grid gap-1.5">
+            <div className="grid gap-2">
               <Label htmlFor="task-assignee">Assignee</Label>
               <Select
                 value={form.assigneeKey}
@@ -209,7 +211,7 @@ export function KanbanAddTaskDialog({
               </Select>
             </div>
 
-            <div className="grid gap-1.5">
+            <div className="grid gap-2">
               <Label htmlFor="task-column">Column</Label>
               <Select value={columnId} onValueChange={setColumnId}>
                 <SelectTrigger id="task-column">
@@ -226,7 +228,7 @@ export function KanbanAddTaskDialog({
             </div>
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label>
               Due Date
               <span className="text-muted-foreground text-xs">(optional)</span>
@@ -238,7 +240,7 @@ export function KanbanAddTaskDialog({
                   className={cn('w-full justify-start text-left font-normal', !dueDate && 'text-muted-foreground')}
                 >
                   <CalendarIcon className="mr-2 size-4" />
-                  {dueDate ? dueDate.toLocaleDateString('en-US', { dateStyle: 'medium' }) : 'Pick a date'}
+                  {dueDate ? dueDate.toLocaleDateString(locale, { dateStyle: 'medium' }) : 'Pick a date'}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
@@ -247,7 +249,7 @@ export function KanbanAddTaskDialog({
             </Popover>
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label>
               Tags
               <span className="text-muted-foreground text-xs">(optional)</span>
@@ -275,7 +277,7 @@ export function KanbanAddTaskDialog({
             </div>
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-2">
             <Label>
               Subtasks
               <span className="text-muted-foreground text-xs">(optional)</span>

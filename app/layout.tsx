@@ -1,16 +1,28 @@
 import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import { PostHogProvider } from '@/components/posthog-provider'
 import { ThemeProvider } from '@/components/theme-provider'
+import { defaultLocale, LOCALE_COOKIE_NAME, normalizeLocale } from '@/lib/i18n'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'UIPKGE Next.js Boilerplate',
+  // Matches Nuxt's site-name title template: "<Page> | UIPKGE".
+  title: { default: 'UIPKGE', template: '%s | UIPKGE' },
   description: 'Production-grade Next.js App Router starter on the @uipkge-react UI registry.',
 }
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // Server reads the locale cookie for `<html lang>` + messages (single-URL
+  // strategy: no locale-prefixed routing, like Nuxt `no_prefix`). Switching
+  // happens client-side via `LocaleSwitcher` (cookie + router.refresh()).
+  const store = await cookies()
+  const locale = normalizeLocale(store.get(LOCALE_COOKIE_NAME)?.value ?? defaultLocale)
+  const messages = await getMessages()
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -21,7 +33,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="bg-background text-foreground min-h-dvh font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <PostHogProvider>{children}</PostHogProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <PostHogProvider>{children}</PostHogProvider>
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>

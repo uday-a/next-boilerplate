@@ -66,15 +66,15 @@ export const customers: Customer[] = [
 ]
 
 export const statusTone: Record<CustomerStatus, string> = {
-  active: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
-  trial: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20',
-  invited: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
-  churned: 'bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/20',
+  active: 'bg-success/10 text-success border-success/20',
+  trial: 'bg-info/10 text-info border-info/20',
+  invited: 'bg-warning/10 text-warning border-warning/20',
+  churned: 'bg-destructive/10 text-destructive border-destructive/20',
 }
 
 export const planChipTone: Record<CustomerPlan, string> = {
   Free: 'bg-muted text-muted-foreground',
-  Pro: 'bg-blue-500/10 text-blue-700 dark:text-blue-400',
-  Team: 'bg-violet-500/10 text-violet-700 dark:text-violet-400',
-  Enterprise: 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
+  Pro: 'bg-chart-1/10 text-chart-1',
+  Team: 'bg-chart-4/10 text-chart-4',
+  Enterprise: 'bg-chart-2/10 text-chart-2',
 }

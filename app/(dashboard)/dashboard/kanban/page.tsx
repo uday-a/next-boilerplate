@@ -1,6 +1,9 @@
+import { localizedMetadata } from '@/lib/page-title'
 import { KanbanPageClient } from './kanban-client'
 
-export const metadata = { title: 'Kanban' }
+export function generateMetadata() {
+  return localizedMetadata('/dashboard/kanban')
+}
 
 export default function KanbanPage() {
   return <KanbanPageClient />

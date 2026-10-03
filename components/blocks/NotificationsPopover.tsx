@@ -3,11 +3,11 @@
 import * as React from 'react'
 import {
   UserPlus,
-  Calendar,
   CreditCard,
   FileText,
-  GraduationCap,
-  Target,
+  Rocket,
+  ShieldCheck,
+  TriangleAlert,
   X,
   BellOff,
   Archive,
@@ -18,7 +18,7 @@ import { Badge } from '@/components/ui/badge'
 import { OverlayScroll } from '@/components/ui/overlay-scroll'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
-type NotificationCategory = 'hr' | 'payroll' | 'timeoff' | 'performance' | 'training' | 'system'
+type NotificationCategory = 'team' | 'billing' | 'deploy' | 'alert' | 'security' | 'system'
 
 interface Notification {
   id: string
@@ -32,36 +32,12 @@ interface Notification {
 }
 
 const categoryConfig: Record<NotificationCategory, { icon: LucideIcon; accent: string; bg: string }> = {
-  hr: {
-    icon: UserPlus,
-    accent: 'bg-success',
-    bg: 'bg-success/10 text-success',
-  },
-  payroll: {
-    icon: CreditCard,
-    accent: 'bg-info',
-    bg: 'bg-info/10 text-info',
-  },
-  timeoff: {
-    icon: Calendar,
-    accent: 'bg-chart-3',
-    bg: 'bg-chart-3/10 text-chart-3',
-  },
-  performance: {
-    icon: Target,
-    accent: 'bg-warning',
-    bg: 'bg-warning/10 text-warning',
-  },
-  training: {
-    icon: GraduationCap,
-    accent: 'bg-primary',
-    bg: 'bg-primary/10 text-primary',
-  },
-  system: {
-    icon: FileText,
-    accent: 'bg-muted-foreground',
-    bg: 'bg-muted text-muted-foreground',
-  },
+  team: { icon: UserPlus, accent: 'bg-chart-2', bg: 'bg-chart-2/10 text-chart-2' },
+  billing: { icon: CreditCard, accent: 'bg-chart-4', bg: 'bg-chart-4/10 text-chart-4' },
+  deploy: { icon: Rocket, accent: 'bg-chart-1', bg: 'bg-chart-1/10 text-chart-1' },
+  alert: { icon: TriangleAlert, accent: 'bg-warning', bg: 'bg-warning/10 text-warning' },
+  security: { icon: ShieldCheck, accent: 'bg-primary', bg: 'bg-primary/10 text-primary' },
+  system: { icon: FileText, accent: 'bg-muted-foreground', bg: 'bg-muted text-muted-foreground' },
 }
 
 const now = new Date()
@@ -69,70 +45,69 @@ const now = new Date()
 const initialNotifications: Notification[] = [
   {
     id: '1',
-    title: 'Time off approved',
-    body: 'Your annual leave request for Mar 15-18 has been approved by Sarah Connor.',
-    category: 'timeoff',
-    timestamp: new Date(now.getTime() - 12 * 60 * 1000),
+    title: 'Deploy succeeded',
+    body: 'v2.14.0 is live in production. 38 changes shipped.',
+    category: 'deploy',
+    timestamp: new Date(now.getTime() - 720000),
     read: false,
-    actor: 'Sarah Connor',
+    actor: 'Deploy bot',
   },
   {
     id: '2',
-    title: 'New employee onboarded',
-    body: 'Marcus Rivera has joined the Engineering team as Senior Developer.',
-    category: 'hr',
-    timestamp: new Date(now.getTime() - 45 * 60 * 1000),
+    title: 'New member joined',
+    body: 'Chloe Morgan accepted your invite and joined as Editor.',
+    category: 'team',
+    timestamp: new Date(now.getTime() - 2700000),
     read: false,
-    actor: 'Marcus Rivera',
+    actor: 'Chloe Morgan',
   },
   {
     id: '3',
-    title: 'Performance review due',
-    body: 'Annual performance review for 3 direct reports is due by end of this week.',
-    category: 'performance',
-    timestamp: new Date(now.getTime() - 2 * 60 * 60 * 1000),
+    title: 'Usage at 94% of limit',
+    body: 'Active file bundles: 47 of 50 used. Upgrade or archive to stay under the cap.',
+    category: 'alert',
+    timestamp: new Date(now.getTime() - 7200000),
     read: false,
   },
   {
     id: '4',
-    title: 'Payroll processed',
-    body: 'March 2026 payroll has been processed successfully. 103 employees paid.',
-    category: 'payroll',
-    timestamp: new Date(now.getTime() - 5 * 60 * 60 * 1000),
+    title: 'Invoice paid',
+    body: 'INV-2031 for $149.00 was charged to Visa ending 4242.',
+    category: 'billing',
+    timestamp: new Date(now.getTime() - 18000000),
     read: true,
   },
   {
     id: '5',
-    title: 'Training enrollment open',
-    body: 'New course available: "Leadership Fundamentals Q2". Enroll before Mar 20.',
-    category: 'training',
-    timestamp: new Date(now.getTime() - 8 * 60 * 60 * 1000),
+    title: 'New sign-in from Berlin',
+    body: 'Chrome on macOS. If this wasn’t you, revoke the session in Security.',
+    category: 'security',
+    timestamp: new Date(now.getTime() - 28800000),
     read: true,
   },
   {
     id: '6',
-    title: 'Document requires signature',
-    body: 'Updated Employee Handbook 2026 needs your acknowledgement.',
+    title: 'Weekly report ready',
+    body: 'Your workspace summary for Sep 22 – 28 is ready to view.',
     category: 'system',
-    timestamp: new Date(now.getTime() - 26 * 60 * 60 * 1000),
+    timestamp: new Date(now.getTime() - 93600000),
     read: true,
-    actionUrl: '/documents',
   },
   {
     id: '7',
-    title: 'Time off request pending',
-    body: 'Alice Johnson requested sick leave for Mar 12. Awaiting your approval.',
-    category: 'timeoff',
-    timestamp: new Date(now.getTime() - 28 * 60 * 60 * 1000),
+    title: 'Deploy rolled back',
+    body: 'v2.13.2 was rolled back after a failed health check in eu-west.',
+    category: 'deploy',
+    timestamp: new Date(now.getTime() - 100800000),
     read: true,
-    actor: 'Alice Johnson',
+    actor: 'Deploy bot',
   },
   {
     id: '8',
-    title: 'Benefits enrollment closing',
-    body: "Open enrollment period ends Mar 31. 12 employees haven't enrolled yet.",
-    category: 'hr',
-    timestamp: new Date(now.getTime() - 48 * 60 * 60 * 1000),
+    title: 'API key expires soon',
+    body: 'The “CI deploys” key expires in 7 days. Rotate it to avoid failed builds.',
+    category: 'security',
+    timestamp: new Date(now.getTime() - 172800000),
     read: true,
   },
 ]
@@ -151,44 +126,12 @@ function formatTime(date: Date): string {
   return `${diffDays}d ago`
 }
 
-const STYLE_ID = 'notifications-popover-styles'
-const STYLE_CONTENT = `
-.notification-item {
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-  animation: notif-slide-in 0.25s ease both;
-}
-.notification-item:hover {
-  background-color: var(--muted);
-}
-@keyframes notif-slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-`
-
 export interface NotificationsPopoverProps {
   /** Custom trigger. Receives the live unread count. */
   trigger?: (ctx: { unreadCount: number }) => React.ReactNode
 }
 
 export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
-  // Inject scoped styles once.
-  React.useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (document.getElementById(STYLE_ID)) return
-    const el = document.createElement('style')
-    el.id = STYLE_ID
-    el.textContent = STYLE_CONTENT
-    document.head.appendChild(el)
-  }, [])
-
   const [notifications, setNotifications] = React.useState<Notification[]>(initialNotifications)
   const [activeFilter, setActiveFilter] = React.useState<'all' | 'unread'>('all')
   const [isOpen, setIsOpen] = React.useState(false)
@@ -225,7 +168,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
     return (
       <div
         key={n.id}
-        className="notification-item group relative"
+        className="group hover:bg-muted animate-in fade-in-0 slide-in-from-bottom-1 relative cursor-pointer transition-colors duration-150"
         style={{ animationDelay: `${animationDelay}ms` }}
         onClick={() => markAsRead(n.id)}
       >
@@ -336,7 +279,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
 
         <OverlayScroll className="max-h-[420px]">
           {filteredNotifications.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-14 text-center">
+            <div className="flex flex-col items-center justify-center py-4 text-center">
               <div className="bg-muted mb-3 rounded-full p-3">
                 <BellOff className="text-muted-foreground size-5" />
               </div>
@@ -350,7 +293,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
               {groupedNotifications.today.length > 0 ? (
                 <>
                   <div className="px-4 pt-3 pb-1">
-                    <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                    <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                       Today
                     </span>
                   </div>
@@ -361,7 +304,7 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
               {groupedNotifications.earlier.length > 0 ? (
                 <>
                   <div className="px-4 pt-3 pb-1">
-                    <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
+                    <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                       Earlier
                     </span>
                   </div>
@@ -372,15 +315,19 @@ export function NotificationsPopover({ trigger }: NotificationsPopoverProps) {
               ) : null}
             </>
           )}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none sticky bottom-0 -mt-6 h-6 bg-gradient-to-b from-transparent to-popover"
+          />
         </OverlayScroll>
 
-        <div className="border-t px-4 py-2.5">
+        <div className="bg-popover relative z-10 border-t px-4 py-2.5">
           <a
             href="#"
             className="text-muted-foreground hover:text-foreground flex items-center justify-center gap-1.5 text-xs transition-colors"
             onClick={() => setIsOpen(false)}
           >
-            <Archive className="size-3" />
+            <Archive className="size-3.5" aria-hidden="true" />
             View all notifications
           </a>
         </div>

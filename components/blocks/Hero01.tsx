@@ -21,8 +21,6 @@ export function Hero01() {
 
   return (
     <section className="bg-background relative overflow-hidden">
-      <div className="bg-primary/10 pointer-events-none absolute -top-40 left-1/2 size-[600px] -translate-x-1/2 rounded-full blur-3xl" />
-
       <div className="relative mx-auto max-w-6xl px-6 py-24 lg:py-32">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="space-y-6">
@@ -54,7 +52,12 @@ export function Hero01() {
                 </Button>
               )}
               <Button asChild size="lg" variant="outline">
-                <Link href="/login">Watch demo (2 min)</Link>
+                {/* The login page has a one-click demo workspace; send people there
+                    rather than to a video that doesn't exist. */}
+                <Link href="/login">
+                  <PlayCircle className="size-4" aria-hidden="true" />
+                  Try the live demo
+                </Link>
               </Button>
             </div>
             <div className="text-muted-foreground flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
@@ -64,22 +67,10 @@ export function Hero01() {
             </div>
           </div>
 
-          <div className="relative">
-            <Card className="absolute -top-4 right-0 w-56 rotate-2 shadow-lg">
-              <CardContent className="space-y-1 p-4">
-                <p className="text-muted-foreground text-xs uppercase">Active users</p>
-                <p className="text-2xl font-semibold">1,284</p>
-                <p className="text-xs text-[var(--success)]">+8.2% MoM</p>
-              </CardContent>
-            </Card>
-            <Card className="absolute top-32 -left-2 w-52 -rotate-3 shadow-lg">
-              <CardContent className="space-y-1 p-4">
-                <p className="text-muted-foreground text-xs uppercase">Uptime</p>
-                <p className="text-2xl font-semibold">100%</p>
-                <p className="text-muted-foreground text-xs">12 cycles, 0 misses</p>
-              </CardContent>
-            </Card>
-            <Card className="ml-auto w-72 shadow-xl">
+          <div className="relative mx-auto w-full max-w-md lg:mr-0" aria-hidden="true">
+            {/* WHY: flat system -- shadow-sm only. Cards sit on
+                borders, not elevation. */}
+            <Card className="shadow-sm">
               <CardHeader>
                 <CardTitle className="text-base">Onboarding queue</CardTitle>
                 <CardDescription>3 starting Monday</CardDescription>
@@ -117,6 +108,22 @@ export function Hero01() {
                 </div>
               </CardContent>
             </Card>
+            <div className="relative -mt-4 hidden grid-cols-2 gap-4 px-4 md:grid">
+              <Card className="rotate-2 shadow-sm">
+                <CardContent className="space-y-1 p-4">
+                  <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Active users</p>
+                  <p className="text-2xl font-semibold tracking-tight tabular-nums">1,284</p>
+                  <p className="text-success text-xs">+8.2% MoM</p>
+                </CardContent>
+              </Card>
+              <Card className="-rotate-2 shadow-sm">
+                <CardContent className="space-y-1 p-4">
+                  <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Uptime</p>
+                  <p className="text-2xl font-semibold tracking-tight tabular-nums">100%</p>
+                  <p className="text-muted-foreground text-xs">12 cycles, 0 misses</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>

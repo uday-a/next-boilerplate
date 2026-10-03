@@ -5,6 +5,7 @@
 // and a "Add team" footer row. Wire setActive() to your tenant API.
 
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 import { AudioWaveform, Check, ChevronsUpDown, Command, Plus, type LucideIcon } from 'lucide-react'
 import {
   DropdownMenu,
@@ -26,12 +27,13 @@ type Team = {
 
 const teams: Team[] = [
   { name: 'UIPKGE', logo: UipkgeLogo, plan: 'Next.js' },
-  { name: 'Acme Corp.', logo: AudioWaveform, plan: 'Startup' },
-  { name: 'Evil Corp.', logo: Command, plan: 'Free' },
+  { name: 'Globex', logo: AudioWaveform, plan: 'Startup' },
+  { name: 'Initech', logo: Command, plan: 'Free' },
 ]
 
 export function TeamSwitcher() {
   const { isMobile } = useSidebar()
+  const t = useTranslations()
   const [activeTeam, setActiveTeam] = React.useState<Team>(teams[0]!)
   const ActiveLogo = activeTeam.logo
 
@@ -60,7 +62,7 @@ export function TeamSwitcher() {
             align="start"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="text-muted-foreground text-xs">Teams</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-muted-foreground text-xs">{t('nav.groups.teams')}</DropdownMenuLabel>
             {teams.map((team, i) => {
               const Logo = team.logo
               return (
@@ -82,7 +84,7 @@ export function TeamSwitcher() {
               <div className="bg-background flex size-6 items-center justify-center rounded-md border">
                 <Plus className="size-4" />
               </div>
-              <div className="text-muted-foreground font-medium">Add team</div>
+              <div className="text-muted-foreground font-medium">{t('nav.actions.addTeam')}</div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

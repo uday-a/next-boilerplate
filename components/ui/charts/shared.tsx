@@ -24,6 +24,7 @@ import {
   TreeChart as EChartsTreeChart,
 } from 'echarts/charts'
 import {
+  AriaComponent,
   GridComponent,
   TooltipComponent,
   LegendComponent,
@@ -47,14 +48,18 @@ interface ChartFrameProps {
   /** Apply the accessible role/tabindex/focus-ring chrome. Some chart
    *  wrappers ship a bare `w-full` frame -- pass `false` for those. */
   focusable?: boolean
+  /** Descriptive label for the `role="img"` frame, e.g. "Revenue vs
+   *  expenses chart". Every ECharts canvas must carry one. */
+  ariaLabel?: string
 }
 
 /** Shared `<div>` wrapper around the ECharts canvas. */
 export const ChartFrame = React.forwardRef<HTMLDivElement, ChartFrameProps & { children: React.ReactNode }>(
-  ({ height, className, focusable = true, children }, ref) => (
+  ({ height, className, focusable = true, ariaLabel, children }, ref) => (
     <div
       ref={ref}
       role={focusable ? 'img' : undefined}
+      aria-label={focusable ? ariaLabel : undefined}
       tabIndex={focusable ? 0 : undefined}
       style={{ height: heightToStyle(height) }}
       className={
@@ -104,6 +109,7 @@ registerECharts([
   EChartsSunburstChart,
   ThemeRiverChart,
   EChartsTreeChart,
+  AriaComponent,
   GridComponent,
   TooltipComponent,
   LegendComponent,
