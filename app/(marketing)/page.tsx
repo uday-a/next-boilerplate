@@ -9,8 +9,9 @@ import { Hero01 } from '@/components/blocks/Hero01'
 import { Logos01 } from '@/components/blocks/Logos01'
 import { Pricing01 } from '@/components/blocks/Pricing01'
 import { Testimonials01 } from '@/components/blocks/Testimonials01'
+import { publicMetadata } from '@/lib/seo'
 
-export const metadata = { title: 'The workspace your team will actually use' }
+export const metadata = publicMetadata('/', 'The workspace your team will actually use')
 
 export default function LandingPage() {
   return (

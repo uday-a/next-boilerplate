@@ -5,12 +5,16 @@ import { getMessages } from 'next-intl/server'
 import { PostHogProvider } from '@/components/posthog-provider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { defaultLocale, LOCALE_COOKIE_NAME, normalizeLocale } from '@/lib/i18n'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   // Matches Nuxt's site-name title template: "<Page> | UIPKGE".
-  title: { default: 'UIPKGE', template: '%s | UIPKGE' },
-  description: 'Production-grade Next.js App Router starter on the @uipkge-react UI registry.',
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  openGraph: { type: 'website', siteName: SITE_NAME, title: SITE_NAME, description: SITE_DESCRIPTION },
+  twitter: { card: 'summary' },
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
