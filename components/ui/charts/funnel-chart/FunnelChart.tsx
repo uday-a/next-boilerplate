@@ -181,27 +181,29 @@ export const FunnelChart = React.forwardRef<HTMLDivElement, FunnelChartProps>(
             ))}
           </ul>
         ) : null}
-        <table className="sr-only">
-          <caption>Conversion funnel by stage</caption>
-          <thead>
-            <tr>
-              <th scope="col">Stage</th>
-              <th scope="col">Count</th>
-              <th scope="col">Step rate</th>
-              <th scope="col">Cumulative</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stats.steps.map((s, i) => (
-              <tr key={`${s.name}-${i}`}>
-                <th scope="row">{s.name}</th>
-                <td>{s.value.toLocaleString()}</td>
-                <td>{s.stepRate === null ? '100% baseline' : `${formatPct(s.stepRate)} from ${s.prevName}`}</td>
-                <td>{formatPct(s.cumulative)} of top</td>
+        <div className="sr-only">
+          <table>
+            <caption>Conversion funnel by stage</caption>
+            <thead>
+              <tr>
+                <th scope="col">Stage</th>
+                <th scope="col">Count</th>
+                <th scope="col">Step rate</th>
+                <th scope="col">Cumulative</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {stats.steps.map((s, i) => (
+                <tr key={`${s.name}-${i}`}>
+                  <th scope="row">{s.name}</th>
+                  <td>{s.value.toLocaleString()}</td>
+                  <td>{s.stepRate === null ? '100% baseline' : `${formatPct(s.stepRate)} from ${s.prevName}`}</td>
+                  <td>{formatPct(s.cumulative)} of top</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   },
