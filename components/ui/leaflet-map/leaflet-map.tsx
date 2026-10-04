@@ -323,10 +323,14 @@ const LeafletMapComponent = React.forwardRef<LeafletMapRef, LeafletMapProps>(
       if (mapRef.current) applyTiles(resolvedTiles)
     }, [resolvedTiles, applyTiles])
 
+    // Depend on the coordinates, not the array: a parent re-render that passes
+    // a fresh `[lng, lat]` literal must not snap the user's pan/zoom back.
+    const centerLng = center?.[0]
+    const centerLat = center?.[1]
     React.useEffect(() => {
       const m = mapRef.current
-      if (m && center) m.setView(toLatLng(center), zoom)
-    }, [center, zoom])
+      if (m && centerLng !== undefined && centerLat !== undefined) m.setView(toLatLng([centerLng, centerLat]), zoom)
+    }, [centerLng, centerLat, zoom])
 
     React.useEffect(() => {
       if (!attribution) setShowAttribution(false)
