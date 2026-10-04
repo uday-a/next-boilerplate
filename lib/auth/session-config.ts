@@ -6,10 +6,13 @@ export function getSessionConfig(): SessionOptions {
   if (!password || password.length < 32) {
     throw new Error('AUTH_SECRET must be set (32+ chars) for session encryption')
   }
+  const sevenDays = 60 * 60 * 24 * 7
   return {
     password,
     cookieName: 'uipkge_session',
+    ttl: sevenDays,
     cookieOptions: {
+      maxAge: sevenDays,
       // Secure unless explicitly in development (unset NODE_ENV = prod).
       secure: process.env.NODE_ENV !== 'development',
       httpOnly: true,
