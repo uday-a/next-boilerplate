@@ -1,44 +1,57 @@
 import { Footer01 } from '@/components/blocks/Footer01'
 import { Header01 } from '@/components/blocks/Header01'
+import { publicMetadata } from '@/lib/seo'
 
-export const metadata = { title: 'Terms of Service' }
+export const metadata = publicMetadata('/terms', 'Terms of Service')
 
-export default function TermsPage() {
+// Sample copy. Replace with your own before launch and have counsel review it.
+const sections = [
+  {
+    heading: "Agreement",
+    body: "By creating an account or using UIPKGE, you agree to these terms on behalf of yourself and the organization you represent.",
+  },
+  {
+    heading: "Use of the service",
+    body: "Use the service only for lawful purposes. Do not attempt to disrupt it, access other customers' data, or resell access without a written agreement.",
+  },
+  {
+    heading: "Accounts",
+    body: "You are responsible for the people you invite to your workspace and for keeping sign-in methods secure. Tell us promptly about any unauthorized access.",
+  },
+  {
+    heading: "Billing",
+    body: "Paid plans renew automatically each month or year until canceled. Seat changes are prorated on your next invoice. Fees are non-refundable except where required by law.",
+  },
+  {
+    heading: "Termination",
+    body: "You can cancel at any time from Settings \u2192 Billing. We may suspend accounts that break these terms. After cancellation you can export your data for 30 days.",
+  },
+  {
+    heading: "Contact",
+    body: "Questions about these terms? Email legal@uipkge.dev.",
+  },
+]
+
+export default function TermsOfServicePage() {
   return (
     <div className="bg-background text-foreground min-h-screen">
-      <a
-        href="#main-content"
-        className="bg-background text-foreground ring-ring sr-only z-50 rounded-md text-sm font-medium shadow-md ring-2 focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:px-3 focus:py-2"
-      >
-        Skip to content
-      </a>
       <Header01 />
-      <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-6 py-16 outline-none">
-        <article className="prose dark:prose-invert max-w-none">
-          <h1 className="text-3xl font-semibold tracking-tight">Terms of Service</h1>
-          <p className="text-muted-foreground text-sm">
-            Last updated: <time dateTime="2026-05-17">May 17, 2026</time>
-          </p>
-
-          <h2 className="mt-8 text-xl font-semibold">1. Agreement</h2>
-          <p className="text-muted-foreground">
-            Replace this stub with your actual terms before launch. Consider consulting counsel.
-          </p>
-
-          <h2 className="mt-6 text-xl font-semibold">2. Use of the Service</h2>
-          <p className="text-muted-foreground">…</p>
-
-          <h2 className="mt-6 text-xl font-semibold">3. Accounts</h2>
-          <p className="text-muted-foreground">…</p>
-
-          <h2 className="mt-6 text-xl font-semibold">4. Billing</h2>
-          <p className="text-muted-foreground">…</p>
-
-          <h2 className="mt-6 text-xl font-semibold">5. Termination</h2>
-          <p className="text-muted-foreground">…</p>
-
-          <h2 className="mt-6 text-xl font-semibold">6. Contact</h2>
-          <p className="text-muted-foreground">support@acme.dev</p>
+      <main id="main-content" tabIndex={-1} className="mx-auto max-w-3xl px-4 py-4 outline-none">
+        <article className="space-y-4">
+          <header className="space-y-2">
+            <h1 className="text-3xl font-semibold tracking-tight">Terms of Service</h1>
+            <p className="text-muted-foreground text-sm">
+              Last updated: <time dateTime="2026-05-17">May 17, 2026</time>
+            </p>
+          </header>
+          {sections.map((section, i) => (
+            <section key={section.heading} className="space-y-2">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {i + 1}. {section.heading}
+              </h2>
+              <p className="text-muted-foreground text-sm leading-relaxed">{section.body}</p>
+            </section>
+          ))}
         </article>
       </main>
       <Footer01 />

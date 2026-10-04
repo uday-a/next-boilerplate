@@ -43,5 +43,5 @@ export function PricingClient() {
     window.location.href = 'mailto:sales@example.com?subject=Enterprise%20plan%20inquiry'
   }
 
-  return <Pricing01 onSubscribe={onSubscribe} onContactSales={onContactSales} />
+  return <Pricing01 page onSubscribe={onSubscribe} onContactSales={onContactSales} />
 }

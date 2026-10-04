@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { cn } from '@/lib/utils'
 
 type Cycle = 'monthly' | 'yearly'
 type Plan = 'pro' | 'team' | 'enterprise'
@@ -14,17 +15,20 @@ type Plan = 'pro' | 'team' | 'enterprise'
 export interface Pricing01Props {
   onSubscribe?: (plan: Plan, cycle: Cycle) => void
   onContactSales?: () => void
+  /** Render the heading as the page H1 (on /pricing) and drop the eyebrow. */
+  page?: boolean
 }
 
-export function Pricing01({ onSubscribe, onContactSales }: Pricing01Props = {}) {
+export function Pricing01({ onSubscribe, onContactSales, page = false }: Pricing01Props = {}) {
   const [cycle, setCycle] = React.useState<Cycle>('monthly')
+  const Heading = page ? 'h1' : 'h2'
 
   return (
     <section className="bg-background">
-      <div className="mx-auto max-w-6xl px-6 py-24">
+      <div className={cn('mx-auto max-w-6xl px-6', page ? 'py-4' : 'py-24')}>
         <div className="mb-10 text-center">
-          <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Pricing</p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Plans for teams of every size</h2>
+          {!page && <p className="text-muted-foreground text-xs font-medium tracking-wider uppercase">Pricing</p>}
+          <Heading className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">Plans for teams of every size</Heading>
           <p className="text-muted-foreground mx-auto mt-3 max-w-xl text-lg">
             No hidden fees. Cancel anytime. Save 20% with annual billing.
           </p>
