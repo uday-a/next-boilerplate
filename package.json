@@ -15,7 +15,9 @@
     "test:e2e": "playwright test",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "bootstrap:registry": "node scripts/copy-from-registry.mjs"
+    "bootstrap:registry": "node scripts/copy-from-registry.mjs",
+    "catalog:sync": "node scripts/ui-catalog.ts sync-registry",
+    "catalog:scan": "node scripts/ui-catalog.ts scan-usage"
   },
   "dependencies": {
     "@axiomhq/js": "^1.8.0",

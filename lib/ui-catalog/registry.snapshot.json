@@ -1,0 +1,2015 @@
+{
+  "source": "uipkge-ui/apps/astro-site/public/r/react/registry.json",
+  "items": [
+    {
+      "name": "bento-01",
+      "title": "Telemetry Bento",
+      "type": "registry:block",
+      "description": "High-density bento grid featuring an interactive AI query copilot workbench, real-time edge network telemetry feed, live latency radar, and SOC 2 compliance vault status.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "command-palette",
+      "title": "Command Palette",
+      "type": "registry:block",
+      "description": "Header-grade search/command palette. Bundles the slim trigger button (with platform-aware ⌘K/Ctrl-K kbd hint) AND the modal CommandDialog into one block; consumers drop it once and the global keyboard shortcut wires itself. Takes a `groups` array of `{ heading, items: [{ label, hint, icon, onSelect }] }` and calls `onSelect`. `showTrigger={false}` hides the inline button so the consumer can control open state from elsewhere.",
+      "categories": [
+        "layout",
+        "dashboard",
+        "overlay",
+        "navigation"
+      ]
+    },
+    {
+      "name": "contact-01",
+      "title": "Sales Contact Form",
+      "type": "registry:block",
+      "description": "Interactive enterprise solutions architect dispatch workbench with track selection, live hub timezones, SLA badges, and ticket generator.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "cta-01",
+      "title": "Conversion CTA",
+      "type": "registry:block",
+      "description": "Interactive developer CTA section with live framework switcher, interactive CLI installation terminal, 1-click clipboard copy, and production guarantees.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "dashboard-layout",
+      "title": "Dashboard Layout",
+      "type": "registry:block",
+      "description": "Full dashboard shell — collapsible sidebar + sticky topbar (sidebar trigger, breadcrumb, theme switch, notifications) + main content children. Drop it around a page: `<DashboardLayout>{page}</DashboardLayout>`.",
+      "categories": [
+        "layout",
+        "dashboard"
+      ]
+    },
+    {
+      "name": "faq-01",
+      "title": "Accordion FAQ",
+      "type": "registry:block",
+      "description": "Interactive architecture knowledge base and FAQ section with real-time keyword search, category topic filtering, and helpfulness voting.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "features-01",
+      "title": "Tabbed Feature Matrix",
+      "type": "registry:block",
+      "description": "Interactive enterprise product feature workbench with live module simulations, dynamic directory filters, real-time payroll calculations, continuous SOC 2 compliance verification, and TypeScript API code viewer.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "footer-01",
+      "title": "Multi-Column Footer",
+      "type": "registry:block",
+      "description": "Site footer with brand mark + newsletter form on the left and four link columns (Product / Company / Resources / Legal) on the right. Separator divides into a copyright + social icon row. Each link is spelled out inline so copy lives in one place.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "header-01",
+      "title": "Sticky Top Navbar",
+      "type": "registry:block",
+      "description": "Sticky marketing top-bar. Brand mark on the left, five inline anchor links in the centre on desktop, \"Sign in\" + primary trial CTA on the right. Below the md breakpoint the right side collapses into a hamburger that opens a right-side Sheet with the same links and CTAs stacked. Translucent background uses backdrop-blur so content can scroll behind it.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "hero-01",
+      "title": "Metric Showcase Hero",
+      "type": "registry:block",
+      "description": "Two-column hero with badge eyebrow, large headline, supporting copy, primary + outline CTAs, social proof row, and a collage of three rotated KPI cards (active users / uptime / onboarding queue) on the right.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "logos-01",
+      "title": "Static Logo Grid",
+      "type": "registry:block",
+      "description": "Customer-logo cloud strip. \"Trusted by teams at\" eyebrow over a responsive grid of six grayscale wordmarks (2 / 3 / 6 columns by breakpoint). Each logo is an inline SVG sitting on currentColor so the muted-foreground → foreground hover swap works. Ships with placeholder marks — swap the SVGs with real customer logos before shipping.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "notifications-popover",
+      "title": "Notifications Popover",
+      "type": "registry:block",
+      "description": "Header-grade notifications panel. Slot-trigger Popover the consumer wraps around their own Bell button. Filter tabs (All/Unread), Today/Earlier groups, category-coloured accent bars, hover-dismiss, mark-all-read, slide-in animation. Slot receives `unreadCount` so the trigger can show a badge.",
+      "categories": [
+        "communication",
+        "dashboard",
+        "overlay"
+      ]
+    },
+    {
+      "name": "pricing-01",
+      "title": "Seat Pricing Matrix",
+      "type": "registry:block",
+      "description": "Comprehensive enterprise pricing workbench with monthly/annual billing cycle toggle, currency selector (USD/EUR/GBP), team seat simulator slider, dynamic add-on calculators, and an expandable side-by-side feature comparison matrix.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "sidebar-02",
+      "title": "Team Switcher Sidebar",
+      "type": "registry:block",
+      "description": "Full-featured app sidebar -- collapsible=\"icon\" rail with TeamSwitcher header, primary nav, projects section, secondary nav, and user dropdown footer. Each section ships as a sibling file in the same folder so consumers can edit one piece at a time.",
+      "categories": [
+        "layout",
+        "sidebar"
+      ]
+    },
+    {
+      "name": "testimonials-01",
+      "title": "Customer Testimonials",
+      "type": "registry:block",
+      "description": "Interactive customer case study and ROI telemetry workbench with industry filters, verified customer metrics, tech stack tags, and autoplay navigation.",
+      "categories": [
+        "marketing"
+      ]
+    },
+    {
+      "name": "auth-mfa",
+      "title": "Auth Mfa",
+      "type": "registry:page",
+      "description": "Two-step verification surface. 6-digit OTP pin input auto-submits on entry, shows verifying state and an inline error on mismatch, has a 30-second resend cooldown, and swaps to a Verified card with a Continue button on success. Emits `verify` (code), `resend`, and `continue`. `demoCode` prop controls the value the built-in mock validator accepts.",
+      "categories": [
+        "auth"
+      ]
+    },
+    {
+      "name": "auth-password-reset",
+      "title": "Auth Password Reset",
+      "type": "registry:page",
+      "description": "Four-stage password reset surface in a single card: request (email form) -> sent (check-your-inbox confirmation with \"Open reset form\" demo button) -> reset (new password + confirm with match validation) -> done (success confirmation linking back to sign-in). Emits `request` (email) when the link is asked for and `reset` (password) when the new password is set; consumer wires the actual mail/db calls.",
+      "categories": [
+        "auth"
+      ]
+    },
+    {
+      "name": "auth-sign-in",
+      "title": "Auth Sign In",
+      "type": "registry:page",
+      "description": "Full-page sign-in surface. Email + password + remember-me form, forgot-password and sign-up links, optional GitHub/Google OAuth row. Emits `submit` with the form payload and `oauth` with the chosen provider; consumer wires the actual auth call. Link targets are configurable via props.",
+      "categories": [
+        "auth"
+      ]
+    },
+    {
+      "name": "auth-sign-up",
+      "title": "Auth Sign Up",
+      "type": "registry:page",
+      "description": "Full-page sign-up surface. Name/email/password/confirm form with password-match validation, T&C acceptance gate, optional OAuth row, link back to sign-in. Emits `submit` with the validated payload and `oauth` with provider; consumer wires the actual auth call.",
+      "categories": [
+        "auth"
+      ]
+    },
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "type": "registry:ui",
+      "description": "Vertically stacked, collapsible panels — one or many open at a time. Use for FAQs, settings groups, and any place where space is tight but content needs to stay browsable. Built on Radix UI with smooth animation and full keyboard support.",
+      "categories": [
+        "disclosure"
+      ]
+    },
+    {
+      "name": "advance-select",
+      "title": "Advance Select",
+      "type": "registry:ui",
+      "description": "Searchable, async-capable select with keyboard navigation, multi-select, and option grouping. Drop in when the native `<select>` or the basic Select primitive runs out of room — large lists, debounced server-side filtering, custom rendered items.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "type": "registry:ui",
+      "description": "Static, in-flow notice block with a leading icon, title, and description. Use for inline page-level messages — info banners, success confirmations, warning callouts. Two tones: `default` and `destructive`.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "alert-modal",
+      "title": "Alert Modal",
+      "type": "registry:ui",
+      "description": "Props-driven shortcut for confirm and destructive prompts — pass `title`, `description`, `actionLabel`, and a `tone` and you get a fully styled modal with a leading icon ring, action button, and optional async loading state. Skip it and use Dialog when you need a free-form modal instead.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "alluvial-chart",
+      "title": "Alluvial Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/alluvial-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "animated-number",
+      "title": "Animated Number",
+      "type": "registry:ui",
+      "description": "Tweened number display — counts up on mount and smoothly retargets when the value changes. Ease-out cubic via requestAnimationFrame, custom formatter (Intl-ready), delay/stagger support, honors prefers-reduced-motion, SSR-safe.",
+      "categories": [
+        "display",
+        "data"
+      ]
+    },
+    {
+      "name": "area-chart",
+      "title": "Area Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/area-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "Aspect Ratio",
+      "type": "registry:ui",
+      "description": "Wraps content (typically images, video, or iframes) at a fixed width:height ratio so it never letterboxes or jumps as it loads. Common ratios: 16/9 for video, 1/1 for avatars, 4/3 for cards.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "attachment",
+      "title": "Attachment",
+      "type": "registry:ui",
+      "description": "Single file or image chip. Drive look with props: state, size, orientation, media, src, removable. Not a dropzone (see file-upload).",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "type": "registry:ui",
+      "description": "Round or rounded-square user image with a fallback that shows initials or an icon when the image is missing or fails to load. Sizes from xs to 2xl, optional status dot, and a group composition for stacked avatar lists.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "back-top",
+      "title": "Back Top",
+      "type": "registry:ui",
+      "description": "Scroll-to-top floating button. Appears after the target container scrolls past a threshold and smooth-scrolls back on click. Supports custom target container, visibility threshold, scroll behavior, custom icon slot, four edge anchors, size variants, and edge offset.",
+      "categories": [
+        "navigation",
+        "utility"
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "type": "registry:ui",
+      "description": "Small inline label for status, counts, or tags — sits beside other content, not as a standalone control. Seven variants: `default`, `secondary`, `destructive`, `outline`, `success`, `warning`, `info`.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "title": "Bar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/bar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "bar-race-chart",
+      "title": "Bar Race Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/bar-race-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "beeswarm-chart",
+      "title": "Beeswarm Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/beeswarm-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "block-ui",
+      "title": "Block Ui",
+      "type": "registry:ui",
+      "description": "Overlay that blocks interaction during loading. Wraps content and shows a spinner + message overlay. The blocking prop toggles the blocked state with configurable overlay opacity, color, background blur, and custom icon/message slots. Composes the spinner primitive.",
+      "categories": [
+        "feedback",
+        "utility"
+      ]
+    },
+    {
+      "name": "board",
+      "title": "Board — compositional kanban / sortable-list primitive",
+      "type": "registry:ui",
+      "description": "Six small composable components for any board / kanban / sortable-list surface — opinionated about drop targeting and animation, agnostic about layout, data, and chrome. Drop `<Board>` around a grid of `<BoardLane>` columns; nest `<BoardLaneHeader>`, `<BoardLaneBody>`, `<BoardLaneEmpty>`, and `<BoardCard>` items inside each lane. State lives in a sibling `useBoard()` hook (insertion-index drop math, keyboard a11y, accept predicate). Cards use native HTML5 drag-and-drop (draggable + onDragStart / onLaneDragOver / onLaneDrop) — the lane components emit drag events up to the consumer, which threads them through useBoard and feeds the resulting state back in as props. Three-level React context (board → lane → card) mirrors the Timeline / Card sub-component pattern.",
+      "categories": [
+        "data",
+        "layout"
+      ]
+    },
+    {
+      "name": "border-beam",
+      "title": "Border Beam",
+      "type": "registry:ui",
+      "description": "Rotating conic light beam that traces the border ring of its parent. Place inside a `relative` parent (e.g. a Card); the overlay is absolutely positioned, pointer-events-none, and masked down to a ring of `size` px thickness. Tune `duration`, `delay`, and `color`, or set `paused` to freeze it. Keyframes and the `--uipkge-border-angle` @property ship in the canonical tailwind tokens — re-pull init/tailwind if upgrading.",
+      "categories": [
+        "feedback",
+        "motion"
+      ]
+    },
+    {
+      "name": "bottom-navigation",
+      "title": "Bottom Navigation",
+      "type": "registry:ui",
+      "description": "Mobile bottom tab bar with icon + label items. Supports value/defaultValue for the active item, an active color, fixed positioning at the viewport bottom, badges on items, and a `to` prop for link integration.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "boxplot-chart",
+      "title": "Boxplot Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/boxplot-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "type": "registry:ui",
+      "description": "Hierarchical wayfinding strip that shows a user’s position in a nested page tree. Built from `<BreadcrumbList>` and `<BreadcrumbItem>` primitives so you can drop in custom separators, dropdowns for collapsed parents, and ellipsis for overflow.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "bubble-chart",
+      "title": "Bubble Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/bubble-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "bubble-map",
+      "title": "Bubble Map",
+      "type": "registry:ui",
+      "description": "Proportional symbol bubble map as dependency-free SVG. Eliminates geographic landmass distortion by scaling circle areas to continuous quantitative values with mathematical square-root radius normalization, pulsating concentric ripple rings, multi-tier size legend, and interactive hover cards.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "bullet-chart",
+      "title": "Bullet Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/bullet-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "type": "registry:ui",
+      "description": "Interactive button component with variants (default, destructive, outline, secondary, ghost, link), sizes, and composite ButtonGroup container for segmented toolbars and split buttons.",
+      "categories": [
+        "control"
+      ]
+    },
+    {
+      "name": "calendar",
+      "title": "Calendar",
+      "type": "registry:ui",
+      "description": "Single-month calendar grid for date selection (react-day-picker). Use inline or in a custom popover. For form fields, use Date Picker. Supports min/max, disabled dates, multi-month, and locale.",
+      "categories": [
+        "date-time"
+      ]
+    },
+    {
+      "name": "calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/calendar-heatmap — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "candlestick-chart",
+      "title": "Candlestick Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/candlestick-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "type": "registry:ui",
+      "description": "Bordered container with an opinionated header / content / footer layout. Use it as the wrapper around any self-contained block of content — settings panels, dashboard tiles, list cells.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "carousel",
+      "title": "Carousel",
+      "type": "registry:ui",
+      "description": "Horizontal or vertical scroller with previous/next controls. Built on embla-carousel-react (the official shadcn carousel pattern) and wired through a React context. Drop in images, cards, or any custom slide content.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "cascade-select",
+      "title": "Cascade Select",
+      "type": "registry:ui",
+      "description": "Hierarchical cascading select where each level selection determines the next level options. Displays the selected path as labels. Supports search, clearable, disabled, and loading states.",
+      "categories": [
+        "control",
+        "form"
+      ]
+    },
+    {
+      "name": "category-distribution-chart",
+      "title": "Category Distribution Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/category-distribution-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "charts",
+      "title": "Charts",
+      "type": "registry:ui",
+      "description": "Meta-bundle that installs every chart wrapper at once -- 65 charts spanning cartesian (area / bar / stacked-bar / stacked-area / line / range-area / control / slope / scatter / effect-scatter / bubble / quadrant / candlestick / heikin-ashi / range-bar / marimekko / theme-river / waterfall / combo / pareto / polar-bar / pictorial-bar / lollipop / dumbbell / histogram / gantt / bar-race / population-pyramid), circular (pie / donut / nightingale / radar / gauge / segmented-gauge / liquid-fill / progress-ring), hierarchy (treemap / funnel / smooth-funnel / sunburst / icicle / tree), flow (sankey / chord / alluvial / graph / parallel), distribution (boxplot / violin / beeswarm / error-bar / bullet), specialty (heatmap / calendar-heatmap / sparkline / word-cloud / waffle / uptime-tracker / category-distribution), maps (dotted-map / choropleth-map / us-choropleth / us-tile-grid / us-symbol-map), and the raw escape hatch. Each is also installable on its own.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "type": "registry:ui",
+      "description": "Standalone or in-form binary toggle, built on Radix UI. Supports indeterminate state for tri-state lists, sizes, and proper keyboard / screen-reader behavior. Pair with Label for clickable text.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "chip",
+      "title": "Chip",
+      "type": "registry:ui",
+      "description": "Compact, removable tag — typically used inside `tags-input` or as a filter pill. Seven variants (`default`, `filled`, `outlined`, `elevated`, `success`, `warning`, `destructive`), three sizes, and an optional close button.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "chord-chart",
+      "title": "Chord Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/chord-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "choropleth-map-chart",
+      "title": "Choropleth Map Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/choropleth-map-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "circular-progress",
+      "title": "Circular Progress",
+      "type": "registry:ui",
+      "description": "Radial/circular progress indicator. Supports value (0-100), size presets or custom pixel size, stroke thickness, custom arc and track colors, indeterminate spinning mode, a label slot for center content, and a show-value prop that renders the percentage in the center.",
+      "categories": [
+        "feedback",
+        "display"
+      ]
+    },
+    {
+      "name": "clipboard",
+      "title": "Clipboard",
+      "type": "registry:ui",
+      "description": "Copy-to-clipboard button with success/error feedback. Swaps the icon to a check on success, shows a tooltip with configurable feedback text, supports a visible label, disabled state, a custom timeout for feedback reset, and copy/success/error events. Includes a legacy execCommand fallback for non-secure contexts. Composes the tooltip primitive.",
+      "categories": [
+        "utility",
+        "control"
+      ]
+    },
+    {
+      "name": "code-block",
+      "title": "Code Block",
+      "type": "registry:ui",
+      "description": "Syntax-highlighted code preview with a language header, copy button, optional line numbers, and collapsible `<pre>` content. Use for installation snippets, API examples, and source you want users to copy verbatim.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "type": "registry:ui",
+      "description": "Headless single-region show/hide primitive. Use it when Accordion is overkill — a single toggle reveals one panel of content. Smooth height animation built in.",
+      "categories": [
+        "disclosure"
+      ]
+    },
+    {
+      "name": "color-picker",
+      "title": "Color Picker",
+      "type": "registry:ui",
+      "description": "Hex / RGB color input with a popover swatch grid. Supports controlled and uncontrolled modes, alpha channel, and a recent-colors row.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "combo-chart",
+      "title": "Combo Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/combo-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "command",
+      "title": "Command",
+      "type": "registry:ui",
+      "description": "Searchable command palette à la Cmd-K — keyboard-driven menu with grouped items, icons, shortcuts, and fuzzy filtering. Use as a global launcher (mounted in a Dialog) or inline as a typeahead select.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "context-menu",
+      "title": "Context Menu",
+      "type": "registry:ui",
+      "description": "Right-click menu — same primitives as Dropdown Menu but triggered by `contextmenu` events. Drop on any element you want to attach row actions, file-system style operations, or copy/paste menus to.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "control-chart",
+      "title": "Control Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/control-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "countdown",
+      "title": "Countdown",
+      "type": "registry:ui",
+      "description": "Countdown timer that shows time remaining to a target date. Digits flip on each tick. Supports DD:HH:MM:SS, HH:MM:SS, MM:SS, and SS formats plus custom token formats, render props for days/hours/minutes/seconds, a label, leading-zero padding, a custom separator, paused state, and on-finish/tick events.",
+      "categories": [
+        "display",
+        "utility"
+      ]
+    },
+    {
+      "name": "data-list",
+      "title": "Data List",
+      "type": "registry:ui",
+      "description": "Vertical key/value list for showing read-only metadata — invoice details, settings summaries, profile fields. Pair items in label/value rows; supports inline edit triggers and trailing actions per row.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "data-table",
+      "title": "Data Table",
+      "type": "registry:ui",
+      "description": "Full-feature table with sorting, filtering, column pinning, pagination, row selection, and an opinionated header/toolbar. Built on TanStack Table — pass `columns` + `data` and configure as needed.",
+      "categories": [
+        "data"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "title": "Date Picker",
+      "type": "registry:ui",
+      "description": "Form date control: trigger + popover + Calendar/RangeCalendar + optional time. Single/multiple/range, week/month/quarter/year pickers, presets, confirm mode, min/max and disabled dates. For an always-visible grid, use Calendar instead.",
+      "categories": [
+        "date-time"
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "type": "registry:ui",
+      "description": "Free-form modal primitive — composable from `Dialog`, `DialogTrigger`, `DialogContent`, and friends. Use for forms, info cards, pickers, and any custom modal layout. For confirm/destructive prompts, prefer the prebuilt `AlertModal` shortcut.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "dock",
+      "title": "Dock",
+      "type": "registry:ui",
+      "description": "macOS-style dock menu with magnification on hover. Items expand as the cursor approaches using a cosine bell curve. Supports an items array (icon + label + handler), magnification scale, base size, tooltips on hover, click handlers, and an active state indicator.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "donut-chart",
+      "title": "Donut Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/donut-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "dotted-map-chart",
+      "title": "Dotted Map Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/dotted-map-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "type": "registry:ui",
+      "description": "Floating menu launched from a trigger button — for account switchers, row actions, editor menus, and any short list of commands. Supports labels, icons, separators, keyboard shortcuts, checkbox/radio items, and nested submenus. Built on Radix UI; ARIA + keyboard navigation handled.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "dumbbell-chart",
+      "title": "Dumbbell Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/dumbbell-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "effect-scatter-chart",
+      "title": "Effect Scatter Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/effect-scatter-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "empty-state",
+      "title": "Empty State",
+      "type": "registry:ui",
+      "description": "Centered placeholder with icon, headline, supporting text, and one or two actions. Drop into empty lists, blank dashboards, and unauthenticated views — the standard \"nothing here yet\" pattern.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "error-bar-chart",
+      "title": "Error Bar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/error-bar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "event-calendar",
+      "title": "Event Calendar",
+      "type": "registry:ui",
+      "description": "Full-featured event calendar primitive supporting month, week, day, work-week, and category/resource views, timed interval grids with collision clustering, all-day header, live current-time indicator, and customizable event templates.",
+      "categories": [
+        "productivity",
+        "dashboard"
+      ]
+    },
+    {
+      "name": "fab",
+      "title": "Fab",
+      "type": "registry:ui",
+      "description": "Floating action button — a fixed or absolute positioned circular button for the primary screen action. Supports an icon (default), an extended label variant, mini/large sizes, four color variants, six anchor positions, and a disabled state.",
+      "categories": [
+        "control",
+        "navigation"
+      ]
+    },
+    {
+      "name": "file-upload",
+      "title": "File Upload",
+      "type": "registry:ui",
+      "description": "Drag-and-drop file dropzone with click-to-browse fallback, file-type filtering, multi-file support, and per-file progress + remove controls. Wraps native `<input type=\"file\">` with proper a11y.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "float-label",
+      "title": "Float Label",
+      "type": "registry:ui",
+      "description": "Floating label wrapper for any input element. The label floats up when the input is focused or has a value. Wrap it around any input, select, or textarea. Supports required indicator and disabled state.",
+      "categories": [
+        "control",
+        "form"
+      ]
+    },
+    {
+      "name": "form",
+      "title": "Form",
+      "type": "registry:ui",
+      "description": "Zod-first form block built on React Hook Form. Wires field labels, descriptions, error messages, and validation together; bind a field once and the rest is automatic.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "funnel-chart",
+      "title": "Funnel Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/funnel-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "gantt",
+      "title": "Gantt",
+      "type": "registry:ui",
+      "description": "Interactive Gantt chart primitive with multi-scale timeline (day/week/month/year), collapsible task tree, progress fill, milestone markers, dependency lines, and right-click GanttContextMenu.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "gantt-chart",
+      "title": "Gantt Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/gantt-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "gauge-chart",
+      "title": "Gauge Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/gauge-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "gradient-text",
+      "title": "Gradient Text",
+      "type": "registry:ui",
+      "description": "Applies a CSS gradient as text color via background-clip: text. Supports preset gradients (sunset, ocean, forest, fire, candy, aurora, rainbow, gold, neon, grape), custom from/to colors with a direction, a fully custom CSS gradient string, and an animated mode that shifts the gradient.",
+      "categories": [
+        "display",
+        "typography"
+      ]
+    },
+    {
+      "name": "graph-chart",
+      "title": "Graph Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/graph-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "grid",
+      "title": "Grid",
+      "type": "registry:ui",
+      "description": "Responsive CSS grid container with `cols`, `gap`, and breakpoint props. A small but useful primitive for laying out card grids, KPI tiles, and form sections without writing repetitive Tailwind classes.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "heatmap",
+      "title": "Heatmap",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/heatmap — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "heikin-ashi-chart",
+      "title": "Heikin Ashi Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/heikin-ashi-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "hexbin-map",
+      "title": "Hexbin Map",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/hexbin-map — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "highlight",
+      "title": "Highlight",
+      "type": "registry:ui",
+      "description": "Highlights matching substrings in text for search results. Supports string or regex queries, case-sensitive and whole-word matching, custom highlight tag, and a max-highlight cap.",
+      "categories": [
+        "display",
+        "utility"
+      ]
+    },
+    {
+      "name": "histogram-chart",
+      "title": "Histogram Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/histogram-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "hover-card",
+      "title": "Hover Card",
+      "type": "registry:ui",
+      "description": "Rich popover triggered by hover/focus instead of click. Use for inline previews — user cards on @mentions, link previews, KPI explanations. Built on reka-ui with a configurable open/close delay.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "icicle-chart",
+      "title": "Icicle Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/icicle-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "icon-box",
+      "title": "Icon Box",
+      "type": "registry:ui",
+      "description": "Icon container primitive with calibrated sizes (2xs to xl), surface variants (solid, outline, subtle, primary, muted), and 2.5D layered IconStack for empty states and feature hero cards.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "icon-transition",
+      "title": "Icon Transition",
+      "type": "registry:ui",
+      "description": "Animated icon swap for click acknowledgements — copy → check, bookmark → bookmark-filled, follow → follower. Pass two icon components and an async `action`; clicking runs the action then springs the active icon in. Auto-reverts after `resetAfter` ms (default 1500), or pass `0` to keep the active icon and call the exposed `reset()` method to flip it back. Renders as a `<button>` by default; use `as=\"span\"` plus the `active` prop when you want an externally controlled, non-interactive icon swap inside another control. Honors `prefers-reduced-motion`.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "icons",
+      "title": "Icons",
+      "type": "registry:ui",
+      "description": "Showcase + recipe page for the registry’s default icon set (Lucide). Not a runtime component — install the npm package directly. Documented here so consumers can browse names and import recipes.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "image-compare",
+      "title": "Image Compare",
+      "type": "registry:ui",
+      "description": "Before/after image comparison slider with a draggable divider. Two images overlaid via clip-path, pointer-driven (mouse + touch), horizontal or vertical orientation, custom handle render prop, labels, and disabled state.",
+      "categories": [
+        "display",
+        "media"
+      ]
+    },
+    {
+      "name": "image-cropper",
+      "title": "Image Cropper",
+      "type": "registry:ui",
+      "description": "Single image cropper. Drive look with props: aspectRatio, showZoom, rounded, minZoom, maxZoom, disabled.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "infinite-scroll",
+      "title": "Infinite Scroll",
+      "type": "registry:ui",
+      "description": "Load-more-on-scroll sentinel. Calls an onLoadMore callback when the user scrolls near the bottom (or top, in reverse mode). Supports a window or element scroll target, distance threshold, loading/hasMore/disabled gating, and slots for custom loading and end-of-list states.",
+      "categories": [
+        "utility",
+        "data"
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "type": "registry:ui",
+      "description": "Text input — single-line. Three sizes, three variants (outlined / filled / borderless), error / warning status, prefix / suffix nodes, addonBefore / addonAfter, allow-clear, password toggle, char count, and composite InputGroup with addons and action buttons.",
+      "categories": [
+        "control"
+      ]
+    },
+    {
+      "name": "json-tree-view",
+      "title": "Json Tree View",
+      "type": "registry:ui",
+      "description": "Collapsible JSON tree viewer with color-coded value types, click-to-copy, live search/filter, and expand/collapse-all controls. Renders objects, arrays, and primitives with configurable depth and contained scrolling.",
+      "categories": [
+        "display",
+        "data"
+      ]
+    },
+    {
+      "name": "kanban",
+      "title": "Kanban",
+      "type": "registry:ui",
+      "description": "Composable compound Kanban primitive for building board, pipeline, and agile workflows with tactile card drag-and-drop mechanics.",
+      "categories": [
+        "data-display",
+        "layout"
+      ]
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "type": "registry:ui",
+      "description": "Inline keyboard-key indicator — renders a single key or shortcut in monospace with a subtle bordered chip.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "knob",
+      "title": "Knob",
+      "type": "registry:ui",
+      "description": "Circular dial input. Drag to rotate, keyboard accessible, SVG-rendered. Useful for compact numeric controls (volume, brightness, gauges).",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "kpi-grid",
+      "title": "Kpi Grid",
+      "type": "registry:ui",
+      "description": "Bare responsive grid wrapper (2 / 3 / 4 columns). Pass any children — Cards, inline charts, custom tiles. No items prop, no item rendering.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "type": "registry:ui",
+      "description": "Accessible label primitive — wraps text and binds to its child input via `htmlFor`. Disabled-state styling and proper screen-reader behavior.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "labeled-value",
+      "title": "Labeled Value",
+      "type": "registry:ui",
+      "description": "Read-only label/value pair for surface details — \"Email: jane@…\" or \"Status: Active\". Compose them in a Data List, a Stat Card, or a Section Card detail row.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "lazy-image",
+      "title": "Lazy Image",
+      "type": "registry:ui",
+      "description": "Lazy-loaded image with aspect-ratio reservation, skeleton placeholder, fade-in transition, and error fallback. Composes loading=\"lazy\" with IntersectionObserver for off-viewport hold and pairs with the skeleton primitive for the placeholder state.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "leaflet-map",
+      "title": "Leaflet Map",
+      "type": "registry:ui",
+      "description": "A thin, theme-aware Leaflet wrapper rendering free raster tiles (OpenStreetMap, OpenTopoMap, Esri) — no API key required. Drop LeafletMarker / LeafletPopup / LeafletPolyline / LeafletGeoJson into the children to build any map — fleet boards, journey maps, store locators. The base style follows light/dark automatically, an opt-in `muted` prop desaturates the tile pane so overlaid data is the only colour, and `onCreated` hands you the raw L.Map instance for custom layers and fitBounds. The Mapbox counterpart (`map`) adds GL styles, 3D, and globe; this one trades those for zero-key setup. Import `leaflet/dist/leaflet.css` once — the component does it for you.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "line-chart",
+      "title": "Line Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/line-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "link",
+      "title": "Link",
+      "type": "registry:ui",
+      "description": "Styled anchor with router integration. Renders an <a> for href, a router-link for to, and handles external links with target/rel. Supports underline variants (always/hover/none), color variants (default/primary/muted), disabled state, left/right icon slots, size variants, and asChild composition.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "liquid-fill-chart",
+      "title": "Liquid Fill Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/liquid-fill-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "list",
+      "title": "List",
+      "type": "registry:ui",
+      "description": "List and Item row primitives with List, ListItem, ListItemMedia, ListItemContent, ListItemTitle, ListItemDescription, ListItemActions, and ListSubheader for structured rows, settings lists, and feeds.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "loading-bar",
+      "title": "Loading Bar",
+      "type": "registry:ui",
+      "description": "Top-of-viewport NProgress-style progress bar. Drive it imperatively via the useLoadingBar hook (start/finish/error/inc) or with value/onChange. Supports indeterminate mode, custom color and height, top/bottom anchoring, and an optional trailing spinner.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "lollipop-chart",
+      "title": "Lollipop Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/lollipop-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "map",
+      "title": "Map",
+      "type": "registry:ui",
+      "description": "A thin, theme-aware Mapbox GL JS wrapper (built on react-map-gl). Pass an access token and drop MapMarker / MapPopup / MapLayer into the children to build any map — fleet boards, journey maps, store locators. The base style follows light/dark automatically, an opt-in `muted` prop desaturates the basemap so overlaid data is the only colour, and `onCreated` hands you the raw map instance for custom layers and fitBounds. Import `mapbox-gl/dist/mapbox-gl.css` once in your app.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "marimekko-chart",
+      "title": "Marimekko Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/marimekko-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "marquee",
+      "title": "Marquee",
+      "type": "registry:ui",
+      "description": "Continuously auto-scrolling content. Scrolls horizontally or vertically in any direction, with configurable speed, gap, repeat count for a seamless loop, pause-on-hover, and a hard pause prop. Respects prefers-reduced-motion.",
+      "categories": [
+        "display"
+      ]
+    },
+    {
+      "name": "masked-input",
+      "title": "Masked Input",
+      "type": "registry:ui",
+      "description": "Input with a fixed format mask — phone numbers, credit cards, dates, postal codes. Pass a mask string (e.g. `(###) ###-####`) and the input enforces it as the user types. Customizable placeholder character and replacement marker.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "mentions",
+      "title": "Mentions",
+      "type": "registry:ui",
+      "description": "Textarea with trigger-character autocomplete and companion MentionTag with Twitter/X-style hover profile card popup.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "type": "registry:ui",
+      "description": "Top-level menu bar — File / Edit / View — for desktop-style apps. Same primitives as Dropdown Menu but laid out horizontally and keyboard-navigable across siblings (left/right arrows).",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "title": "Navigation Menu",
+      "type": "registry:ui",
+      "description": "Top-of-page horizontal navigation with hover/click triggered megamenus. Use for marketing sites and product navs that need rich content — featured links, mini-cards, and submenu columns.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "nightingale-chart",
+      "title": "Nightingale Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/nightingale-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "number-field",
+      "title": "Number Field",
+      "type": "registry:ui",
+      "description": "Numeric input with stepper buttons, min/max bounds, step size, and decimal precision. Use for quantities, prices, and any field that should be a number rather than free text.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "organization-chart",
+      "title": "Organization Chart",
+      "type": "registry:ui",
+      "description": "Organization hierarchy visualization with a tree of nodes (name, title, avatar). Expand/collapse branches, top-down or left-right direction, connector lines, optional zoom/pan controls, node click events, and a customizable node render prop.",
+      "categories": [
+        "display",
+        "data"
+      ]
+    },
+    {
+      "name": "overlay-scroll",
+      "title": "Overlay Scroll",
+      "type": "registry:ui",
+      "description": "Slack-style overlay scrollbar. Hides the native scrollbar so the scrolled content uses the full container width (no gutter reservation), then draws a thin auto-fading thumb absolutely positioned on top. Drag-to-scroll via Pointer Events covers mouse, touch, and pen. Vertical only. The component does not enforce a height — give it a bounded height via the parent (`flex-1 min-h-0` in a flex column, or a fixed `h-*` / `max-h-*`).",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "page",
+      "title": "Page",
+      "type": "registry:ui",
+      "description": "Page-level layout shell — title row, optional breadcrumbs, action bar, and slotted content well. The standard wrapper for route pages so every screen looks consistent.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "type": "registry:ui",
+      "description": "Page-number bar with previous/next, ellipsis collapse, and a configurable visible-window size. Pair with a data-table or any paged list.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "parallel-chart",
+      "title": "Parallel Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/parallel-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "pareto-chart",
+      "title": "Pareto Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/pareto-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "password-input",
+      "title": "Password Input",
+      "type": "registry:ui",
+      "description": "Password input with show/hide toggle (Eye/EyeOff) and optional strength meter (weak/fair/good/strong with colored bar). Supports min length display, disabled, placeholder, and size variants.",
+      "categories": [
+        "control",
+        "form"
+      ]
+    },
+    {
+      "name": "payment-card",
+      "title": "Payment Card",
+      "type": "registry:ui",
+      "description": "Premium metallic credit-card visual with embossed type, holographic foil, and per-digit typing animation. Auto-detects brand (Visa, Mastercard, Amex, Discover), flips in 3D, and supports opt-in mouse-parallax tilt and shimmer. Pure presentational — pass typed values in via props.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "phone",
+      "title": "Phone",
+      "type": "registry:ui",
+      "description": "Front device frames for iPhone 17 Pro and Galaxy S26 Ultra. Real chassis aspect ratios (71.9×150 / 78.1×163.6), Dynamic Island / punch-hole, side buttons, status bar, home indicator / gesture bar, and official finish colors. Slot in any screen content.",
+      "categories": [
+        "display",
+        "media"
+      ]
+    },
+    {
+      "name": "pictorial-bar-chart",
+      "title": "Pictorial Bar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/pictorial-bar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "pie-chart",
+      "title": "Pie Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/pie-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "pin-input",
+      "title": "Pin Input",
+      "type": "registry:ui",
+      "description": "One-time-code input — N separate boxes that auto-advance and accept paste. Use for SMS verification, 2FA, and short numeric codes. Length, masking, and per-slot status all configurable.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "polar-bar-chart",
+      "title": "Polar Bar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/polar-bar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "type": "registry:ui",
+      "description": "Click-triggered floating panel anchored to a trigger element. Supports optional localStorage persistence and configurable dismissal (click-outside, escape, manual). Built on @radix-ui/react-popover with collision detection.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "population-pyramid-chart",
+      "title": "Population Pyramid Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/population-pyramid-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "type": "registry:ui",
+      "description": "Linear progress bar — determinate or indeterminate. Two visual densities (slim, default), four tones, and an optional inline percentage label.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "progress-item",
+      "title": "Progress Item",
+      "type": "registry:ui",
+      "description": "Labeled progress row — item name on the left, progress bar in the middle, percent or count on the right. Use for batched task lists, file upload queues, or onboarding checklists.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "progress-linear",
+      "title": "Progress Linear",
+      "type": "registry:ui",
+      "description": "Top-of-screen page-loading bar (à la NProgress / nuxt loading-indicator). Auto-advances while a navigation or fetch is in flight, then completes. Drop into the app shell once.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "progress-ring-chart",
+      "title": "Progress Ring Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/progress-ring-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "qr-code",
+      "title": "Qr Code",
+      "type": "registry:ui",
+      "description": "QR code renderer — pass `value` and a size, get a canvas PNG or SVG. Useful for sign-in links, share URLs, and Wi-Fi credentials. Depends on the `qrcode` package.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "quadrant-chart",
+      "title": "Quadrant Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/quadrant-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "questionnaire",
+      "title": "Questionnaire",
+      "type": "registry:ui",
+      "description": "Single multi-step question component. Pass items, shortcuts, and showProgress — variants are props, not extra files.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "radar-chart",
+      "title": "Radar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/radar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "type": "registry:ui",
+      "description": "Single-selection group of radio inputs. Vertical or horizontal layout, optional descriptions per item, and full keyboard navigation. Pair with Form for validation messages.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "range-area-chart",
+      "title": "Range Area Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/range-area-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "range-bar-chart",
+      "title": "Range Bar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/range-bar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "range-calendar",
+      "title": "Range Calendar",
+      "type": "registry:ui",
+      "description": "Inline from→to calendar grid. Click two dates; the range fills between. For a form field with a trigger, use Date Picker type=\"range\" instead. Same min/max and disabled-date support as Calendar.",
+      "categories": [
+        "date-time"
+      ]
+    },
+    {
+      "name": "range-slider",
+      "title": "Range Slider",
+      "type": "registry:ui",
+      "description": "Two-thumb range slider for \"between X and Y\" inputs — price filters, age ranges, time windows. Built on @radix-ui/react-slider with proper keyboard handling and aria-valuetext.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "rating",
+      "title": "Rating",
+      "type": "registry:ui",
+      "description": "Star (or custom icon) rating control — pick a value from 1 to N. Read-only mode for displaying review averages, with half-step support.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "raw-chart",
+      "title": "Raw Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/raw-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "relative-time",
+      "title": "Relative Time",
+      "type": "registry:ui",
+      "description": "Live relative timestamp — \"2 minutes ago\", \"yesterday\", \"in 3 days\" — via Intl.RelativeTimeFormat. `display` switches the label to relative, absolute, or both. `timeZone` (IANA or `UTC`) formats the clock and tooltip; omit it for the browser local zone. `parseAs` treats naive ISO strings as local or UTC. Renders a semantic <time>. Pass `now` to freeze the clock for tests and SSR.",
+      "categories": [
+        "display",
+        "utility"
+      ]
+    },
+    {
+      "name": "resizable",
+      "title": "Resizable",
+      "type": "registry:ui",
+      "description": "Drag-to-resize panel layout — horizontal or vertical splits with persistent sizes. Use for IDE-style sidebars, split views, and any layout the user should be able to reshape.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "rich-text-editor",
+      "title": "Rich Text Editor",
+      "type": "registry:ui",
+      "description": "WYSIWYG editor wrapped around TipTap — bold/italic/links/lists/headings/blockquote/code, plus a configurable toolbar. Drop into forms where Markdown is too low-level.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "route-flow-map",
+      "title": "Route Flow Map",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/route-flow-map — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "sankey-chart",
+      "title": "Sankey Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/sankey-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "scatter-chart",
+      "title": "Scatter Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/scatter-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "type": "registry:ui",
+      "description": "Custom scrollbar that always renders the same way across OSes (no flashing native scrollbars on Windows). Use for sidebars, dropdown content, and any overflow region you want to feel consistent.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "scroll-progress",
+      "title": "Scroll Progress",
+      "type": "registry:ui",
+      "description": "Slim reading-progress bar pinned to the top of the viewport or of any supplied scrollable container. Scales horizontally with scroll depth; supports fixed and absolute (contained) modes, lerp smoothing with a prefers-reduced-motion fallback, custom thickness, and any CSS color or gradient.",
+      "categories": [
+        "feedback",
+        "utility"
+      ]
+    },
+    {
+      "name": "scroll-spy",
+      "title": "ScrollSpy",
+      "type": "registry:ui",
+      "description": "In-page navigation list with scroll-spy. Renders a vertical list of links; the active item highlights as the user scrolls through anchored sections.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "section-card",
+      "title": "Section Card",
+      "type": "registry:ui",
+      "description": "Card variant tuned for settings pages — title, description, and content slots, with optional footer for save/cancel actions. The block-level building block for `.../settings/*` routes.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "segmented-gauge",
+      "title": "Segmented Gauge",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/segmented-gauge.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "type": "registry:ui",
+      "description": "Dropdown select primitive — single-select with optional groups, per-item descriptions, Radix UI popover mode, and zero-JS styled NativeSelect for lightweight/mobile use.",
+      "categories": [
+        "control"
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "type": "registry:ui",
+      "description": "Horizontal or vertical visual divider — a `<div>` with the right ARIA role and a registry-token border color. Use between sections, list rows, and toolbar groups.",
+      "categories": [
+        "layout"
+      ]
+    },
+    {
+      "name": "sheet",
+      "title": "Sheet",
+      "type": "registry:ui",
+      "description": "Side-mounted modal that slides in from the top, right, bottom, or left edge. Use for filter panels, edit drawers, and mobile menus.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "type": "registry:ui",
+      "description": "Full-height app sidebar — collapsible to icons, with grouping, sub-grouping, and integrated search. The navigation surface for product apps with many sections.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "signature-pad",
+      "title": "Signature Pad",
+      "type": "registry:ui",
+      "description": "Canvas-based digital signature capture with pointer events (mouse + touch). The value is a PNG data URL, with pen color/thickness, background, clear method, disabled/readonly states, and a live point count.",
+      "categories": [
+        "control",
+        "form"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "type": "registry:ui",
+      "description": "Animated placeholder rectangles for loading states — drop one in shape of the content that’s about to render. Variants for text lines, avatars, rounded rectangles, and circles.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "type": "registry:ui",
+      "description": "Single-thumb slider — pick a value within a range. Optional tick marks, step size, and inline value display.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "slope-chart",
+      "title": "Slope Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/slope-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "smooth-funnel",
+      "title": "Smooth Funnel",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/smooth-funnel.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "sonner",
+      "title": "Sonner",
+      "type": "registry:ui",
+      "description": "Toast notification system — non-blocking, auto-dismissing alerts that stack in a corner. Built on the `sonner` library with the registry’s tokens applied.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "sparkline",
+      "title": "Sparkline",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/sparkline — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "speed-dial",
+      "title": "Speed Dial",
+      "type": "registry:ui",
+      "description": "Expanding floating action button that reveals a list of secondary action buttons. Supports click or hover triggers, four expansion directions (up/down/left/right), staggered entrance animation, a configurable main FAB icon, and close-on-action. Built on the fab and popover primitives.",
+      "categories": [
+        "control",
+        "navigation"
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "type": "registry:ui",
+      "description": "Lightweight loading indicator — circular spinner with three sizes and tone variants. Use inside buttons (replacing the icon when an action is in flight) or as a centered page loader.",
+      "categories": [
+        "feedback"
+      ]
+    },
+    {
+      "name": "stacked-area-chart",
+      "title": "Stacked Area Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/stacked-area-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "stacked-bar-chart",
+      "title": "Stacked Bar Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/stacked-bar-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "stepper",
+      "title": "Stepper",
+      "type": "registry:ui",
+      "description": "Multi-step indicator — horizontal or vertical, with completed / current / upcoming states and optional descriptions per step. Use for onboarding wizards and checkout flows.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "sunburst-chart",
+      "title": "Sunburst Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/sunburst-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "type": "registry:ui",
+      "description": "On/off toggle — visual analog of a hardware switch. Use for binary settings where the change takes effect immediately, not for form fields that submit later (use Checkbox there).",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "type": "registry:ui",
+      "description": "Plain HTML table primitives — `<Table>`, `<TableHeader>`, `<TableRow>`, `<TableCell>` — with the registry’s borders, padding, and tokens already applied. Use this when Data Table is too heavy.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "type": "registry:ui",
+      "description": "Horizontal tab navigation with content panels — pick one panel at a time. Underline or pills variants. Built on Radix UI with full keyboard navigation.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "tags-input",
+      "title": "Tags Input",
+      "type": "registry:ui",
+      "description": "Multi-tag input — type a value, hit Enter, get a Chip. Backspace removes the last tag. Use for email recipient lists, tag sets, and free-form keyword inputs.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "terminal",
+      "title": "Terminal",
+      "type": "registry:ui",
+      "description": "Terminal/command-line display with a macOS-style title bar, command history, prompt character, dark/light themes, auto-scroll, optional typing animation, and a line slot for custom formatting.",
+      "categories": [
+        "display"
+      ]
+    },
+    {
+      "name": "text-reveal",
+      "title": "Text Reveal",
+      "type": "registry:ui",
+      "description": "Scroll-triggered staggered entrance for text — each word or character fades in, rises and un-blurs with a per-index delay. IntersectionObserver based, `once` toggle for replay-on-scroll, honors prefers-reduced-motion.",
+      "categories": [
+        "display",
+        "motion"
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "type": "registry:ui",
+      "description": "Multi-line text input. Auto-resize variant, character counter, and the same ring/border treatment as the rest of the form primitives.",
+      "categories": [
+        "form"
+      ]
+    },
+    {
+      "name": "theme-river",
+      "title": "Theme River",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/theme-river — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "theme-switch",
+      "title": "Theme Switch",
+      "type": "registry:ui",
+      "description": "Light / dark / system theme toggle — drop in the header. Seven visual variants: `cards`, `icons`, `icon-only`, `dropdown`, `pill`, `pill-4`, and `switch`. Persists choice to `localStorage` and respects `prefers-color-scheme` for `system`.",
+      "categories": [
+        "action"
+      ]
+    },
+    {
+      "name": "time-picker",
+      "title": "Time Picker",
+      "type": "registry:ui",
+      "description": "Standalone time input — hours, minutes, optional seconds, and 12h/24h modes. Pairs with Date Picker for full datetime entry.",
+      "categories": [
+        "date-time"
+      ]
+    },
+    {
+      "name": "timeline",
+      "title": "Timeline",
+      "type": "registry:ui",
+      "description": "Vertical or horizontal sequence of events with connectors and node markers. Statuses (pending, current, completed, failed) tint the connector. Use for activity feeds, audit logs, and progress tracking.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "type": "registry:ui",
+      "description": "On/off button (different from Switch — this is shaped like a button and lives in toolbars). Three sizes, two variants. Use inside Toggle Group or standalone for \"press to enable\" buttons like bold / italic.",
+      "categories": [
+        "action"
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "type": "registry:ui",
+      "description": "Group of `Toggle` buttons that act as a single-select or multi-select control. Use for view-mode pickers (grid/list), text-format toolbars, and any \"pick one of N\" button bar.",
+      "categories": [
+        "action"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "type": "registry:ui",
+      "description": "Small popover triggered by hover/focus, used for short labels — icon-button names, abbreviation expansions, keyboard shortcuts. Auto-positions and respects `prefers-reduced-motion`.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "tour",
+      "title": "Tour",
+      "type": "registry:ui",
+      "description": "Multi-step guided overlay walkthrough. Highlights a target element with a dim mask cutout and shows a card next to it. Steps support targets by selector, ref, or function; centered (no-target) steps work as modal-style intros.",
+      "categories": [
+        "overlay"
+      ]
+    },
+    {
+      "name": "transfer",
+      "title": "Transfer",
+      "type": "registry:ui",
+      "description": "Dual-list move-between control. Two columns plus a center pair of move buttons. Optional search, pagination, and one-way mode.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "tree-chart",
+      "title": "Tree Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/tree-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "tree-select",
+      "title": "Tree Select",
+      "type": "registry:ui",
+      "description": "Select from tree-structured data with expand/collapse nodes, single or multi-select with checkboxes, and search filtering. Dropdown shows a nested tree; parent selection cascades to leaf descendants.",
+      "categories": [
+        "control",
+        "form"
+      ]
+    },
+    {
+      "name": "tree-table",
+      "title": "Tree Table",
+      "type": "registry:ui",
+      "description": "Hierarchical data table with expandable parent/child rows. Supports tree-structured data, column configuration, expand/collapse with per-level indent, row selection checkboxes, a loading overlay, and an empty state. Built on the existing table primitives.",
+      "categories": [
+        "data",
+        "display"
+      ]
+    },
+    {
+      "name": "tree-view",
+      "title": "Tree View",
+      "type": "registry:ui",
+      "description": "Indented tree of expandable nodes — file browsers, taxonomy editors, nested settings. Discord-style elbow connectors, lazy-load branches, and full keyboard navigation.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "treemap-chart",
+      "title": "Treemap Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/treemap-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "typewriter",
+      "title": "Typewriter",
+      "type": "registry:ui",
+      "description": "Types text character-by-character with a blinking caret, optionally cycling through multiple phrases (type -> pause -> delete -> next). Configurable typing/deleting speeds, completion pause, start delay, looping, and caret visibility. Renders empty on the server for hydration-safe SSR, restarts when `phrases` changes, and shows phrases in full under `prefers-reduced-motion`.",
+      "categories": [
+        "display",
+        "motion"
+      ]
+    },
+    {
+      "name": "uptime-tracker-chart",
+      "title": "Uptime Tracker Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/uptime-tracker-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "vector-map",
+      "title": "Vector Map",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/vector-map — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "vertical-tabs",
+      "title": "Vertical Tabs",
+      "type": "registry:ui",
+      "description": "Settings-page navigation pattern — labels stack on the left, content panel on the right. Same API as Tabs but with a vertical orientation. Use for dense, multi-section settings UIs.",
+      "categories": [
+        "navigation"
+      ]
+    },
+    {
+      "name": "video",
+      "title": "Video",
+      "type": "registry:ui",
+      "description": "Video player wrapper with a custom controls overlay on a native video element. Supports src, poster, autoplay, loop, muted, custom or native controls, playback rate, fullscreen, time display, a progress bar, play/pause, skip, and volume control.",
+      "categories": [
+        "media",
+        "display"
+      ]
+    },
+    {
+      "name": "violin-chart",
+      "title": "Violin Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/violin-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "virtual-list",
+      "title": "Virtual List",
+      "type": "registry:ui",
+      "description": "Generic windowed scroller. Renders only visible items plus a small overscan, with fixed or dynamic item sizes. Use for long lists where most rows are off-screen.",
+      "categories": [
+        "data-display"
+      ]
+    },
+    {
+      "name": "waffle-chart",
+      "title": "Waffle Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/waffle-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "waterfall-chart",
+      "title": "Waterfall Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/waterfall-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "watermark",
+      "title": "Watermark",
+      "type": "registry:ui",
+      "description": "Overlay watermark that repeats text or an image across the content area at a configurable angle. Supports rotate angle, gap between repeats, opacity, font size/color/weight, z-index, and pointer-event control. Wrap any content via children.",
+      "categories": [
+        "display",
+        "utility"
+      ]
+    },
+    {
+      "name": "word-cloud-chart",
+      "title": "Word Cloud Chart",
+      "type": "registry:ui",
+      "description": "React mirror of @uipkge/word-cloud-chart — see the Vue registry item for the canonical description.",
+      "categories": [
+        "chart"
+      ]
+    },
+    {
+      "name": "xml-tree-view",
+      "title": "Xml Tree View",
+      "type": "registry:ui",
+      "description": "Collapsible XML tree viewer with color-coded tags and attributes, click-to-copy, live search/filter, and expand/collapse-all controls. Parses XML strings and renders elements, text, comments, and CDATA with contained scrolling.",
+      "categories": [
+        "display",
+        "data"
+      ]
+    }
+  ]
+}

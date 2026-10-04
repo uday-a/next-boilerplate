@@ -2,7 +2,7 @@
 
 import { ChevronDown, Star } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { cn } from '@/lib/utils'
 
@@ -64,6 +64,13 @@ export function FoundationsPanel() {
     { key: 'metric', classes: 'text-2xl font-semibold tracking-tight tabular-nums', sample: '$84,230' },
   ]
 
+  const gaps = [
+    { key: 'inline', token: 'gap-1.5 / gap-2', bar: 'w-2' },
+    { key: 'field', token: 'gap-2', bar: 'w-2' },
+    { key: 'card', token: 'gap-4 / space-y-4', bar: 'w-4' },
+    { key: 'section', token: 'gap-4 / space-y-4', bar: 'w-6' },
+  ]
+
   const iconUses = [
     { token: 'size-3.5', class: 'size-3.5', key: 'xs' },
     { token: 'size-4', class: 'size-4', key: 'sm' },
@@ -75,12 +82,12 @@ export function FoundationsPanel() {
     <Collapsible>
       <Card>
         <CollapsibleTrigger className="hover:bg-muted/50 focus-visible:ring-ring w-full rounded-[inherit] text-left transition-colors focus-visible:ring-2 focus-visible:outline-none">
-          <CardHeader className="flex-row items-center justify-between gap-4 space-y-0 p-4">
-            <div className="space-y-1">
-              <CardTitle className="text-base">{t('uiKit.foundations.title')}</CardTitle>
-              <CardDescription>{t('uiKit.foundations.description')}</CardDescription>
-            </div>
-            <ChevronDown className="text-muted-foreground size-4 shrink-0 transition-transform duration-200 [[data-state=open]_&]:rotate-180" aria-hidden="true" />
+          <CardHeader>
+            <CardTitle className="text-base">{t('uiKit.foundations.title')}</CardTitle>
+            <CardDescription>{t('uiKit.foundations.description')}</CardDescription>
+            <CardAction className="self-center">
+              <ChevronDown className="text-muted-foreground size-4 shrink-0 transition-transform duration-200 [[data-state=open]_&]:rotate-180" aria-hidden="true" />
+            </CardAction>
           </CardHeader>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -105,32 +112,47 @@ export function FoundationsPanel() {
               </div>
             </section>
 
-            <section className="space-y-2">
-              <h3 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">{t('uiKit.foundations.type')}</h3>
-              <ul className="space-y-2">
-                {typeRoles.map((role) => (
-                  <li key={role.key} className="flex items-baseline justify-between gap-2">
-                    <span className={cn('truncate', role.classes)}>{role.sample}</span>
-                    <span className="text-muted-foreground shrink-0 text-xs">{t(`uiKit.foundations.roles.${role.key}`)}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <section className="space-y-2">
+                <h3 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">{t('uiKit.foundations.type')}</h3>
+                <ul className="space-y-2">
+                  {typeRoles.map((role) => (
+                    <li key={role.key} className="flex items-baseline justify-between gap-2">
+                      <span className={cn('truncate', role.classes)}>{role.sample}</span>
+                      <span className="text-muted-foreground shrink-0 text-xs">{t(`uiKit.foundations.roles.${role.key}`)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
 
-            <section className="space-y-2">
-              <h3 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">{t('uiKit.foundations.icons')}</h3>
-              <ul className="space-y-1.5">
-                {iconUses.map((i) => (
-                  <li key={i.token} className="flex items-center gap-2 text-xs">
-                    <span className="flex w-10 shrink-0 justify-center">
-                      <Star className={i.class} aria-hidden="true" />
-                    </span>
-                    <code className="font-mono">{i.token}</code>
-                    <span className="text-muted-foreground ml-auto">{t(`uiKit.foundations.iconUses.${i.key}`)}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+              <section className="space-y-2">
+                <h3 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">{t('uiKit.foundations.spacing')}</h3>
+                <ul className="space-y-1.5">
+                  {gaps.map((g) => (
+                    <li key={g.key} className="flex items-center gap-2 text-xs">
+                      <span className={cn('bg-primary h-3 shrink-0 rounded-sm', g.bar)} aria-hidden="true" />
+                      <code className="font-mono">{g.token}</code>
+                      <span className="text-muted-foreground ml-auto">{t(`uiKit.foundations.gaps.${g.key}`)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+
+              <section className="space-y-2">
+                <h3 className="text-muted-foreground text-xs font-medium tracking-wider uppercase">{t('uiKit.foundations.icons')}</h3>
+                <ul className="space-y-1.5">
+                  {iconUses.map((i) => (
+                    <li key={i.token} className="flex items-center gap-2 text-xs">
+                      <span className="flex w-10 shrink-0 justify-center">
+                        <Star className={i.class} aria-hidden="true" />
+                      </span>
+                      <code className="font-mono">{i.token}</code>
+                      <span className="text-muted-foreground ml-auto">{t(`uiKit.foundations.iconUses.${i.key}`)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </div>
           </CardContent>
         </CollapsibleContent>
       </Card>
