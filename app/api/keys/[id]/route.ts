@@ -3,7 +3,6 @@ import { apiHandler, apiError } from '@/lib/api/response'
 import { requireAuth } from '@/server/utils/guards'
 import { getDb, schema } from '@/server/db'
 import { recordAudit } from '@/server/utils/audit'
-import { isSampleKeyId } from '@/server/utils/api-keys'
 import { logger } from '@/server/utils/logger'
 
 // DELETE /api/keys/:id — revoke a key (sets revokedAt; the row stays for
@@ -16,14 +15,11 @@ export async function DELETE(_request: Request, { params }: Params) {
     const session = await requireAuth()
     const { id: rawId } = await params
     const id = Number(rawId)
-    if (!rawId || !Number.isInteger(id) || id === 0) {
+    if (!rawId || !Number.isInteger(id) || id <= 0) {
       throw apiError('VALIDATION_FAILED', 'Invalid API key id', { field: 'id' })
     }
 
-    // Demo sample rows are fake successes (nothing persisted to revoke).
-    if (session.demo && isSampleKeyId(id)) return { revoked: id }
-
-    // Demo sessions own no real keys, so every other id is a 404.
+    // Demo sessions own no keys, so every id is a 404 by construction.
     if (session.demo) throw apiError('NOT_FOUND', `API key ${id} not found`)
 
     const db = getDb()

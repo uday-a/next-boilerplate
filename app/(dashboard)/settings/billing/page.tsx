@@ -2,7 +2,7 @@ import { localizedMetadata } from '@/lib/page-title'
 import { BillingSettingsClient } from './billing-client'
 
 export function generateMetadata() {
-  return localizedMetadata('/settings/billing', 'nav.items.settings')
+  return localizedMetadata('/settings/billing')
 }
 
 interface BillingSettingsPageProps {

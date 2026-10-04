@@ -1,9 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useLocale } from 'next-intl'
-import { Folder, AlertCircle, Loader2, Trash2 } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
+import { AlertCircle, Loader2, Trash2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -11,9 +12,11 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import type { ApiResponse } from '@/lib/api/response'
-import { Page, PageBody, PageHeader } from '@/components/ui/page'
+import { EmptyState } from '@/components/ui/empty-state'
+import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
+import { Skeleton } from '@/components/ui/skeleton'
 
-interface Project {
+export interface Project {
   id: number
   slug: string
   name: string
@@ -23,13 +26,15 @@ interface Project {
   updatedAt: string | Date
 }
 
-export function ProjectDetailClient({ slug }: { slug: string }) {
+export function ProjectDetailClient({ slug, initialProject }: { slug: string; initialProject: Project | null }) {
   const router = useRouter()
   const locale = useLocale()
-  const [project, setProject] = useState<Project | null>(null)
-  const [pending, setPending] = useState(true)
-  const [loadError, setLoadError] = useState<string | null>(null)
-  const [form, setForm] = useState({ name: '', description: '' })
+  const t = useTranslations()
+  // Server-loaded (page.tsx) so the H1 and <title> show the name on first paint.
+  const [project, setProject] = useState<Project | null>(initialProject)
+  const [pending, setPending] = useState(false)
+  const [loadError, setLoadError] = useState(!initialProject)
+  const [form, setForm] = useState({ name: initialProject?.name ?? '', description: initialProject?.description ?? '' })
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'error'>('idle')
   const [saveError, setSaveError] = useState<string | null>(null)
   const [deleteState, setDeleteState] = useState<'idle' | 'deleting'>('idle')
@@ -38,7 +43,7 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
 
   const load = useCallback(async () => {
     setPending(true)
-    setLoadError(null)
+    setLoadError(false)
     try {
       const res = await fetch(`/api/projects/${slug}`, { cache: 'no-store' })
       const json = (await res.json()) as ApiResponse<{ project: Project }>
@@ -48,17 +53,13 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
           name: json.data.project.name,
           description: json.data.project.description ?? '',
         })
-      } else setLoadError(json.error.message)
-    } catch (e) {
-      setLoadError(e instanceof Error ? e.message : 'Failed to load project')
+      } else setLoadError(true)
+    } catch {
+      setLoadError(true)
     } finally {
       setPending(false)
     }
   }, [slug])
-
-  useEffect(() => {
-    void load()
-  }, [load])
 
   async function save() {
     if (!project) return
@@ -103,38 +104,38 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
     }
   }
 
-  if (loadError) {
-    return (
-      <div className="border-destructive/30 bg-destructive/10 text-destructive flex items-center gap-2 rounded-md border px-3 py-2 text-sm">
-        <AlertCircle className="size-4" />
-        {loadError}
-      </div>
-    )
-  }
-
-  if (pending) {
-    return <div className="text-muted-foreground text-sm">Loading…</div>
-  }
-
-  if (!project) return null
-
   return (
     <Page>
       <PageHeader>
-        <div className="flex items-center gap-2">
-          <Folder className="text-muted-foreground size-4" />
-          <h1 className="text-2xl font-semibold tracking-tight">{project.name}</h1>
-        </div>
-        <p className="text-muted-foreground mt-1 text-sm">
-          Project · <code>{project.slug}</code> · created{' '}
-          {new Date(project.createdAt).toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' })}
-        </p>
+        <PageHeaderHeading
+          title={project?.name ?? t('nav.items.projects')}
+          description={project ? `Created ${new Date(project.createdAt).toLocaleDateString(locale)}` : undefined}
+        />
       </PageHeader>
-      <PageBody className="space-y-4 max-w-3xl">
+      <PageBody className="max-w-3xl space-y-4">
+        {loadError ? (
+          <EmptyState
+            icon={AlertCircle}
+            role="alert"
+            title="Couldn't load this project"
+            description="It may have been deleted, or something went wrong on our side."
+          >
+            <div className="mt-4 flex justify-center gap-2">
+              <Button size="sm" variant="outline" onClick={() => void load()}>
+                Retry
+              </Button>
+              <Button size="sm" variant="ghost" asChild>
+                <Link href="/projects">Back to projects</Link>
+              </Button>
+            </div>
+          </EmptyState>
+        ) : pending ? (
+          <Skeleton className="h-72 rounded-xl" aria-busy="true" />
+        ) : project ? (
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Details</CardTitle>
-            <CardDescription>Edit the project metadata. Slug is immutable after creation.</CardDescription>
+            <CardDescription>Rename the project or update its description.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-2">
@@ -151,8 +152,8 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
               />
             </div>
             {saveError ? (
-              <div className="text-destructive flex items-center gap-2 text-sm">
-                <AlertCircle className="size-4" />
+              <div className="text-destructive flex items-center gap-2 text-sm" role="alert">
+                <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
                 {saveError}
               </div>
             ) : null}
@@ -163,16 +164,17 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                 className="text-destructive hover:text-destructive"
                 onClick={() => setConfirmDelete(true)}
               >
-                <Trash2 className="size-4" />
+                <Trash2 className="size-4" aria-hidden="true" />
                 Delete project
               </Button>
               <Button disabled={saveState === 'saving' || !form.name} onClick={() => void save()}>
-                {saveState === 'saving' ? <Loader2 className="size-4 animate-spin" /> : null}
+                {saveState === 'saving' ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
                 Save changes
               </Button>
             </div>
           </CardContent>
         </Card>
+        ) : null}
 
         <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
           <DialogContent className="sm:max-w-md">

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
 import type { ApiResponse } from '@/lib/api/response'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -11,6 +12,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
+import { useTranslations } from 'next-intl'
+
+// Brand accent is picked from the theme's chart palette so it stays
+// legible in light and dark mode.
+const brandSwatches = [
+  { value: 'chart-1', label: 'Color 1', className: 'bg-chart-1' },
+  { value: 'chart-2', label: 'Color 2', className: 'bg-chart-2' },
+  { value: 'chart-3', label: 'Color 3', className: 'bg-chart-3' },
+  { value: 'chart-4', label: 'Color 4', className: 'bg-chart-4' },
+  { value: 'chart-5', label: 'Color 5', className: 'bg-chart-5' },
+]
 
 interface Profile {
   name: string | null
@@ -23,25 +35,24 @@ interface Profile {
 
 type Status =
   | { kind: 'idle' }
-  | { kind: 'loading' }
   | { kind: 'saving' }
   | { kind: 'saved'; demo?: boolean }
   | { kind: 'error'; message: string }
 
 export function GeneralSettingsClient() {
+  const t = useTranslations()
   const [timezone, setTimezone] = useState('UTC')
   const [locale, setLocale] = useState('en')
   const [workspaceName, setWorkspaceName] = useState('Acme Inc')
   const [workspaceUrl, setWorkspaceUrl] = useState('acme-inc')
   const [supportEmail, setSupportEmail] = useState('support@acme.com')
-  const [brandColor, setBrandColor] = useState('#5B6FE6')
+  const [brandColor, setBrandColor] = useState('chart-1')
   const [allowExternalShares, setAllowExternalShares] = useState(true)
   const [requireSso, setRequireSso] = useState(false)
   const [sendWeeklyDigest, setSendWeeklyDigest] = useState(true)
-  const [status, setStatus] = useState<Status>({ kind: 'loading' })
+  const [status, setStatus] = useState<Status>({ kind: 'idle' })
 
   const loadProfile = useCallback(async () => {
-    setStatus({ kind: 'loading' })
     const res = await fetch('/api/me/profile', { cache: 'no-store' })
       .then((r) => r.json() as Promise<ApiResponse<{ profile: Profile }>>)
       .catch(() => ({ ok: false, error: { code: 'INTERNAL', message: 'Failed to load profile' } } as const))
@@ -53,7 +64,6 @@ export function GeneralSettingsClient() {
 
     setTimezone(res.data.profile.timezone)
     setLocale(res.data.profile.locale)
-    setStatus({ kind: 'idle' })
   }, [])
 
   useEffect(() => {
@@ -79,24 +89,15 @@ export function GeneralSettingsClient() {
     await loadProfile()
   }
 
-  if (status.kind === 'loading') {
-    return (
-      <div className="text-muted-foreground flex items-center gap-2 text-sm">
-        <Loader2 className="size-4 animate-spin" />
-        Loading settings…
-      </div>
-    )
-  }
-
   return (
     <Page>
       <PageHeader>
         <PageHeaderHeading
-          title="General"
-          description="Workspace identity, locale, and default behaviour."
+          title={t('nav.items.general')}
+          description="Workspace identity, locale, and default behavior."
         />
       </PageHeader>
-      <PageBody className="space-y-4 max-w-3xl">
+      <PageBody className="max-w-3xl space-y-4">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Workspace</CardTitle>
@@ -139,13 +140,13 @@ export function GeneralSettingsClient() {
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Localization</CardTitle>
-            <CardDescription>Affects date/time formatting and AI response defaults.</CardDescription>
+            <CardDescription>Affects date and time formatting across the workspace.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-2">
-              <Label>Timezone</Label>
+              <Label htmlFor="ws-timezone">Timezone</Label>
               <Select value={timezone} onValueChange={setTimezone}>
-                <SelectTrigger>
+                <SelectTrigger id="ws-timezone">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -160,9 +161,9 @@ export function GeneralSettingsClient() {
               </Select>
             </div>
             <div className="grid gap-2">
-              <Label>Locale</Label>
+              <Label htmlFor="ws-locale">Locale</Label>
               <Select value={locale} onValueChange={setLocale}>
-                <SelectTrigger>
+                <SelectTrigger id="ws-locale">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -170,9 +171,6 @@ export function GeneralSettingsClient() {
                   <SelectItem value="es">Español</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-muted-foreground text-xs">
-                Add more options in <code>i18n/locales/</code> + the <code>i18n</code> module config.
-              </p>
             </div>
           </CardContent>
         </Card>
@@ -183,19 +181,23 @@ export function GeneralSettingsClient() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-2">
-              <Label>Primary brand colour</Label>
-              <div className="flex items-center gap-3">
-                <input
-                  type="color"
-                  value={brandColor}
-                  onChange={(e) => setBrandColor(e.target.value)}
-                  className="size-10 cursor-pointer rounded-md border"
-                />
-                <Input
-                  value={brandColor}
-                  onChange={(e) => setBrandColor(e.target.value)}
-                  className="w-32 font-mono text-sm"
-                />
+              <Label id="ws-brand-label">Primary brand color</Label>
+              <div className="flex items-center gap-2" role="radiogroup" aria-labelledby="ws-brand-label">
+                {brandSwatches.map((c) => (
+                  <button
+                    key={c.value}
+                    type="button"
+                    role="radio"
+                    aria-checked={brandColor === c.value}
+                    aria-label={c.label}
+                    className={cn(
+                      'ring-offset-background focus-visible:ring-ring size-8 rounded-full border transition-shadow outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+                      c.className,
+                      brandColor === c.value && 'ring-foreground ring-2 ring-offset-2',
+                    )}
+                    onClick={() => setBrandColor(c.value)}
+                  />
+                ))}
               </div>
               <p className="text-muted-foreground text-xs">
                 Used on shared report headers, exported PDFs, and the public-facing share page.
@@ -243,7 +245,7 @@ export function GeneralSettingsClient() {
                   Send weekly digest
                 </Label>
                 <p className="text-muted-foreground text-xs">
-                  Mondays at 9am workspace time. Usage, top prompts, and any rate-limit hits from the prior week.
+                  Mondays at 9am workspace time. Usage, top projects, and any rate-limit hits from the prior week.
                 </p>
               </div>
               <Switch
@@ -255,7 +257,7 @@ export function GeneralSettingsClient() {
           </CardContent>
         </Card>
 
-        <div className="flex items-center justify-end gap-3">
+        <div className="flex items-center justify-end gap-2">
           {status.kind === 'saved' && (
             <div className="flex items-center gap-2 text-sm text-success">
               <CheckCircle2 className="size-4" />

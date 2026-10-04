@@ -4,7 +4,7 @@ import { localizedMetadata } from '@/lib/page-title'
 import { AccountSettingsClient } from './account-client'
 
 export function generateMetadata() {
-  return localizedMetadata('/settings/account', 'nav.items.settings')
+  return localizedMetadata('/settings/account')
 }
 
 export default async function AccountSettingsPage() {

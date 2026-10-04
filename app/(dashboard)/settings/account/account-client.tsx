@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
+import { useTranslations } from 'next-intl'
 
 interface Profile {
   name: string | null
@@ -23,7 +24,6 @@ interface Profile {
 
 type Status =
   | { kind: 'idle' }
-  | { kind: 'loading' }
   | { kind: 'saving' }
   | { kind: 'saved'; demo?: boolean }
   | { kind: 'error'; message: string }
@@ -35,12 +35,13 @@ interface AccountSettingsClientProps {
 }
 
 export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: AccountSettingsClientProps) {
-  const [name, setName] = useState('')
+  const t = useTranslations()
+  const [name, setName] = useState(sessionName)
   const [bio, setBio] = useState('')
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [status, setStatus] = useState<Status>({ kind: 'loading' })
+  const [status, setStatus] = useState<Status>({ kind: 'idle' })
 
   const initials = useMemo(
     () =>
@@ -54,7 +55,6 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
   )
 
   const loadProfile = useCallback(async () => {
-    setStatus({ kind: 'loading' })
     const res = await fetch('/api/me/profile', { cache: 'no-store' })
       .then((r) => r.json() as Promise<ApiResponse<{ profile: Profile }>>)
       .catch(() => ({ ok: false, error: { code: 'INTERNAL', message: 'Failed to load profile' } } as const))
@@ -66,7 +66,6 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
 
     setName(res.data.profile.name ?? sessionName)
     setBio(res.data.profile.bio ?? '')
-    setStatus({ kind: 'idle' })
   }, [sessionName])
 
   useEffect(() => {
@@ -92,21 +91,12 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
     await loadProfile()
   }
 
-  if (status.kind === 'loading') {
-    return (
-      <div className="text-muted-foreground flex items-center gap-2 text-sm">
-        <Loader2 className="size-4 animate-spin" />
-        Loading account…
-      </div>
-    )
-  }
-
   return (
     <Page>
       <PageHeader>
-        <PageHeaderHeading title="Account" description="Your personal profile and credentials." />
+        <PageHeaderHeading title={t('nav.items.account')} description="Your personal profile and credentials." />
       </PageHeader>
-      <PageBody className="space-y-4 max-w-3xl">
+      <PageBody className="max-w-3xl space-y-4">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Profile</CardTitle>
@@ -144,7 +134,7 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
               <Label htmlFor="acct-email">Email</Label>
               <Input id="acct-email" type="email" value={userEmail} disabled />
               <p className="text-muted-foreground text-xs">
-                Email comes from your GitHub account. Change it there or add email/password auth to edit here.
+                Your email comes from your sign-in provider. Change it there to update it here.
               </p>
             </div>
           </CardContent>
@@ -186,6 +176,26 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
           </CardContent>
         </Card>
 
+        <div className="flex items-center justify-end gap-2">
+          {status.kind === 'saved' && (
+            <div className="flex items-center gap-2 text-sm text-success">
+              <CheckCircle2 className="size-4" />
+              {status.demo ? 'Saved (demo — not persisted)' : 'Saved'}
+            </div>
+          )}
+          {status.kind === 'error' && (
+            <div className="text-destructive flex items-center gap-2 text-sm">
+              <AlertCircle className="size-4" />
+              {status.message}
+            </div>
+          )}
+          <Button variant="outline">Cancel</Button>
+          <Button disabled={status.kind === 'saving' || !name} onClick={() => void save()}>
+            {status.kind === 'saving' && <Loader2 className="size-4 animate-spin" />}
+            Save changes
+          </Button>
+        </div>
+
         <Card className="border-destructive/40">
           <CardHeader>
             <CardTitle className="text-destructive text-base">Danger zone</CardTitle>
@@ -213,25 +223,6 @@ export function AccountSettingsClient({ userEmail, userAvatar, sessionName }: Ac
           </CardContent>
         </Card>
 
-        <div className="flex items-center justify-end gap-3">
-          {status.kind === 'saved' && (
-            <div className="flex items-center gap-2 text-sm text-success">
-              <CheckCircle2 className="size-4" />
-              {status.demo ? 'Saved (demo — not persisted)' : 'Saved'}
-            </div>
-          )}
-          {status.kind === 'error' && (
-            <div className="text-destructive flex items-center gap-2 text-sm">
-              <AlertCircle className="size-4" />
-              {status.message}
-            </div>
-          )}
-          <Button variant="outline">Cancel</Button>
-          <Button disabled={status.kind === 'saving' || !name} onClick={() => void save()}>
-            {status.kind === 'saving' && <Loader2 className="size-4 animate-spin" />}
-            Save changes
-          </Button>
-        </div>
       </PageBody>
     </Page>
   )

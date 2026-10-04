@@ -8,9 +8,9 @@ import { logger } from '@/server/utils/logger'
 const slug = z
   .string()
   .trim()
-  .min(2)
-  .max(64)
-  .regex(/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/, 'Slug must be kebab-case')
+  .min(2, 'Slug must be at least 2 characters')
+  .max(64, 'Slug must be 64 characters or fewer')
+  .regex(/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/, 'Slug must be kebab-case (a-z, 0-9, hyphen)')
 
 const CreateProject = z.object({
   slug,
@@ -27,7 +27,7 @@ function demoProjects() {
       description: 'Frontend platform, design system, UX research.',
       ownerId: 0,
       createdAt: new Date('2026-01-12'),
-      updatedAt: new Date('2026-04-30'),
+      updatedAt: new Date('2026-09-28'),
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ function demoProjects() {
       description: 'GTM ops, campaigns, pipeline analytics.',
       ownerId: 0,
       createdAt: new Date('2026-02-04'),
-      updatedAt: new Date('2026-05-12'),
+      updatedAt: new Date('2026-09-24'),
     },
     {
       id: 3,
@@ -45,7 +45,7 @@ function demoProjects() {
       description: 'Trip planning, expense tracking, traveler ops.',
       ownerId: 0,
       createdAt: new Date('2026-03-19'),
-      updatedAt: new Date('2026-05-15'),
+      updatedAt: new Date('2026-09-17'),
     },
   ]
 }
@@ -60,6 +60,7 @@ export async function GET() {
       .select()
       .from(schema.projects)
       .where(eq(schema.projects.ownerId, session.user.id))
+      .orderBy(schema.projects.createdAt)
     return { projects: rows }
   })
 }

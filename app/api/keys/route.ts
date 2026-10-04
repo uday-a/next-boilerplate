@@ -4,7 +4,7 @@ import { apiHandler, apiError } from '@/lib/api/response'
 import { requireAuth } from '@/server/utils/guards'
 import { getDb, schema } from '@/server/db'
 import { recordAudit } from '@/server/utils/audit'
-import { demoSampleKeys, mintApiKey } from '@/server/utils/api-keys'
+import { mintApiKey } from '@/server/utils/api-keys'
 import { requireRateLimit } from '@/server/utils/rate-limit'
 import { logger } from '@/server/utils/logger'
 
@@ -17,9 +17,8 @@ const CreateKey = z.object({
 export async function GET() {
   return apiHandler(async () => {
     const session = await requireAuth()
-    // Demo has no DB rows — surface clearly-flagged sample rows so the
-    // page shows existing data. Real users always read their own rows.
-    if (session.demo) return { keys: demoSampleKeys() }
+    // Demo session has no DB rows; show the empty state (matches Nuxt).
+    if (session.demo) return { keys: [] }
 
     const db = getDb()
     // Explicit column list — keyHash is selected nowhere, so it can never

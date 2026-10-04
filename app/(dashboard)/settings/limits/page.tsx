@@ -1,75 +1,75 @@
-'use client'
-
 import Link from 'next/link'
 import { AlertTriangle, ChevronRight } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
+import { DemoDataBanner } from '@/components/blocks/DemoDataBanner'
+import { UsageBar } from '@/components/blocks/UsageBar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Page, PageBody, PageHeader, PageHeaderHeading } from '@/components/ui/page'
-import { UsageBar } from '@/components/blocks/UsageBar'
+import { localizedMetadata } from '@/lib/page-title'
+import { SAMPLE_PLAN, SAMPLE_USAGE, usagePct, usageText } from '@/lib/usage-mock'
 
-const quotas = [
-  { name: 'Genesis API calls', used: 248_120, limit: 600_000, period: 'this month' },
-  { name: 'Explorer API calls', used: 71_300, limit: 200_000, period: 'this month' },
-  { name: 'Quantum API calls', used: 1_840_000, limit: 3_000_000, period: 'this month' },
-  { name: 'Batch endpoint requests', used: 2_140, limit: 5_000, period: 'this month' },
-  { name: 'File bundles (active)', used: 47, limit: 50, period: 'workspace total' },
-  { name: 'Compute hours', used: 127.4, limit: 250, period: 'this month' },
-  { name: 'Storage', used: 38.2, limit: 100, period: 'workspace total' },
-  { name: 'Team seats', used: 8, limit: 25, period: 'workspace total' },
-]
-
-const rateLimits = [
-  { endpoint: '/complete', tier: 'Pro', perMinute: 600, burst: 100 },
-  { endpoint: '/complete/stream', tier: 'Pro', perMinute: 600, burst: 100 },
-  { endpoint: '/complete (Explorer)', tier: 'Pro', perMinute: 200, burst: 50 },
-  { endpoint: '/complete (Quantum)', tier: 'Pro', perMinute: 3000, burst: 500 },
-  { endpoint: '/batch', tier: 'Pro', perMinute: 10, burst: 5 },
-  { endpoint: '/files/upload', tier: 'Pro', perMinute: 60, burst: 20 },
-]
-
-function fmt(n: number) {
-  return n >= 1000 ? n.toLocaleString() : String(n)
+export function generateMetadata() {
+  return localizedMetadata('/settings/limits')
 }
 
-export default function LimitsSettingsPage() {
+// Same sample meters as Settings -> Billing, so both pages agree.
+const quotas = SAMPLE_USAGE
+// Quotas at or over the UsageBar destructive threshold get a callout.
+const critical = quotas.filter((q) => usagePct(q) >= 90)
+
+const rateLimits = [
+  { endpoint: '/v1/projects', perMinute: 600, burst: 100 },
+  { endpoint: '/v1/deploys', perMinute: 300, burst: 60 },
+  { endpoint: '/v1/events', perMinute: 3000, burst: 500 },
+  { endpoint: '/v1/customers', perMinute: 600, burst: 100 },
+  { endpoint: '/v1/batch', perMinute: 10, burst: 5 },
+  { endpoint: '/v1/files/upload', perMinute: 60, burst: 20 },
+]
+
+export default async function LimitsSettingsPage() {
+  const t = await getTranslations()
   return (
     <Page>
       <PageHeader>
-        <PageHeaderHeading
-          title="Limits"
-          description="Quotas and rate limits for your workspace. Anything at 90% or more needs attention."
-        />
+        <PageHeaderHeading title={t('nav.items.limits')} description="Quotas and rate limits for your workspace." />
       </PageHeader>
-      <PageBody className="space-y-4">
-        <Card className="border-destructive/30 bg-destructive/5">
-          <CardContent className="flex items-start gap-3 py-4">
-            <AlertTriangle className="mt-0.5 size-5 shrink-0 text-destructive" />
-            <div className="flex-1 space-y-1">
-              <p className="text-sm font-semibold">File bundles approaching limit</p>
-              <p className="text-muted-foreground text-xs">
-                47 of 50 active bundles. Archive unused bundles or upgrade to remove the cap.
-              </p>
-            </div>
-            <Button variant="outline" size="sm">
-              Manage bundles
-            </Button>
-          </CardContent>
-        </Card>
+
+      <PageBody className="max-w-3xl space-y-4">
+        <DemoDataBanner message="Sample usage data. Connect metering to see live quotas." />
+
+        {critical.map((q) => (
+          <Card key={q.id} className="border-destructive/30 bg-destructive/5">
+            <CardContent className="flex items-start gap-4 p-4">
+              <AlertTriangle className="text-destructive mt-0.5 size-4 shrink-0" aria-hidden="true" />
+              <div className="flex-1 space-y-1">
+                <p className="text-sm font-semibold">{q.label} approaching limit</p>
+                <p className="text-muted-foreground text-xs tabular-nums">
+                  {q.used.toLocaleString()} of {q.limit.toLocaleString()} used. Archive unused items or upgrade to raise
+                  the cap.
+                </p>
+              </div>
+              <Button variant="outline" size="sm">
+                Review
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
 
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Quotas</CardTitle>
-            <CardDescription>Monthly quotas reset on the 1st. Workspace-total quotas don&apos;t reset.</CardDescription>
+            <CardDescription>Cycle quotas reset on the 1st. Workspace totals don&apos;t reset.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {quotas.map((quota) => (
+            {quotas.map((q) => (
               <UsageBar
-                key={quota.name}
-                label={quota.name}
-                used={quota.used}
-                limit={quota.limit}
-                valueText={`${fmt(quota.used)} / ${fmt(quota.limit)}`}
-                scope={quota.period}
+                key={q.id}
+                label={q.label}
+                used={q.used}
+                limit={q.limit}
+                valueText={usageText(q)}
+                scope={q.period === 'cycle' ? 'this cycle' : 'workspace total'}
               />
             ))}
           </CardContent>
@@ -78,37 +78,38 @@ export default function LimitsSettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Rate limits</CardTitle>
-            <CardDescription>Per-API-key limits. Multiple keys multiply your effective ceiling.</CardDescription>
+            <CardDescription>
+              Per-API-key limits on the {SAMPLE_PLAN.name} plan. Multiple keys multiply your effective ceiling.
+            </CardDescription>
           </CardHeader>
           <CardContent className="divide-y">
-            {rateLimits.map((limit) => (
-              <div key={limit.endpoint} className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0">
-                <div className="space-y-0.5">
-                  <p className="font-mono text-sm">{limit.endpoint}</p>
-                  <p className="text-muted-foreground text-xs">{limit.tier} tier</p>
-                </div>
+            {rateLimits.map((r) => (
+              <div key={r.endpoint} className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0">
+                <p className="font-mono text-sm">{r.endpoint}</p>
                 <div className="text-right">
                   <p className="text-sm font-medium tabular-nums">
-                    {limit.perMinute.toLocaleString()}{' '}
-                    <span className="text-muted-foreground font-normal">/ min</span>
+                    {r.perMinute.toLocaleString()} <span className="text-muted-foreground font-normal">/ min</span>
                   </p>
-                  <p className="text-muted-foreground text-xs tabular-nums">Burst: {limit.burst}</p>
+                  <p className="text-muted-foreground text-xs tabular-nums">Burst {r.burst}</p>
                 </div>
               </div>
             ))}
           </CardContent>
         </Card>
 
-        <Link href="/settings/billing" className="block">
-          <Card className="hover:bg-muted/40 transition-colors">
-            <CardContent className="flex items-center justify-between gap-4 py-4">
-              <div>
+        <Link
+          href="/pricing"
+          className="group focus-visible:ring-ring/50 block rounded-xl outline-none focus-visible:ring-[3px]"
+        >
+          <Card className="group-hover:bg-muted/40 transition-colors">
+            <CardContent className="flex items-center justify-between gap-4 p-4">
+              <div className="space-y-1">
                 <p className="text-sm font-semibold">Need higher limits?</p>
                 <p className="text-muted-foreground text-xs">
-                  Enterprise tier lifts all caps and adds dedicated capacity in your region.
+                  Enterprise lifts all caps and adds dedicated capacity in your region.
                 </p>
               </div>
-              <ChevronRight className="text-muted-foreground size-4" />
+              <ChevronRight className="text-muted-foreground size-4" aria-hidden="true" />
             </CardContent>
           </Card>
         </Link>

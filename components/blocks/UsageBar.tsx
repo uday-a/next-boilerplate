@@ -14,13 +14,13 @@ interface UsageBarProps {
 }
 
 /**
- * One usage meter for Billing and Limits. Colour follows a single
+ * One usage meter for Billing and Limits. Color follows a single
  * threshold rule: < 70% neutral, 70-89% warning, >= 90% destructive.
  * Port of Nuxt `UsageBar.vue`.
  */
 export function UsageBar({ label, used, limit, valueText, scope, className }: UsageBarProps) {
   const pct = limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0
-  const tone = pct >= 90 ? 'bg-destructive' : pct >= 70 ? 'bg-warning' : 'bg-primary'
+  const tone = pct >= 90 ? 'bg-destructive' : pct >= 70 ? 'bg-warning' : 'bg-foreground'
   const text = valueText ?? `${used.toLocaleString()} / ${limit.toLocaleString()}`
 
   return (
