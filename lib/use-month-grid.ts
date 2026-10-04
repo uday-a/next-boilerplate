@@ -28,15 +28,17 @@ export function dayDiff(a: DateKey, b: DateKey): number {
 
 export function useMonthGrid(options: UseMonthGridOptions = {}) {
   const weekStartsOn = options.weekStartsOn ?? 0
-  const init =
+  // "today" is frozen to the first render so it stays stable across renders.
+  const [init] = useState(() =>
     options.initialDate != null
       ? typeof options.initialDate === 'string'
         ? dateFromKey(options.initialDate)
         : options.initialDate
-      : new Date()
+      : new Date(),
+  )
 
-  const today = useMemo(() => new Date(init.getFullYear(), init.getMonth(), init.getDate()), [init])
-  const todayKey = useMemo(() => isoDate(today), [today])
+  const [today] = useState(() => new Date(init.getFullYear(), init.getMonth(), init.getDate()))
+  const todayKey = isoDate(today)
 
   const [cursor, setCursor] = useState(() => new Date(init.getFullYear(), init.getMonth(), 1))
   const [rangeAnchor, setRangeAnchor] = useState<DateKey>(todayKey)

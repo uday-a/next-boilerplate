@@ -35,7 +35,7 @@ export function CommentList({
               <UserAvatar name={comment.author} color={comment.authorColor} size={compact ? 'xs' : 'sm'} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-xs font-semibold">
+                  <span className={compact ? 'text-xs font-semibold' : 'text-sm font-semibold'}>
                     {compact ? comment.author.split(' ')[0] : comment.author}
                   </span>
                   <span className="text-muted-foreground text-xs">
@@ -44,7 +44,10 @@ export function CommentList({
                 </div>
                 <div
                   className={cn(
-                    'rich-text-content prose prose-sm dark:prose-invert mt-0.5 max-w-none text-muted-foreground text-xs leading-relaxed',
+                    'rich-text-content prose prose-sm dark:prose-invert mt-0.5 max-w-none',
+                    compact
+                      ? 'text-muted-foreground text-xs leading-relaxed'
+                      : 'text-muted-foreground text-sm leading-relaxed',
                   )}
                   dangerouslySetInnerHTML={{ __html: comment.text }}
                 />
@@ -53,7 +56,7 @@ export function CommentList({
           ))}
         </div>
       ) : (
-        <p className="text-muted-foreground text-sm">
+        <p className={compact ? 'text-muted-foreground text-xs' : 'text-muted-foreground text-sm'}>
           No comments yet.
         </p>
       )}
@@ -68,7 +71,7 @@ export function CommentList({
             onValueChange={setNewComment}
             placeholder="Write a comment..."
             minHeight={compact ? '60px' : '80px'}
-            className="text-xs"
+            className={compact ? 'text-xs' : 'text-sm'}
           />
           <div className="flex justify-end">
             <Button

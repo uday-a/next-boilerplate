@@ -51,26 +51,30 @@ export const priorityConfig: Record<string, { icon: LucideIcon; class: string; l
   urgent: { icon: CircleAlert, class: 'text-destructive', label: 'Urgent', bg: 'bg-destructive' },
   high: { icon: ArrowUp, class: 'text-warning', label: 'High', bg: 'bg-warning' },
   medium: { icon: Minus, class: 'text-muted-foreground', label: 'Medium', bg: 'bg-muted-foreground' },
-  low: { icon: ArrowDown, class: 'text-muted-foreground', label: 'Low', bg: 'bg-muted-foreground' },
+  low: { icon: ArrowDown, class: 'text-muted-foreground', label: 'Low', bg: 'bg-border' },
 }
 
+// Avatar tints: a fixed pick from the chart-N/15 set (see design rules).
 export const assignees = {
-  alice: { name: 'Alice Chen', color: 'bg-chart-3/15 text-chart-3' },
-  bob: { name: 'Bob Martinez', color: 'bg-chart-1/15 text-chart-1' },
-  carol: { name: 'Carol White', color: 'bg-chart-2/15 text-chart-2' },
+  alice: { name: 'Alice Chen', color: 'bg-chart-1/15 text-chart-1' },
+  bob: { name: 'Bob Martinez', color: 'bg-chart-2/15 text-chart-2' },
+  carol: { name: 'Carol White', color: 'bg-chart-3/15 text-chart-3' },
   david: { name: 'David Kim', color: 'bg-chart-4/15 text-chart-4' },
   eva: { name: 'Eva Johnson', color: 'bg-chart-5/15 text-chart-5' },
-  frank: { name: 'Frank Lee', color: 'bg-chart-2/15 text-chart-2' },
+  frank: { name: 'Frank Lee', color: 'bg-muted text-muted-foreground' },
 }
 
+// Tags are labels, not status — keep them neutral.
+const tagColor = 'bg-muted text-muted-foreground ring-border'
+
 export const tagPresets = {
-  onboarding: { label: 'Onboarding', color: 'bg-chart-1/10 text-chart-1 ring-chart-1/20' },
-  compliance: { label: 'Compliance', color: 'bg-chart-3/10 text-chart-3 ring-chart-3/20' },
-  recruitment: { label: 'Recruitment', color: 'bg-chart-4/10 text-chart-4 ring-chart-4/20' },
-  payroll: { label: 'Payroll', color: 'bg-chart-2/10 text-chart-2 ring-chart-2/20' },
-  training: { label: 'Training', color: 'bg-chart-5/10 text-chart-5 ring-chart-5/20' },
-  benefits: { label: 'Benefits', color: 'bg-chart-3/10 text-chart-3 ring-chart-3/20' },
-  policy: { label: 'Policy', color: 'bg-muted text-muted-foreground ring-border' },
+  release: { label: 'Release', color: tagColor },
+  bug: { label: 'Bug', color: tagColor },
+  docs: { label: 'Docs', color: tagColor },
+  customer: { label: 'Customer', color: tagColor },
+  infra: { label: 'Infra', color: tagColor },
+  security: { label: 'Security', color: tagColor },
+  design: { label: 'Design', color: tagColor },
 }
 
 export const fileIconMap: Record<string, LucideIcon> = {

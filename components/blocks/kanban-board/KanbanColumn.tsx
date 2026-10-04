@@ -51,7 +51,10 @@ export function KanbanColumn({
 }) {
   return (
     <div
-      className={cn('group/col flex shrink-0 flex-col transition-all duration-200', collapsed ? 'w-12' : 'w-[300px]')}
+      className={cn(
+        'group/col flex max-h-full min-h-0 shrink-0 flex-col transition-all duration-200',
+        collapsed ? 'w-12' : 'border-border/70 bg-muted/40 w-[300px] rounded-xl border p-2',
+      )}
       onDragOver={(e) => e.preventDefault()}
       onDrop={() => onDrop()}
     >
@@ -70,14 +73,14 @@ export function KanbanColumn({
           >
             {column.title}
           </span>
-          <Badge variant="secondary" className="mt-1 h-5 min-w-5 justify-center rounded-md px-1 text-xs">
+          <Badge variant="secondary" className="mt-1 h-5 min-w-5 justify-center rounded-md px-1 text-xs tabular-nums">
             {column.tasks.length}
           </Badge>
           <ChevronsRight className="text-muted-foreground mt-auto size-3.5" />
         </button>
       ) : (
         <>
-          <div className="bg-background/95 sticky top-0 z-10 mb-2 flex items-center gap-2 px-2 py-1.5 backdrop-blur-sm">
+          <div className="mb-2 flex shrink-0 items-center gap-2 rounded-lg bg-[color-mix(in_oklch,var(--muted)_40%,var(--background))] px-2 py-1.5">
             <button
               className="text-muted-foreground hover:text-foreground shrink-0 transition-colors"
               title="Collapse column"
@@ -111,10 +114,8 @@ export function KanbanColumn({
 
           <div
             className={cn(
-              'kanban-lane flex flex-col rounded-xl p-2 transition-all duration-200',
-              dragOverColumn === column.id && draggedTask
-                ? 'bg-primary/[0.06] ring-primary/25 ring-1 ring-inset'
-                : 'bg-muted/40',
+              'flex min-h-15 flex-col overflow-y-auto rounded-lg transition-all duration-200 [scrollbar-color:var(--border)_transparent] [scrollbar-width:thin]',
+              dragOverColumn === column.id && draggedTask ? 'bg-primary/[0.06] ring-primary/25 ring-1 ring-inset' : '',
             )}
             onDragOver={(e) => {
               e.preventDefault()
@@ -183,7 +184,7 @@ export function KanbanColumn({
           </div>
 
           <button
-            className="text-muted-foreground hover:text-foreground hover:bg-muted/60 mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed py-2 text-xs transition-colors"
+            className="text-muted-foreground hover:text-foreground hover:bg-muted/60 mt-2 flex w-full shrink-0 items-center justify-center gap-1.5 rounded-lg border border-dashed py-2 text-xs transition-colors"
             onClick={() => onAddTask(column.id)}
           >
             <Plus className="size-3.5" />

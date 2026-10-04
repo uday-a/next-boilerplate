@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { Plus } from 'lucide-react'
+import { toast } from 'sonner'
 import { type KanbanColumn as KanbanColumnType, type KanbanTask, findTaskById } from '@/lib/use-kanban'
 import { PageHeader, PageHeaderHeading } from '@/components/ui/page'
 import { Button } from '@/components/ui/button'
@@ -21,6 +22,10 @@ export interface KanbanBoardProps {
   hideHeader?: boolean
   hideToolbar?: boolean
   lockParentScroll?: boolean
+  /** Opens this task's detail sheet on mount (deep link `/dashboard/kanban/<id>`). */
+  initialTaskId?: string
+  /** Called when the detail sheet closes (e.g. to navigate back from a deep link). */
+  onDetailClose?: () => void
 }
 
 export function KanbanBoard({
@@ -32,6 +37,8 @@ export function KanbanBoard({
   hideHeader = false,
   hideToolbar = false,
   lockParentScroll = true,
+  initialTaskId,
+  onDetailClose,
 }: KanbanBoardProps) {
   const kanbanEl = React.useRef<HTMLDivElement | null>(null)
 
@@ -52,8 +59,15 @@ export function KanbanBoard({
   const [viewMode, setViewMode] = React.useState<'board' | 'list'>('board')
   const [collapsedColumns, setCollapsedColumns] = React.useState<Set<string>>(new Set())
 
-  const [detailOpen, setDetailOpen] = React.useState(false)
-  const [detailTask, setDetailTask] = React.useState<KanbanTask | null>(null)
+  const [detailTask, setDetailTask] = React.useState<KanbanTask | null>(() =>
+    initialTaskId ? (findTaskById(columns, initialTaskId) ?? null) : null,
+  )
+  const [detailOpen, setDetailOpen] = React.useState(() => detailTask !== null)
+
+  function onDetailOpenChange(open: boolean) {
+    setDetailOpen(open)
+    if (!open) onDetailClose?.()
+  }
 
   const [addTaskOpen, setAddTaskOpen] = React.useState(false)
   const [addTaskColumnId, setAddTaskColumnId] = React.useState(defaultColumnId)
@@ -108,7 +122,7 @@ export function KanbanBoard({
           {
             id: `c${Date.now()}`,
             author: 'Admin User',
-            authorColor: 'bg-chart-1/15 text-chart-1',
+            authorColor: 'bg-muted text-muted-foreground',
             text,
             time: 'Just now',
           },
@@ -118,6 +132,8 @@ export function KanbanBoard({
   }
 
   function moveTask(task: KanbanTask, targetColumnId: string) {
+    const targetTitle = columns.find((c) => c.id === targetColumnId)?.title
+    let moved = false
     commitColumns((cols) => {
       const sourceCol = cols.find((c) => c.tasks.some((t) => t.id === task.id))
       const targetCol = cols.find((c) => c.id === targetColumnId)
@@ -125,8 +141,11 @@ export function KanbanBoard({
       const taskIndex = sourceCol.tasks.findIndex((t) => t.id === task.id)
       if (taskIndex === -1) return
       const removed = sourceCol.tasks.splice(taskIndex, 1)
-      if (removed[0]) targetCol.tasks.push(removed[0])
+      if (!removed[0]) return
+      targetCol.tasks.push(removed[0])
+      moved = true
     })
+    if (moved) toast(`${task.id} moved to ${targetTitle}`)
   }
 
   function openTaskDetail(task: KanbanTask) {
@@ -231,25 +250,25 @@ export function KanbanBoard({
     <div
       ref={kanbanEl}
       data-slot="kanban-board"
-      className="kanban-page flex h-[calc(100dvh-3.5rem-2rem)] flex-col overflow-hidden"
+      className="flex h-[calc(100dvh-3.5rem-2rem)] flex-col overflow-hidden"
     >
       {!hideHeader && (
-        <div className="mb-4 shrink-0">
-          <PageHeader>
-            <div className="flex items-start justify-between gap-4">
-              <PageHeaderHeading title={title ?? ''} description={description ?? ''} />
-              <div className="flex shrink-0 items-center gap-2">
-                <Badge variant="secondary" className="font-mono text-xs tabular-nums">
-                  {totalTasks} tasks
-                </Badge>
-                <Button size="sm" onClick={() => openAddTask(defaultColumnId)}>
-                  <Plus className="size-4" />
-                  Add Task
-                </Button>
-              </div>
+        <PageHeader
+          className="mb-4 shrink-0"
+          actions={
+            <div className="flex shrink-0 items-center gap-2">
+              <Badge variant="secondary" className="tabular-nums">
+                {totalTasks} tasks
+              </Badge>
+              <Button size="sm" onClick={() => openAddTask(defaultColumnId)}>
+                <Plus className="size-4" aria-hidden="true" />
+                Add task
+              </Button>
             </div>
-          </PageHeader>
-        </div>
+          }
+        >
+          <PageHeaderHeading title={title ?? ''} description={description ?? ''} />
+        </PageHeader>
       )}
 
       {!hideToolbar && (
@@ -266,7 +285,7 @@ export function KanbanBoard({
       )}
 
       {viewMode === 'board' ? (
-        <div className="kanban-board relative flex min-h-0 flex-1 items-start gap-3 overflow-auto pb-3">
+        <div className="relative flex min-h-0 flex-1 items-start gap-3 overflow-x-auto overflow-y-hidden pb-3 [scrollbar-color:var(--border)_transparent] [scrollbar-width:thin]">
           {filteredColumns.map((column) => (
             <KanbanColumn
               key={column.id}
@@ -301,7 +320,7 @@ export function KanbanBoard({
         open={detailOpen}
         task={detailTask}
         columns={columns}
-        onOpenChange={setDetailOpen}
+        onOpenChange={onDetailOpenChange}
         onMoveTask={moveTask}
         onAddComment={addComment}
       />
@@ -314,50 +333,6 @@ export function KanbanBoard({
         onCreate={onCreateTask}
       />
 
-      <style>{`
-        .kanban-board {
-          scrollbar-width: thin;
-          scrollbar-color: var(--border) transparent;
-        }
-        .kanban-board::-webkit-scrollbar {
-          height: 6px;
-          width: 6px;
-        }
-        .kanban-board::-webkit-scrollbar-thumb {
-          background-color: var(--border);
-          border-radius: 3px;
-        }
-        .kanban-board::-webkit-scrollbar-corner {
-          background: transparent;
-        }
-        .kanban-card {
-          animation: card-in 0.25s ease-out both;
-        }
-        @keyframes card-in {
-          from {
-            opacity: 0;
-            transform: translateY(6px);
-          }
-        }
-        .kanban-card:hover .kanban-accent {
-          box-shadow: 0 0 3px currentColor;
-        }
-        .kanban-lane {
-          min-height: 60px;
-        }
-        .kanban-list {
-          scrollbar-width: thin;
-          scrollbar-color: var(--border) transparent;
-        }
-        .kanban-list::-webkit-scrollbar {
-          height: 6px;
-          width: 6px;
-        }
-        .kanban-list::-webkit-scrollbar-thumb {
-          background-color: var(--border);
-          border-radius: 3px;
-        }
-      `}</style>
     </div>
   )
 }

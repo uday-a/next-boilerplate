@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { DashboardLayout } from '@/components/blocks/DashboardLayout'
 import { Toaster } from '@/components/ui/sonner'
 import { routeLabel } from '@/lib/breadcrumb-labels'
+import { createInitialColumns } from '@/lib/kanban-data'
+import { findTaskById } from '@/lib/use-kanban'
 import type { SessionUser } from '@/lib/auth/types'
 import type { ApiResponse } from '@/lib/api/response'
 
@@ -29,7 +31,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     if (parts.length === 0) return [{ label: t('nav.items.dashboard') }]
     return parts.map((_, i) => {
       const path = `/${parts.slice(0, i + 1).join('/')}`
-      return { label: routeLabel(path, t), href: i < parts.length - 1 ? path : undefined }
+      // /dashboard/kanban/<id>: show the task title, not the raw id.
+      const task = i === 2 && parts[1] === 'kanban' ? findTaskById(createInitialColumns(), parts[2]) : undefined
+      return { label: task?.title ?? routeLabel(path, t), href: i < parts.length - 1 ? path : undefined }
     })
   }, [pathname, t])
 

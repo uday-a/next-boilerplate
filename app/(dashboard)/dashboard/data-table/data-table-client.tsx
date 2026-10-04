@@ -205,7 +205,7 @@ export function DataTableClient() {
   const dateCutoff = useMemo(() => {
     if (dateRange === 'all') return null
     const days = dateRange === '7d' ? 7 : dateRange === '30d' ? 30 : 90
-    const d = new Date('2026-05-16')
+    const d = new Date('2026-09-29')
     d.setDate(d.getDate() - days)
     return d.toISOString().slice(0, 10)
   }, [dateRange])
@@ -704,7 +704,7 @@ export function DataTableClient() {
                             <Badge
                               variant="outline"
                               className={[
-                                'gap-1 px-2 text-xs font-medium uppercase tracking-wide',
+                                'gap-1 px-2 text-xs font-medium capitalize',
                                 statusTone[c.status],
                               ].join(' ')}
                             >
@@ -893,7 +893,7 @@ export function DataTableClient() {
                         <Badge
                           variant="outline"
                           className={[
-                            'gap-1 px-2 py-0.5 text-xs font-medium uppercase tracking-wide',
+                            'gap-1 px-2 py-0.5 text-xs font-medium capitalize',
                             statusTone[detailCustomer.status],
                           ].join(' ')}
                         >

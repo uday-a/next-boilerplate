@@ -17,10 +17,11 @@ export function DueDateBadge({
   const t = useTranslations('dashboard.kanban')
   const locale = useLocale()
   const status = getDueStatus(dueDate)
-  const date = formatDueDate(dueDate, locale)
-  // WHY: overdue/soon must not rely on colour alone -- icon and text change too.
-  const formatted =
-    status === 'overdue' ? t('dueOverdue', { date }) : status === 'soon' ? t('dueSoon', { date }) : date
+  const formatted = formatDueDate(dueDate, locale)
+  // WHY: urgency must not rely on colour alone -- overdue swaps the icon and
+  // both states carry a screen-reader label.
+  const statusLabel = status === 'overdue' ? t('overdue') : status === 'soon' ? t('dueSoon') : ''
+  const srLabel = statusLabel ? <span className="sr-only">{statusLabel}:</span> : null
   const Icon = status === 'overdue' ? AlertCircle : Clock
 
   const chipClasses =
@@ -39,6 +40,7 @@ export function DueDateBadge({
         className={cn('flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-medium', chipClasses, className)}
       >
         <Icon className="size-3" aria-hidden="true" />
+        {srLabel}
         {formatted}
       </div>
     )
@@ -47,6 +49,7 @@ export function DueDateBadge({
   return (
     <p className={cn('flex items-center gap-1 text-sm leading-tight font-medium', inlineClasses, className)}>
       <Icon className="size-3" aria-hidden="true" />
+      {srLabel}
       {formatted}
     </p>
   )

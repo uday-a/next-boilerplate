@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { MoreHorizontal, MessageSquare, Paperclip, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type KanbanColumn as KanbanColumnType, type KanbanTask, priorityConfig, getTaskColumn } from '@/lib/use-kanban'
@@ -17,6 +18,7 @@ import { TagBadge } from './TagBadge'
 import { SubtaskProgress } from './SubtaskProgress'
 import { DueDateBadge } from './DueDateBadge'
 import { UserAvatar } from './UserAvatar'
+import { PriorityBadge } from './PriorityBadge'
 
 export function KanbanCard({
   task,
@@ -42,45 +44,35 @@ export function KanbanCard({
     .filter(Boolean)
     .join(', ')
 
-  function onKeyDown(e: React.KeyboardEvent) {
-    if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget) {
-      e.preventDefault()
-      onClick?.(task)
-    }
-  }
-
   return (
+    // Not a button itself: the title is the card's one button, stretched
+    // over the card with `after:inset-0`; the menu and avatar sit above it.
     <div
-      role="button"
-      tabIndex={0}
-      aria-label={ariaLabel}
       className={cn(
-        'kanban-card group/card bg-card relative cursor-grab rounded-lg border p-3 transition-all duration-150',
+        'animate-in fade-in-0 slide-in-from-bottom-1.5 group/card bg-card relative cursor-grab rounded-lg border p-3 transition-all duration-150',
         'hover:border-border hover:shadow-md active:scale-[0.97] active:cursor-grabbing',
-        'focus-visible:border-ring focus-visible:ring-ring/50 outline-none focus-visible:ring-[3px]',
-        isDone ? 'opacity-75 hover:opacity-100 focus-visible:opacity-100' : '',
       )}
-      onClick={() => onClick?.(task)}
-      onKeyDown={onKeyDown}
     >
       <div
         className={cn(
-          'kanban-accent absolute top-3 bottom-3 left-0 w-[1.5px] rounded-full transition-all duration-150',
+          'absolute top-3 bottom-3 left-0 w-[1.5px] rounded-full transition-all duration-150',
           priorityConfig[task.priority].bg,
           task.priority === 'low' ? 'opacity-40' : task.priority === 'medium' ? 'opacity-60' : 'opacity-90',
         )}
       />
 
       <div className="mb-1 flex items-center justify-between pl-2">
-        <span className="text-muted-foreground font-mono text-xs">{task.id}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-muted-foreground font-mono text-xs">{task.id}</span>
+          {(task.priority === 'urgent' || task.priority === 'high') && <PriorityBadge priority={task.priority} />}
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
               size="icon"
               aria-label={`More actions for ${task.id}`}
-              className="text-muted-foreground -mr-1 size-6 opacity-0 transition-opacity group-focus-within/card:opacity-100 group-hover/card:opacity-100 data-[state=open]:opacity-100"
-              onClick={(e) => e.stopPropagation()}
+              className="text-muted-foreground relative z-10 -mr-1 size-6 opacity-0 transition-opacity group-focus-within/card:opacity-100 group-hover/card:opacity-100 data-[state=open]:opacity-100"
             >
               <MoreHorizontal className="size-3.5" aria-hidden="true" />
             </Button>
@@ -95,10 +87,10 @@ export function KanbanCard({
               Quick view
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <a href={`/dashboard/kanban/${task.id}`} className="gap-2">
+              <Link href={`/dashboard/kanban/${task.id}`} className="gap-2">
                 <ExternalLink className="size-3.5" />
                 Open detail
-              </a>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>Move to...</DropdownMenuItem>
@@ -109,14 +101,19 @@ export function KanbanCard({
         </DropdownMenu>
       </div>
 
-      <p
+      <button
+        type="button"
+        data-card-title
+        aria-label={ariaLabel}
         className={cn(
-          'mb-2 pl-2 text-sm leading-snug font-medium',
+          'mb-2 block w-full cursor-[inherit] pl-2 text-left text-sm leading-snug font-medium outline-none',
+          'focus-visible:after:ring-ring/50 after:absolute after:inset-0 after:rounded-lg focus-visible:after:ring-[3px]',
           isDone ? 'decoration-muted-foreground/40 line-through' : '',
         )}
+        onClick={() => onClick?.(task)}
       >
         {task.title}
-      </p>
+      </button>
 
       {task.tags.length > 0 && (
         <div className="mb-2 flex flex-wrap gap-1 pl-2">
@@ -136,20 +133,20 @@ export function KanbanCard({
         {task.dueDate && <DueDateBadge dueDate={task.dueDate} variant="chip" />}
 
         {task.commentItems.length > 0 && (
-          <div className="text-muted-foreground flex items-center gap-1 text-xs">
+          <div className="text-muted-foreground flex items-center gap-1 text-xs tabular-nums">
             <MessageSquare className="size-3" />
             {task.commentItems.length}
           </div>
         )}
 
         {task.fileItems.length > 0 && (
-          <div className="text-muted-foreground flex items-center gap-1 text-xs">
+          <div className="text-muted-foreground flex items-center gap-1 text-xs tabular-nums">
             <Paperclip className="size-3" />
             {task.fileItems.length}
           </div>
         )}
 
-        <div className="ml-auto">
+        <div className="relative z-10 ml-auto">
           <TooltipProvider delayDuration={200}>
             <Tooltip>
               <TooltipTrigger asChild>

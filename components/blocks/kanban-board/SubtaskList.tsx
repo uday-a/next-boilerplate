@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import {
   type KanbanColumn as KanbanColumnType,
@@ -30,7 +31,7 @@ export function SubtaskList({
 
   if (!subtasks.length) {
     return (
-      <p className="text-muted-foreground text-sm">
+      <p className={compact ? 'text-muted-foreground text-xs' : 'text-muted-foreground text-sm'}>
         No subtasks yet.
       </p>
     )
@@ -39,10 +40,10 @@ export function SubtaskList({
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <span className={cn('text-muted-foreground tabular-nums text-xs font-medium')}>
+        <span className={cn('text-muted-foreground tabular-nums', compact ? 'text-xs' : 'text-sm')}>
           {doneCount}/{subtasks.length} done
         </span>
-        <span className={cn('text-muted-foreground tabular-nums text-xs font-medium')}>
+        <span className="text-muted-foreground text-xs tabular-nums">
           {percent}%
         </span>
       </div>
@@ -58,7 +59,7 @@ export function SubtaskList({
 
       <div className={compact ? 'space-y-0.5' : 'space-y-1'}>
         {subtasks.map(({ task, column }) => (
-          <a
+          <Link
             key={task.id}
             href={`/dashboard/kanban/${task.id}`}
             className={cn(
@@ -74,9 +75,9 @@ export function SubtaskList({
               {task.id}
             </span>
             <span
-              title={task.title}
               className={cn(
-                'min-w-0 flex-1 truncate text-sm font-medium',
+                'min-w-0 flex-1 truncate',
+                compact ? 'text-xs' : 'text-sm',
                 column?.id === 'done' ? 'text-muted-foreground line-through' : 'text-foreground',
               )}
             >
@@ -90,7 +91,7 @@ export function SubtaskList({
             >
               {column?.title ?? 'Unknown'}
             </span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

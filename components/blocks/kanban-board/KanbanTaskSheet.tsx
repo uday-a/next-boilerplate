@@ -1,6 +1,7 @@
 'use client'
 
-import { Clock, ExternalLink, Download } from 'lucide-react'
+import Link from 'next/link'
+import { Clock, ExternalLink, Download, File } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type KanbanColumn as KanbanColumnType, type KanbanTask, priorityConfig, fileIconMap } from '@/lib/use-kanban'
 import { Button } from '@/components/ui/button'
@@ -11,7 +12,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Sheet, SheetContent, SheetTitle, SheetDescription, SheetFooter, SheetClose } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+  SheetClose,
+} from '@/components/ui/sheet'
 import { TagBadge } from './TagBadge'
 import { PriorityBadge } from './PriorityBadge'
 import { DueDateBadge } from './DueDateBadge'
@@ -38,19 +47,32 @@ export function KanbanTaskSheet({
     ? (columns.find((c) => c.tasks.some((t) => t.id === task.id))?.id ?? '')
     : ''
 
+  // A status change re-renders the card in its new column, so the element that
+  // opened the sheet is gone by close time; send focus to the card's new node.
+  function onCloseAutoFocus(event: Event) {
+    if (!task) return
+    const card = document.querySelector<HTMLElement>(`[data-task-id="${task.id}"] [data-card-title]`)
+    if (!card) return
+    event.preventDefault()
+    card.focus()
+  }
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="flex flex-col gap-0 overflow-hidden p-0 sm:max-w-[420px]">
+      <SheetContent className="gap-0 overflow-hidden sm:max-w-[420px]" onCloseAutoFocus={onCloseAutoFocus}>
         {task && (
           <>
             <div className={cn('h-1 w-full shrink-0', priorityConfig[task.priority]?.bg)} />
 
-            <div className="shrink-0 px-4 pt-4 pb-3">
-              <div className="mb-3 flex items-center gap-2">
+            <SheetHeader className="shrink-0 border-b pr-12">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="text-muted-foreground font-mono text-xs tracking-tight">{task.id}</span>
                 <span className="text-muted-foreground">·</span>
                 <Select value={columnIdForTask} onValueChange={(val) => onMoveTask(task, String(val))}>
-                  <SelectTrigger className="hover:bg-secondary h-5 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none">
+                  <SelectTrigger
+                    aria-label="Status"
+                    className="hover:bg-secondary h-5 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none"
+                  >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -64,33 +86,34 @@ export function KanbanTaskSheet({
                     ))}
                   </SelectContent>
                 </Select>
-                <PriorityBadge priority={task.priority} iconSize="size-3" className="ml-auto" />
+                <PriorityBadge priority={task.priority} iconSize="size-3" />
               </div>
 
               <SheetTitle className="text-base leading-snug font-semibold tracking-tight">{task.title}</SheetTitle>
               <SheetDescription className="sr-only">Task details</SheetDescription>
-              {task.description ? (
-                <div
-                  className="text-muted-foreground rich-text-content prose prose-sm dark:prose-invert mt-1.5 max-w-none text-sm leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: task.description }}
-                />
-              ) : (
-                <p className="text-muted-foreground mt-1.5 text-sm leading-relaxed">No description provided.</p>
-              )}
+            </SheetHeader>
 
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {task.tags.length ? (
-                  task.tags.map((tag) => <TagBadge key={tag.label} label={tag.label} color={tag.color} />)
+            <div className="min-h-0 flex-1 overflow-y-auto p-4">
+              <div className="space-y-4">
+                {task.description ? (
+                  <div
+                    className="text-muted-foreground rich-text-content prose prose-sm dark:prose-invert max-w-none text-sm leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: task.description }}
+                  />
                 ) : (
-                  <span className="text-muted-foreground text-xs">No tags</span>
+                  <p className="text-muted-foreground text-sm leading-relaxed">No description provided.</p>
                 )}
-              </div>
-            </div>
 
-            <div className="bg-border mx-4 h-px" />
+                <div className="flex flex-wrap gap-1.5">
+                  {task.tags.length ? (
+                    task.tags.map((tag) => <TagBadge key={tag.label} label={tag.label} color={tag.color} />)
+                  ) : (
+                    <span className="text-muted-foreground text-xs">No tags</span>
+                  )}
+                </div>
 
-            <div className="flex-1 overflow-y-auto">
-              <div className="space-y-4 px-4 py-3">
+                <div className="bg-border h-px" />
+
                 <div className="flex items-center gap-3">
                   <UserAvatar name={task.assignee.name} color={task.assignee.color} size="md" />
                   <div>
@@ -112,13 +135,12 @@ export function KanbanTaskSheet({
                 {task.parentId && (
                   <div className="flex items-center gap-2">
                     <span className="text-muted-foreground text-xs">Parent:</span>
-                    <a
+                    <Link
                       href={`/dashboard/kanban/${task.parentId}`}
                       className="text-primary text-xs font-medium hover:underline"
-                      onClick={() => onOpenChange(false)}
                     >
                       {task.parentId}
-                    </a>
+                    </Link>
                   </div>
                 )}
 
@@ -156,7 +178,7 @@ export function KanbanTaskSheet({
                   {task.fileItems.length ? (
                     <div className="space-y-1">
                       {task.fileItems.map((file) => {
-                        const FileIcon = fileIconMap[file.type]
+                        const FileIcon = fileIconMap[file.type] ?? File
                         return (
                           <div
                             key={file.id}
@@ -166,7 +188,9 @@ export function KanbanTaskSheet({
                               <FileIcon className="text-muted-foreground size-4" />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-medium" title={file.name}>{file.name}</p>
+                              <p className="truncate text-xs font-medium" title={file.name}>
+                                {file.name}
+                              </p>
                               <p className="text-muted-foreground text-xs">{file.size}</p>
                             </div>
                             <Button
@@ -187,14 +211,15 @@ export function KanbanTaskSheet({
               </div>
             </div>
 
-            <SheetFooter className="shrink-0 border-t px-4 py-3">
+            <SheetFooter className="shrink-0 border-t sm:flex-row sm:justify-end">
               <div className="flex w-full items-center gap-2">
-                <a href={`/dashboard/kanban/${task.id}`} className="flex-1" onClick={() => onOpenChange(false)}>
-                  <Button variant="outline" size="sm" className="w-full gap-1.5">
+                {/* Navigating remounts the kanban page with this task's sheet open. */}
+                <Button variant="outline" size="sm" className="flex-1 gap-1.5" asChild>
+                  <Link href={`/dashboard/kanban/${task.id}`}>
                     <ExternalLink className="size-3.5" />
                     View full detail
-                  </Button>
-                </a>
+                  </Link>
+                </Button>
                 <SheetClose asChild>
                   <Button variant="ghost" size="sm">
                     Close

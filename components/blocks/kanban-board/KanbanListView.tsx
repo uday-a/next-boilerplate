@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 import { ChevronDown, ChevronRight, ExternalLink, MessageSquare, Paperclip, ArrowUpDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type KanbanColumn as KanbanColumnType, type KanbanTask, getTaskColumn } from '@/lib/use-kanban'
@@ -133,8 +134,8 @@ export function KanbanListView({
   ]
 
   return (
-    <div className="kanban-list flex min-h-0 flex-1 flex-col overflow-auto pb-3">
-      <div className="bg-muted/50 sticky top-0 z-10 grid grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 rounded-t-lg border px-3 py-2 text-xs font-medium tracking-wider uppercase">
+    <div className="flex min-h-0 flex-1 flex-col overflow-auto pb-3 [scrollbar-color:var(--border)_transparent] [scrollbar-width:thin]">
+      <div className="bg-muted text-muted-foreground sticky top-0 z-10 grid grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 rounded-t-lg border px-3 py-2 text-xs font-medium tracking-wider uppercase">
         {headerCols.map((h) => (
           <button
             key={h.field}
@@ -173,29 +174,33 @@ export function KanbanListView({
             group.tasks.map((item) => (
               <div
                 key={item.task.id}
-                className="hover:bg-muted/30 grid cursor-pointer grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 border-x border-b px-3 py-2 transition-colors"
-                onClick={() => onTaskClick(item.task)}
+                className="group/row hover:bg-muted/30 relative grid grid-cols-[60px_1fr_100px_110px_130px_100px_80px] items-center gap-2 border-x border-b px-3 py-2 transition-colors"
               >
                 <span className="text-muted-foreground font-mono text-xs">{item.task.id}</span>
 
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span
+                    {/* Row's one button, stretched over the row; the link,
+                        status select and tooltips sit above it (z-10). */}
+                    <button
+                      type="button"
                       title={item.task.title}
                       className={cn(
-                        'truncate text-sm font-medium',
+                        'truncate text-left text-sm font-medium outline-none',
+                        'focus-visible:after:ring-ring/50 after:absolute after:inset-0 focus-visible:after:ring-[3px] focus-visible:after:ring-inset',
                         item.columnId === 'done' ? 'text-muted-foreground line-through' : '',
                       )}
+                      onClick={() => onTaskClick(item.task)}
                     >
                       {item.task.title}
-                    </span>
-                    <a
+                    </button>
+                    <Link
                       href={`/dashboard/kanban/${item.task.id}`}
-                      className="text-muted-foreground hover:text-foreground shrink-0 opacity-0 transition-opacity group-hover/row:opacity-100"
-                      onClick={(e) => e.stopPropagation()}
+                      aria-label={`Open ${item.task.id} detail`}
+                      className="text-muted-foreground hover:text-foreground relative z-10 shrink-0 opacity-0 transition-opacity group-hover/row:opacity-100 focus-visible:opacity-100"
                     >
                       <ExternalLink className="size-3" />
-                    </a>
+                    </Link>
                   </div>
                   {(item.task.tags.length > 0 || item.task.subtaskIds.length > 0) && (
                     <div className="mt-0.5 flex items-center gap-1.5">
@@ -224,8 +229,7 @@ export function KanbanListView({
                     onValueChange={(val) => onMoveTask(item.task, String(val))}
                   >
                     <SelectTrigger
-                      className="hover:bg-muted h-6 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none"
-                      onClick={(e) => e.stopPropagation()}
+                      className="hover:bg-muted relative z-10 h-6 w-auto gap-1 rounded-md border-none bg-transparent px-1.5 text-xs font-medium shadow-none"
                     >
                       <span className="flex items-center gap-1.5">
                         <span className={cn('size-1.5 rounded-full', item.dotColor)} />
@@ -249,7 +253,7 @@ export function KanbanListView({
 
                 <div className="flex items-center gap-2">
                   <UserAvatar name={item.task.assignee.name} color={item.task.assignee.color} size="xs" />
-                  <span className="truncate text-xs" title={item.task.assignee.name}>{item.task.assignee.name}</span>
+                  <span className="relative z-10 truncate text-xs" title={item.task.assignee.name}>{item.task.assignee.name}</span>
                 </div>
 
                 <div>
@@ -265,7 +269,7 @@ export function KanbanListView({
                     {item.task.commentItems.length > 0 && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-muted-foreground flex items-center gap-0.5 text-xs">
+                          <span className="text-muted-foreground relative z-10 flex items-center gap-0.5 text-xs tabular-nums">
                             <MessageSquare className="size-3" />
                             {item.task.commentItems.length}
                           </span>
@@ -276,7 +280,7 @@ export function KanbanListView({
                     {item.task.fileItems.length > 0 && (
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="text-muted-foreground flex items-center gap-0.5 text-xs">
+                          <span className="text-muted-foreground relative z-10 flex items-center gap-0.5 text-xs tabular-nums">
                             <Paperclip className="size-3" />
                             {item.task.fileItems.length}
                           </span>
