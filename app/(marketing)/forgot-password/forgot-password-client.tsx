@@ -29,16 +29,14 @@ export function ForgotPasswordClient() {
   }
 
   return (
-    <div className="space-y-4">
-      {status === 'sent' && (
-        <p className="text-muted-foreground mx-auto max-w-sm text-center text-sm">
-          If an account exists for that email, a sign-in link is on its way.
-        </p>
-      )}
-      {status === 'error' && (
-        <p className="text-destructive mx-auto max-w-sm text-center text-sm">{errorMsg}</p>
-      )}
+    <div>
       <AuthPasswordReset signInHref="/login" onRequest={onRequest} />
+      {/* Errors surface in a toast-style overlay rather than inside the card. */}
+      {status === 'error' && (
+        <div className="border-destructive/30 bg-background/95 text-destructive fixed inset-x-0 bottom-6 z-50 mx-auto w-fit max-w-md rounded-full border px-4 py-2 text-sm shadow-lg backdrop-blur">
+          {errorMsg}
+        </div>
+      )}
     </div>
   )
 }

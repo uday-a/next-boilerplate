@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { ShieldCheck, RotateCw } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { PinInput, PinInputGroup, PinInputSlot } from '@/components/ui/pin-input'
 
@@ -68,7 +68,7 @@ export function AuthMfa({
   }
 
   return (
-    <div className="bg-background flex min-h-svh items-center justify-center p-6">
+    <div className="bg-background flex min-h-svh items-center justify-center p-4">
       <Card className="w-full max-w-sm">
         {!verified ? (
           <>
@@ -76,7 +76,7 @@ export function AuthMfa({
               <div className="bg-primary/10 text-primary mx-auto mb-2 flex size-12 items-center justify-center rounded-full">
                 <ShieldCheck className="size-6" />
               </div>
-              <CardTitle className="text-2xl">{title ?? t('auth.mfa.title')}</CardTitle>
+              <h1 className="text-2xl leading-tight font-semibold tracking-tight">{title ?? t('auth.mfa.title')}</h1>
               <CardDescription>{description ?? t('auth.mfa.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -100,7 +100,7 @@ export function AuthMfa({
                     className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-xs underline-offset-4 hover:underline"
                     onClick={startResendCooldown}
                   >
-                    <RotateCw className="size-3" />{t('auth.mfa.resend')}
+                    <RotateCw className="size-3.5" />{t('auth.mfa.resend')}
                   </button>
                 ) : (
                   <p className="text-muted-foreground text-xs">
@@ -119,17 +119,17 @@ export function AuthMfa({
             </CardFooter>
           </>
         ) : (
-          <CardContent className="space-y-4 pt-6 text-center">
+          <CardContent className="space-y-4 pt-4 text-center">
             <div className="bg-success/10 text-success mx-auto flex size-12 items-center justify-center rounded-full">
               <ShieldCheck className="size-6" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-lg font-semibold">{t('auth.mfa.verifiedTitle')}</h3>
+              <h3 className="text-2xl font-semibold tracking-tight">{t('auth.mfa.verifiedTitle')}</h3>
               <p className="text-muted-foreground text-sm">{t('auth.mfa.verifiedDescription')}</p>
             </div>
-            <a href={continueHref} onClick={() => onContinue?.()}>
-              <Button className="w-full">{t('auth.mfa.continue')}</Button>
-            </a>
+            <Button asChild className="w-full">
+              <a href={continueHref} onClick={() => onContinue?.()}>{t('auth.mfa.continue')}</a>
+            </Button>
           </CardContent>
         )}
       </Card>

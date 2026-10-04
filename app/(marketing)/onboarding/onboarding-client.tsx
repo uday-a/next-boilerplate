@@ -48,22 +48,22 @@ export function OnboardingClient() {
       >
         Skip to content
       </a>
-      <main id="main-content" tabIndex={-1} className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-6 py-12 outline-none">
-        <ol className="mb-6 flex items-center gap-3 text-xs">
+      <main id="main-content" tabIndex={-1} className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-4 outline-none">
+        <ol className="mb-4 flex items-center gap-3 text-xs">
           {steps.map((label, i) => (
             <li key={label} className="flex items-center gap-2">
               <span
                 className={cn(
-                  'flex size-6 items-center justify-center rounded-full border text-xs font-medium',
+                  'flex size-6 items-center justify-center rounded-full border text-xs font-medium tabular-nums',
                   i < step && 'bg-primary text-primary-foreground border-primary',
                   i === step && 'border-foreground text-foreground',
                   i > step && 'text-muted-foreground',
                 )}
               >
-                {i < step ? <Check className="size-3" /> : i + 1}
+                {i < step ? <Check className="size-3.5" aria-hidden="true" /> : i + 1}
               </span>
               <span className={cn(i === step ? 'font-medium' : 'text-muted-foreground')}>{label}</span>
-              {i < steps.length - 1 && <ArrowRight className="text-muted-foreground size-3" />}
+              {i < steps.length - 1 && <ArrowRight className="text-muted-foreground size-3.5" aria-hidden="true" />}
             </li>
           ))}
         </ol>
@@ -94,9 +94,9 @@ export function OnboardingClient() {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label>Your role</Label>
+                  <Label htmlFor="onb-role">Your role</Label>
                   <Select value={role} onValueChange={setRole}>
-                    <SelectTrigger>
+                    <SelectTrigger id="onb-role">
                       <SelectValue placeholder="Select a role" />
                     </SelectTrigger>
                     <SelectContent>
@@ -123,9 +123,9 @@ export function OnboardingClient() {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label>Team size</Label>
+                  <Label htmlFor="onb-size">Team size</Label>
                   <Select value={workspaceSize} onValueChange={setWorkspaceSize}>
-                    <SelectTrigger>
+                    <SelectTrigger id="onb-size">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -148,13 +148,13 @@ export function OnboardingClient() {
                   onChange={(e) => setInvites(e.target.value)}
                   placeholder="alice@acme.com, bob@acme.com"
                 />
-                <p className="text-muted-foreground text-xs">We&apos;ll send each one an invite link.</p>
+                <p className="text-muted-foreground text-xs">We’ll send each one an invite link.</p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        <div className="mt-6 flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-between">
           {step > 0 ? (
             <Button variant="ghost" onClick={back}>
               Back

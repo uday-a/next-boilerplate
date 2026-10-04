@@ -402,8 +402,8 @@
       "clearFilter": "Borrar filtro",
       "boardView": "Vista de tablero",
       "listView": "Vista de lista",
-      "dueOverdue": "Vencida · {date}",
-      "dueSoon": "Vence {date}"
+      "overdue": "Vencida",
+      "dueSoon": "Vence pronto"
     },
     "messages": {
       "emptySearchTitle": "Ningún mensaje coincide con tu búsqueda",

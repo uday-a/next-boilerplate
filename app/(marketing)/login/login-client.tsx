@@ -1,6 +1,6 @@
 'use client'
 
-import { AlertCircle, CheckCircle2, Mail, Sparkles } from 'lucide-react'
+import { AlertCircle, Mail, Sparkles } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { AuthSignIn } from '@/components/blocks/AuthSignIn'
@@ -97,57 +97,59 @@ export function LoginClient({ demoMode }: { demoMode: boolean }) {
   }
 
   return (
-    <div className="relative">
-      <AuthSignIn
-        forgotPasswordHref="/forgot-password"
-        signUpHref="/sign-up"
-        oauthProviders={['github']}
-        onSubmit={onSubmit}
-        onOauth={onOauth}
-      />
+    <div className="bg-background relative flex min-h-svh items-center justify-center p-4 md:p-4">
+      <div className="w-full max-w-sm">
+        <AuthSignIn
+          forgotPasswordHref="/forgot-password"
+          signUpHref="/sign-up"
+          oauthProviders={['github']}
+          onSubmit={onSubmit}
+          onOauth={onOauth}
+        />
 
-      {/* Top toast overlays -- same pattern as nuxt-boilerplate /login */}
-      {(errorBanner || linkState.kind !== 'idle') && (
-        <div className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">
-          {errorBanner && (
-            <div className="border-destructive/30 bg-background/95 text-destructive pointer-events-auto flex items-center gap-2 rounded-full border px-4 py-2 text-sm shadow-lg backdrop-blur">
-              <AlertCircle className="size-4" />
-              {errorBanner}
+        {/* Top toast overlays -- error banner on bad magic link, confirmation on send */}
+        {errorBanner && (
+          <div className="fixed top-6 right-6 z-50 max-w-sm">
+            <div className="bg-popover text-destructive border-destructive/30 flex items-center gap-2 rounded-lg border p-4 text-sm shadow-lg">
+              <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
+              <span>{errorBanner}</span>
             </div>
-          )}
-          {!errorBanner && linkState.kind === 'sent' && (
-            <div className="bg-background/95 pointer-events-auto flex items-center gap-2 rounded-full border border-success/30 px-4 py-2 text-sm text-success shadow-lg backdrop-blur">
-              <CheckCircle2 className="size-4" />
-              Sign-in link sent to <strong>{linkState.email}</strong>.
-            </div>
-          )}
-          {!errorBanner && linkState.kind === 'error' && (
-            <div className="border-destructive/30 bg-background/95 text-destructive pointer-events-auto flex items-center gap-2 rounded-full border px-4 py-2 text-sm shadow-lg backdrop-blur">
-              <AlertCircle className="size-4" />
-              {linkState.message}
-            </div>
-          )}
-          {!errorBanner && linkState.kind === 'sending' && (
-            <div className="bg-background/95 ring-border/60 pointer-events-auto flex items-center gap-2 rounded-full border px-4 py-2 text-sm shadow-lg backdrop-blur ring-1">
-              <Mail className="size-4 animate-pulse" />
-              Sending sign-in link…
-            </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
 
-      {/* Fixed bottom demo bar -- always visible when demo mode is on (nuxt-boilerplate parity) */}
+        {linkState.kind === 'sent' && (
+          <div className="fixed top-6 right-6 z-50 max-w-sm">
+            <div className="bg-popover text-popover-foreground flex items-center gap-2 rounded-lg border p-4 text-sm shadow-lg">
+              <Mail className="size-4 shrink-0" aria-hidden="true" />
+              <span>
+                Sign-in link sent to <strong className="font-semibold">{linkState.email}</strong>. Check your inbox.
+              </span>
+            </div>
+          </div>
+        )}
+
+        {linkState.kind === 'error' && (
+          <div className="fixed top-6 right-6 z-50 max-w-sm">
+            <div className="bg-popover text-destructive border-destructive/30 flex items-center gap-2 rounded-lg border p-4 text-sm shadow-lg">
+              <AlertCircle className="size-4 shrink-0" aria-hidden="true" />
+              <span>{linkState.message}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Floating demo affordance -- only shown in demo mode, outside the auth card. */}
       {demoEnabled && (
-        <div className="pointer-events-none fixed inset-x-0 bottom-6 z-40 flex flex-col items-center gap-2 px-4">
-          <div className="bg-background/95 ring-border/60 pointer-events-auto flex flex-wrap items-center justify-center gap-3 rounded-full border px-4 py-2 shadow-lg backdrop-blur ring-1">
-            <Sparkles className="text-primary size-4" />
+        <div className="fixed inset-x-0 bottom-6 z-40 flex flex-col items-center gap-2 px-4">
+          <div className="bg-background/95 flex items-center gap-3 rounded-full border px-4 py-2 shadow-lg backdrop-blur">
+            <Sparkles className="text-primary size-4" aria-hidden="true" />
             <span className="text-muted-foreground text-sm">Just looking around? Try the demo workspace.</span>
             <Button size="sm" disabled={demoLoading} onClick={signInAsDemo}>
               {demoLoading ? 'Signing in…' : 'Continue as demo user'}
             </Button>
           </div>
           {demoError && (
-            <p className="bg-background/95 text-destructive pointer-events-auto rounded-full border px-3 py-1 text-xs shadow-sm">
+            <p className="bg-background/95 text-destructive rounded-full border px-3 py-1 text-xs shadow-sm">
               {demoError}
             </p>
           )}

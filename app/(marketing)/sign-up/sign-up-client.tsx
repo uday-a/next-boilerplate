@@ -4,7 +4,7 @@ import { AuthSignUp } from '@/components/blocks/AuthSignUp'
 
 export function SignUpClient() {
   function onSubmit() {
-    alert('Email signup is not wired. Use GitHub OAuth or continue from /login with demo mode.')
+    alert('Email signup is not wired. Use the GitHub button to continue.')
   }
 
   function onOauth(provider: 'github' | 'google') {
@@ -19,6 +19,8 @@ export function SignUpClient() {
   return (
     <AuthSignUp
       signInHref="/login"
+      termsHref="/terms"
+      privacyHref="/privacy"
       oauthProviders={['github']}
       onSubmit={onSubmit}
       onOauth={onOauth}

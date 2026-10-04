@@ -15,7 +15,7 @@ const Chrome = ({ className }: { className?: string }) => (
     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 002.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z" />
   </svg>
 )
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from '@/components/ui/card'
 import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -55,23 +55,25 @@ export function AuthSignIn({
   }
 
   return (
-    <div className="bg-background flex min-h-svh items-center justify-center p-6">
+    <div className="bg-background flex min-h-svh items-center justify-center p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{title ?? t('auth.signIn.title')}</CardTitle>
+          <h1 className="text-2xl leading-tight font-semibold tracking-tight">{title ?? t('auth.signIn.title')}</h1>
           <CardDescription>{description ?? t('auth.signIn.description')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form method="post" className="space-y-4" onSubmit={handleSubmit}>
             <div className="grid gap-2">
               <Label htmlFor="email">{t('auth.signIn.emailLabel')}</Label>
               <Input
                 id="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 placeholder={t('auth.signIn.emailPlaceholder')}
                 autoComplete="email"
+                spellCheck={false}
                 required
               />
             </div>
@@ -87,6 +89,7 @@ export function AuthSignIn({
               </div>
               <Input
                 id="password"
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -111,21 +114,21 @@ export function AuthSignIn({
 
           {oauthProviders.length > 0 && (
             <>
-              <div className="my-6 flex items-center gap-3">
+              <div className="my-4 flex items-center gap-3">
                 <Separator className="flex-1" />
-                <span className="text-muted-foreground text-xs uppercase">{t('auth.signIn.orContinueWith')}</span>
+                <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">{t('auth.signIn.orContinueWith')}</span>
                 <Separator className="flex-1" />
               </div>
               <div className={`grid gap-2 ${oauthProviders.length > 1 ? 'sm:grid-cols-2' : ''}`}>
                 {oauthProviders.includes('github') && (
                   <Button variant="outline" type="button" onClick={() => onOauth?.('github')}>
-                    <Github className="mr-2 size-4" />
+                    <Github className="size-4" />
                     GitHub
                   </Button>
                 )}
                 {oauthProviders.includes('google') && (
                   <Button variant="outline" type="button" onClick={() => onOauth?.('google')}>
-                    <Chrome className="mr-2 size-4" />
+                    <Chrome className="size-4" />
                     Google
                   </Button>
                 )}

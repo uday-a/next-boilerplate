@@ -44,7 +44,8 @@ export function AuthPasswordReset({
   }
 
   return (
-    <div className="bg-background flex min-h-svh items-center justify-center p-6">
+    <div className="bg-background flex min-h-svh items-center justify-center p-4">
+      <h1 className="sr-only">{t('auth.passwordReset.srTitle')}</h1>
       <Card className="w-full max-w-sm">
         {stage === 'request' && (
           <>
@@ -53,7 +54,7 @@ export function AuthPasswordReset({
               <CardDescription>{t('auth.passwordReset.request.description')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4" onSubmit={submitRequest}>
+              <form method="post" className="space-y-4" onSubmit={submitRequest}>
                 <div className="grid gap-2">
                   <Label htmlFor="reset-email">{t('auth.passwordReset.request.emailLabel')}</Label>
                   <Input
@@ -75,19 +76,19 @@ export function AuthPasswordReset({
                 href={signInHref}
                 className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm"
               >
-                <ArrowLeft className="size-3" />{t('auth.passwordReset.request.back')}
+                <ArrowLeft className="size-4" />{t('auth.passwordReset.request.back')}
               </a>
             </CardFooter>
           </>
         )}
 
         {stage === 'sent' && (
-          <CardContent className="space-y-4 pt-6 text-center">
+          <CardContent className="space-y-4 pt-4 text-center">
             <div className="bg-primary/10 text-primary mx-auto flex size-12 items-center justify-center rounded-full">
               <MailCheck className="size-6" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-lg font-semibold">{t('auth.passwordReset.sent.title')}</h3>
+              <h3 className="text-2xl font-semibold tracking-tight">{t('auth.passwordReset.sent.title')}</h3>
               <p className="text-muted-foreground text-sm">
                 {t('auth.passwordReset.sent.descriptionPrefix')}{' '}
                 <span className="text-foreground font-medium">{email}</span>
@@ -113,7 +114,7 @@ export function AuthPasswordReset({
               <CardDescription>{t('auth.passwordReset.reset.description')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4" onSubmit={submitReset}>
+              <form method="post" className="space-y-4" onSubmit={submitReset}>
                 <div className="grid gap-2">
                   <Label htmlFor="reset-pw">{t('auth.passwordReset.reset.passwordLabel')}</Label>
                   <Input
@@ -147,17 +148,17 @@ export function AuthPasswordReset({
         )}
 
         {stage === 'done' && (
-          <CardContent className="space-y-4 pt-6 text-center">
+          <CardContent className="space-y-4 pt-4 text-center">
             <div className="bg-success/10 text-success mx-auto flex size-12 items-center justify-center rounded-full">
               <MailCheck className="size-6" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-lg font-semibold">{t('auth.passwordReset.done.title')}</h3>
+              <h3 className="text-2xl font-semibold tracking-tight">{t('auth.passwordReset.done.title')}</h3>
               <p className="text-muted-foreground text-sm">{t('auth.passwordReset.done.description')}</p>
             </div>
-            <a href={signInHref}>
-              <Button className="w-full">{t('auth.passwordReset.done.submit')}</Button>
-            </a>
+            <Button asChild className="w-full">
+              <a href={signInHref}>{t('auth.passwordReset.done.submit')}</a>
+            </Button>
           </CardContent>
         )}
       </Card>

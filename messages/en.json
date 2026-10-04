@@ -402,8 +402,8 @@
       "clearFilter": "Clear filter",
       "boardView": "Board view",
       "listView": "List view",
-      "dueOverdue": "Overdue · {date}",
-      "dueSoon": "Due {date}"
+      "overdue": "Overdue",
+      "dueSoon": "Due soon"
     },
     "messages": {
       "emptySearchTitle": "No messages match your search",
@@ -554,7 +554,7 @@
     "foundations": {
       "title": "Foundations",
       "description": "Tokens and rules every page follows. Swatches read the current theme.",
-      "colour": "Colour",
+      "colour": "Color",
       "colourRule": "Chrome uses neutrals and primary. Status uses success, warning, info and destructive. Categories and chart series use chart-1 to chart-5. No raw palette classes, hex values or decorative gradients.",
       "neutrals": "Neutrals",
       "primary": "Primary",

@@ -1,8 +1,9 @@
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth/session'
+import { publicMetadata } from '@/lib/seo'
 import { SignUpClient } from './sign-up-client'
 
-export const metadata = { title: 'Create an account' }
+export const metadata = publicMetadata('/sign-up', 'Create an account')
 
 export default async function SignUpPage() {
   const session = await getSession()
