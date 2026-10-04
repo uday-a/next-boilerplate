@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     login: 'john.doe',
     name: 'John Doe',
     email: 'john.doe@example.com',
-    avatar: 'https://uday.cc/avatar-twitter.png',
+    avatar: null, // initials fallback ("JD"), like Nuxt — no external image
     role: 'admin',
   }
   session.loggedInAt = Date.now()

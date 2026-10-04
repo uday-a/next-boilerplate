@@ -1,25 +1,24 @@
 import Link from 'next/link'
-import { FileQuestion } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+
+export const metadata = { title: 'Page not found' }
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-4 p-6 text-center">
-      <FileQuestion className="text-muted-foreground size-10" aria-hidden="true" />
-      <div className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Page not found</h1>
-        <p className="text-muted-foreground text-sm">
-          The page you&apos;re looking for doesn&apos;t exist or was moved.
-        </p>
-      </div>
-      <div className="flex items-center gap-2">
-        <Button asChild>
-          <Link href="/">Go home</Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link href="/dashboard">Dashboard</Link>
-        </Button>
-      </div>
+    <div className="bg-background text-foreground min-h-screen">
+      <main className="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-6 py-16 text-center">
+        <p className="text-muted-foreground font-mono text-sm tracking-widest">404</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Page not found</h1>
+        <p className="text-muted-foreground mt-3 text-base">The page you were looking for doesn’t exist or was moved.</p>
+        <div className="mt-8 flex gap-3">
+          <Button asChild>
+            <Link href="/">Go home</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/dashboard">Dashboard</Link>
+          </Button>
+        </div>
+      </main>
     </div>
   )
 }
