@@ -77,7 +77,7 @@ export function Contact01({ onSubmit }: Contact01Props) {
                 </div>
                 <div>
                   <p className="text-muted-foreground text-xs uppercase">Office</p>
-                  <p className="text-sm font-medium">120 Howard St, San Francisco</p>
+                  <p className="text-sm font-medium">One Apple Park Way, Cupertino, CA 95014</p>
                 </div>
               </div>
             </div>
