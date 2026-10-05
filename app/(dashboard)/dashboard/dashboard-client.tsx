@@ -189,7 +189,7 @@ export function DashboardClient() {
                 <RangeCalendar selected={customCal} onSelect={handleCustomSelect} />
               </PopoverContent>
             </Popover>
-            <Button variant="outline" size="sm" className="gap-1.5 h-9">
+            <Button size="sm" className="gap-1.5">
               <Sparkles className="size-4" aria-hidden="true" />
               Insights
             </Button>
