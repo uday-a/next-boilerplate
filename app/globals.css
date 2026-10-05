@@ -78,10 +78,10 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.54 0 0);
+  --muted-foreground: oklch(0.52 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.52 0.21 27.3);
+  --destructive: oklch(0.53 0.22 27.3);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -106,9 +106,9 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* App extensions (not part of shadcn) */
-  --success: oklch(0.5 0.15 145);
-  --warning: oklch(0.52 0.12 60);
-  --info: oklch(0.5 0.2 260);
+  --success: oklch(0.5 0.13 150);
+  --warning: oklch(0.53 0.13 65);
+  --info: oklch(0.52 0.18 260);
 }
 
 .dark {
@@ -150,9 +150,9 @@
   --sidebar-ring: oklch(0.556 0 0);
 
   /* App extensions (not part of shadcn) */
-  --success: oklch(0.65 0.16 145);
-  --warning: oklch(0.78 0.17 75);
-  --info: oklch(0.65 0.18 260);
+  --success: oklch(0.72 0.15 150);
+  --warning: oklch(0.8 0.15 75);
+  --info: oklch(0.72 0.15 260);
 }
 
 @layer base {
