@@ -45,8 +45,8 @@ export function KanbanToolbar({
     : ''
   return (
     <div>
-    <div className="mb-3 flex shrink-0 items-center gap-2">
-      <div className="relative w-56">
+    <div className="mb-3 flex shrink-0 flex-wrap items-center gap-2">
+      <div className="relative w-full sm:w-56">
         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2" />
         <Input
           value={searchQuery}
