@@ -8,6 +8,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
+import { LeafletMap, LeafletMarker, LeafletPopup } from '@/components/ui/leaflet-map'
+import { kindDotBg, kindDotClass } from '@/lib/locations'
+
+// Stable identity: LeafletMap re-centres when `center` changes. [lng, lat].
+const APPLE_PARK: [number, number] = [-122.009, 37.3349]
 
 export interface Contact01Props {
   onSubmit?: (payload: {
@@ -77,8 +82,27 @@ export function Contact01({ onSubmit }: Contact01Props) {
               </div>
             </div>
 
-            <div className="bg-muted/40 mt-6 flex h-48 items-center justify-center rounded-lg border border-dashed">
-              <p className="text-muted-foreground text-sm">Map placeholder</p>
+            <div className="bg-muted/40 mt-6 h-48 overflow-hidden rounded-lg border border-dashed">
+              <LeafletMap
+                variant="muted"
+                center={APPLE_PARK}
+                zoom={14}
+                scrollWheelZoom={false}
+                role="region"
+                aria-label="Map showing Apple Park in Cupertino"
+              >
+                <LeafletMarker lngLat={APPLE_PARK} anchor="center">
+                  {/* Same HQ marker as the dashboard Locations page. */}
+                  <span className="relative flex items-center justify-center">
+                    <span className={`absolute inset-0 rounded-full opacity-40 motion-safe:animate-ping ${kindDotBg('hq')}`} aria-hidden="true" />
+                    <span className={`outline-background relative block size-5 rounded-full ring-4 outline-2 ${kindDotClass('hq')}`} />
+                  </span>
+                  <LeafletPopup offset={[0, -10]}>
+                    <div className="text-sm font-semibold">Apple Park</div>
+                    <div className="text-muted-foreground text-xs">One Apple Park Way, Cupertino, CA</div>
+                  </LeafletPopup>
+                </LeafletMarker>
+              </LeafletMap>
             </div>
           </div>
 
