@@ -45,6 +45,7 @@ export const Sparkline = React.forwardRef<HTMLDivElement, SparklineProps>(
         symbolSize: variant === 'dots' ? 5 : 0,
         showSymbol: variant === 'dots',
         lineStyle: { width: variant === 'area' ? 1.75 : 2, color },
+        itemStyle: { color, borderColor: color, borderWidth: 0 },
         data:
           variant === 'area'
             ? data.map((v, i) => ({
