@@ -48,5 +48,8 @@ export function planForProductId(productId: string): Plan | null {
   if (productId === env.POLAR_PRO_PRODUCT_ID) return 'pro'
   if (productId === env.POLAR_TEAM_PRODUCT_ID) return 'team'
   if (productId === env.POLAR_ENTERPRISE_PRODUCT_ID) return 'enterprise'
+  if (productId === env.WAFFO_PRO_PRODUCT_ID) return 'pro'
+  if (productId === env.WAFFO_TEAM_PRODUCT_ID) return 'team'
+  if (productId === env.WAFFO_ENTERPRISE_PRODUCT_ID) return 'enterprise'
   return null
 }

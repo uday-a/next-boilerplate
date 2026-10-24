@@ -42,6 +42,17 @@ const Env = z.object({
   POLAR_TEAM_PRODUCT_ID: z.string().optional(),
   POLAR_ENTERPRISE_PRODUCT_ID: z.string().optional(),
 
+  WAFFO_MERCHANT_ID: z.string().optional(),
+  WAFFO_PRIVATE_KEY: z.string().optional(),
+  WAFFO_STORE_ID: z.string().optional(),
+  WAFFO_ENVIRONMENT: z.enum(['test', 'prod']).default('test'),
+  WAFFO_WEBHOOK_PUBLIC_KEY: z.string().optional(),
+  WAFFO_PRO_PRODUCT_ID: z.string().optional(),
+  WAFFO_TEAM_PRODUCT_ID: z.string().optional(),
+  WAFFO_ENTERPRISE_PRODUCT_ID: z.string().optional(),
+
+  BILLING_PROVIDER: z.enum(['polar', 'waffo', 'auto']).default('auto'),
+
   DEMO_MODE: z.enum(['true', 'false']).optional(),
   NEXT_PUBLIC_DEMO_MODE: z.enum(['true', 'false']).optional(),
 
@@ -83,5 +94,15 @@ if (env.POLAR_ACCESS_TOKEN && !env.POLAR_WEBHOOK_SECRET) {
 if (env.POLAR_WEBHOOK_SECRET && !env.POLAR_ACCESS_TOKEN) {
   throw new Error('POLAR_WEBHOOK_SECRET is set but POLAR_ACCESS_TOKEN is not. Set both, or unset both.')
 }
+
+export const hasWaffo = Boolean(env.WAFFO_MERCHANT_ID && env.WAFFO_PRIVATE_KEY)
+if (env.WAFFO_MERCHANT_ID && !env.WAFFO_PRIVATE_KEY) {
+  throw new Error('WAFFO_MERCHANT_ID is set but WAFFO_PRIVATE_KEY is not. Set both, or unset both.')
+}
+if (env.WAFFO_PRIVATE_KEY && !env.WAFFO_MERCHANT_ID) {
+  throw new Error('WAFFO_PRIVATE_KEY is set but WAFFO_MERCHANT_ID is not. Set both, or unset both.')
+}
+
+export const hasBilling = hasPolar || hasWaffo
 
 export const isDemoMode = resolveDemoMode()

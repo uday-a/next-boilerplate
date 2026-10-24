@@ -7,7 +7,7 @@ import type { ApiResponse } from '@/lib/api/response'
 
 type Plan = 'pro' | 'team' | 'enterprise'
 
-export function PricingClient() {
+export function PricingClient({ page = true }: { page?: boolean } = {}) {
   const router = useRouter()
   const [loggedIn, setLoggedIn] = useState(false)
 
@@ -43,5 +43,5 @@ export function PricingClient() {
     window.location.href = 'mailto:sales@example.com?subject=Enterprise%20plan%20inquiry'
   }
 
-  return <Pricing01 page onSubscribe={onSubscribe} onContactSales={onContactSales} />
+  return <Pricing01 page={page} onSubscribe={onSubscribe} onContactSales={onContactSales} />
 }

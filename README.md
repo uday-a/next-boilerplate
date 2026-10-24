@@ -12,7 +12,7 @@ A production-grade **Next.js 16 SaaS boilerplate / starter kit** (App Router) wi
 **[Live demo](https://next-boilerplate-sooty.vercel.app/login)** · **[Vue/Nuxt sibling: nuxt-boilerplate](https://github.com/uday-a/nuxt-boilerplate)** · **[SvelteKit sibling: sveltekit-boilerplate](https://github.com/uday-a/sveltekit-boilerplate)** · **[Angular sibling: angular-boilerplate](https://github.com/uday-a/angular-boilerplate)** · **[UI registry: uipkge.dev](https://uipkge.dev)**
 
 - **Auth:** GitHub OAuth, passwordless magic links, demo sign-in, encrypted `iron-session` cookies, team invites by token
-- **Billing:** Polar checkout, customer portal and signature-verified subscription webhooks
+- **Billing:** Polar and Waffo Pancake checkout, customer portal and signature-verified subscription webhooks
 - **Database:** Drizzle ORM + Postgres — users, projects, subscriptions, API keys, audit log, invites
 - **Admin & RBAC:** `admin` / `editor` / `user` roles enforced server-side, admin user list, permission-matrix UI
 - **Dashboard:** KPIs, ECharts charts, Leaflet map, kanban, TanStack data table, calendar, messages, activity heatmap
@@ -238,7 +238,7 @@ Browse the catalog at **[uipkge.dev/react/components](https://uipkge.dev/react/c
 | Maps | [Leaflet](https://leafletjs.com) |
 | i18n | [next-intl](https://next-intl.dev) |
 | Icons | [lucide-react](https://lucide.dev) |
-| Billing | [Polar.sh](https://polar.sh) |
+| Billing | [Polar.sh](https://polar.sh) / [Waffo Pancake](https://waffo.ai) |
 | Email | [Resend](https://resend.com) |
 | Logs / analytics | [Axiom](https://axiom.co), [PostHog](https://posthog.com) |
 | Testing | [Vitest](https://vitest.dev), [Testing Library](https://testing-library.com), [Playwright](https://playwright.dev) |
@@ -329,6 +329,8 @@ Open **[http://localhost:3000/login](http://localhost:3000/login)** → **Contin
 | `DATABASE_URL` | Demo sessions use sample data; magic links, invites and persistence unavailable | Drizzle persistence |
 | `RESEND_API_KEY` + `EMAIL_FROM` / `EMAIL_OPS` | Emails logged to stdout | Real delivery |
 | `POLAR_ACCESS_TOKEN` + `POLAR_WEBHOOK_SECRET` (+ `POLAR_*_PRODUCT_ID`, `POLAR_SERVER`) | Billing routes return an instructive error | Checkout, portal, webhooks |
+| `WAFFO_MERCHANT_ID` + `WAFFO_PRIVATE_KEY` (+ `WAFFO_*_PRODUCT_ID`, `WAFFO_STORE_ID`) | Waffo billing inactive; defaults to Polar | Waffo checkout, customer portal, webhooks |
+| `BILLING_PROVIDER` | Defaults to `auto` (uses configured provider) | Selects `polar`, `waffo`, or `auto` |
 | `I18NOW_PROJECT_ID` + `I18NOW_API_KEY` | Local `messages/*.json` only | CDN translations merged over local |
 | `AXIOM_TOKEN` + `AXIOM_DATASET` | Logs to stdout only | Logs shipped to Axiom |
 | `NEXT_PUBLIC_POSTHOG_KEY` | No analytics | PostHog page views |

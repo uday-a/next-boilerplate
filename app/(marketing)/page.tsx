@@ -7,7 +7,7 @@ import { Footer01 } from '@/components/blocks/Footer01'
 import { Header01 } from '@/components/blocks/Header01'
 import { Hero01 } from '@/components/blocks/Hero01'
 import { Logos01 } from '@/components/blocks/Logos01'
-import { Pricing01 } from '@/components/blocks/Pricing01'
+import { PricingClient } from '@/app/(marketing)/pricing/pricing-client'
 import { Testimonials01 } from '@/components/blocks/Testimonials01'
 import { publicMetadata } from '@/lib/seo'
 
@@ -37,7 +37,7 @@ export default function LandingPage() {
           <Bento01 />
         </section>
         <section id="pricing">
-          <Pricing01 />
+          <PricingClient page={false} />
         </section>
         <section id="customers">
           <Testimonials01 />

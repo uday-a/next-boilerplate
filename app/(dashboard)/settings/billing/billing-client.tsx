@@ -207,7 +207,14 @@ export function BillingSettingsClient({ justCheckedOut }: BillingSettingsClientP
                   <p className="text-muted-foreground text-xs tabular-nums">Expires 09 / 28</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                disabled={portalState === 'opening'}
+                onClick={() => void openPortal()}
+              >
+                {portalState === 'opening' ? <Loader2 className="mr-2 size-4 animate-spin" aria-hidden="true" /> : null}
                 Update card
               </Button>
             </CardContent>
