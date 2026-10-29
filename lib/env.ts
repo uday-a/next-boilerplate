@@ -103,6 +103,4 @@ if (env.WAFFO_PRIVATE_KEY && !env.WAFFO_MERCHANT_ID) {
   throw new Error('WAFFO_PRIVATE_KEY is set but WAFFO_MERCHANT_ID is not. Set both, or unset both.')
 }
 
-export const hasBilling = hasPolar || hasWaffo
-
 export const isDemoMode = resolveDemoMode()

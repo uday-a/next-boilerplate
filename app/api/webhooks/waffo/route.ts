@@ -1,6 +1,8 @@
+import { eq } from 'drizzle-orm'
 import { env, hasWaffo } from '@/lib/env'
 import { getDb, schema } from '@/server/db'
 import { logger } from '@/server/utils/logger'
+import { waffoSubscriptionFields } from '@/server/utils/waffo'
 
 export async function POST(request: Request) {
   if (!hasWaffo) {
@@ -33,91 +35,98 @@ export async function POST(request: Request) {
     return new Response('Invalid signature', { status: 403 })
   }
 
-  const { eventType, data } = event
+  const { eventType, eventId, data } = event
+
+  if (event.mode !== env.WAFFO_ENVIRONMENT || (env.WAFFO_STORE_ID && event.storeId !== env.WAFFO_STORE_ID)) {
+    logger.warn('billing.waffo_webhook.wrong_deployment', { eventType, eventId, storeId: event.storeId, mode: event.mode })
+    return new Response('Event is not for this store or mode', { status: 400 })
+  }
+
   const rawUserId = data.merchantProvidedBuyerIdentity ?? data.orderMetadata?.userId
   const userId = rawUserId ? Number.parseInt(rawUserId, 10) : null
 
+  // payment_succeeded describes one charge and carries no period or status;
+  // subscription.renewed moves the period forward. refund.* events carry the
+  // order's status but are not a change to it.
   const isSubscriptionEvent =
-    eventType.startsWith('subscription.') ||
     eventType === WebhookEventType.OrderCompleted ||
-    data.orderStatus !== undefined
+    (eventType.startsWith('subscription.') && eventType !== WebhookEventType.SubscriptionPaymentSucceeded)
+  // Events that may point the user's row at a different order. Any other
+  // event for an order the row doesn't hold is a late one for an old order.
+  const startsOrder = ([
+    WebhookEventType.SubscriptionActivated,
+    WebhookEventType.SubscriptionPlanChanged,
+    WebhookEventType.OrderCompleted,
+  ] as string[]).includes(eventType)
 
   if (isSubscriptionEvent) {
     if (!userId || Number.isNaN(userId)) {
-      logger.warn('billing.waffo_webhook.no_user_id', { eventType, eventId: event.eventId })
+      logger.warn('billing.waffo_webhook.no_user_id', { eventType, eventId })
       return new Response('', { status: 202 })
     }
 
-    let status = 'active'
-    let cancelAtPeriodEnd = false
-
-    if (eventType === WebhookEventType.SubscriptionCanceled) {
-      status = 'canceled'
-    } else if (eventType === WebhookEventType.SubscriptionCanceling) {
-      status = 'active'
-      cancelAtPeriodEnd = true
-    } else if (eventType === WebhookEventType.SubscriptionPastDue) {
-      status = 'past_due'
-    } else if (eventType === WebhookEventType.SubscriptionUncanceled) {
-      status = 'active'
-      cancelAtPeriodEnd = false
-    } else if (data.orderStatus) {
-      if (data.orderStatus === 'canceled') status = 'canceled'
-      else if (data.orderStatus === 'past_due') status = 'past_due'
-      else if (data.orderStatus === 'canceling') {
-        status = 'active'
-        cancelAtPeriodEnd = true
-      } else if (data.orderStatus === 'active' || data.orderStatus === 'completed') {
-        status = 'active'
-      }
-    }
-
-    const productId = data.orderMetadata?.productId ?? env.WAFFO_PRO_PRODUCT_ID ?? 'waffo_pro'
+    const fields = waffoSubscriptionFields(eventType, data)
     const customerId = `waffo_${data.merchantProvidedBuyerIdentity ?? userId}`
     const subscriptionId = String(data.orderId)
 
     try {
-      const db = getDb()
-      await db
-        .insert(schema.subscriptions)
-        .values({
-          userId,
-          polarCustomerId: customerId,
-          polarSubscriptionId: subscriptionId,
-          productId,
-          status,
-          currentPeriodEnd: data.currentPeriodEnd ? new Date(data.currentPeriodEnd) : null,
-          cancelAtPeriodEnd,
-          canceledAt: data.canceledAt
-            ? new Date(data.canceledAt)
-            : status === 'canceled'
-              ? new Date()
-              : null,
-        })
-        .onConflictDoUpdate({
-          target: schema.subscriptions.userId,
-          set: {
+      // Claim the delivery in the same transaction as the write: a failed
+      // write rolls the claim back, so Waffo's retry is applied, not skipped.
+      // event.id is the delivery record, reused by every retry of it; an
+      // order's eventId can repeat across real transitions (cancel twice).
+      const outcome = await getDb().transaction(async (tx) => {
+        const [claimed] = await tx
+          .insert(schema.webhookEvents)
+          .values({ provider: 'waffo', deliveryId: event.id })
+          .onConflictDoNothing()
+          .returning({ id: schema.webhookEvents.id })
+        if (!claimed) return 'duplicate'
+
+        const [current] = await tx
+          .select({ orderId: schema.subscriptions.polarSubscriptionId })
+          .from(schema.subscriptions)
+          .where(eq(schema.subscriptions.userId, userId))
+          .for('update')
+        if (current && current.orderId !== subscriptionId && !startsOrder) return 'other_order'
+
+        await tx
+          .insert(schema.subscriptions)
+          .values({
+            userId,
             polarCustomerId: customerId,
             polarSubscriptionId: subscriptionId,
-            productId,
-            status,
-            currentPeriodEnd: data.currentPeriodEnd ? new Date(data.currentPeriodEnd) : null,
-            cancelAtPeriodEnd,
-            canceledAt: data.canceledAt
-              ? new Date(data.canceledAt)
-              : status === 'canceled'
-                ? new Date()
-                : null,
-            updatedAt: new Date(),
-          },
-        })
+            productId: env.WAFFO_PRO_PRODUCT_ID ?? 'waffo_pro',
+            // a new row whose status the event doesn't say grants no access
+            status: 'incomplete',
+            ...fields,
+          })
+          .onConflictDoUpdate({
+            target: schema.subscriptions.userId,
+            set: {
+              polarCustomerId: customerId,
+              polarSubscriptionId: subscriptionId,
+              ...fields,
+              updatedAt: new Date(),
+            },
+          })
+        return 'applied'
+      })
+
+      if (outcome === 'duplicate') {
+        logger.info('billing.waffo_webhook.duplicate', { eventType, eventId, deliveryId: event.id })
+        return new Response('', { status: 202 })
+      }
+      if (outcome === 'other_order') {
+        logger.warn('billing.waffo_webhook.other_order', { eventType, eventId, userId, orderId: data.orderId })
+        return new Response('', { status: 202 })
+      }
 
       logger.info('billing.waffo_webhook.subscription_upserted', {
         eventType,
         userId,
         orderId: data.orderId,
-        status,
-        productId,
+        status: fields.status,
+        productId: fields.productId,
       })
     } catch (e) {
       logger.error('billing.waffo_webhook.db_upsert_failed', {
@@ -128,7 +137,7 @@ export async function POST(request: Request) {
       return new Response('DB error', { status: 500 })
     }
   } else {
-    logger.info('billing.waffo_webhook.ignored', { eventType, eventId: event.eventId })
+    logger.info('billing.waffo_webhook.ignored', { eventType, eventId })
   }
 
   return new Response('', { status: 202 })

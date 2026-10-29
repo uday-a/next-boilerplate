@@ -10,9 +10,7 @@ import { logger } from '@/server/utils/logger'
 export async function POST() {
   return apiHandler(async () => {
     const session = await requireAuth()
-    const isTestBilling =
-      env.WAFFO_ENVIRONMENT === 'test' || env.POLAR_SERVER === 'sandbox' || process.env.NODE_ENV === 'development'
-    if (session.demo && !isTestBilling) {
+    if (session.demo) {
       throw apiError('FORBIDDEN', "Demo sessions don't have a billing portal.")
     }
 
@@ -45,12 +43,10 @@ export async function POST() {
         throw apiError('INTERNAL', 'Waffo Customer Portal is not configured. Set WAFFO_STORE_ID.')
       }
 
-      const waffo = await getWaffo()
-      if (!waffo) {
-        throw apiError('INTERNAL', 'Waffo billing client is not available.')
-      }
-
       try {
+        // inside the try: the SDK validates config when the client is built,
+        // and its message is for the logs, not the customer
+        const waffo = (await getWaffo())!
         const portal = await waffo.auth.createCustomerPortalLink({
           storeId: env.WAFFO_STORE_ID,
           buyerIdentity: String(session.user.id),

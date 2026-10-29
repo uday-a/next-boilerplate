@@ -8,15 +8,12 @@ import { logger } from '@/server/utils/logger'
 
 const Body = z.object({
   plan: z.enum(['pro', 'team', 'enterprise']),
-  provider: z.enum(['polar', 'waffo']).optional(),
 })
 
 export async function POST(request: Request) {
   return apiHandler(async () => {
     const session = await requireAuth()
-    const isTestBilling =
-      env.WAFFO_ENVIRONMENT === 'test' || env.POLAR_SERVER === 'sandbox' || process.env.NODE_ENV === 'development'
-    if (session.demo && !isTestBilling) {
+    if (session.demo) {
       throw apiError('FORBIDDEN', "Demo sessions can't initiate checkout. Sign in with a real account.")
     }
 
@@ -27,18 +24,9 @@ export async function POST(request: Request) {
 
     const plan: Plan = parsed.data.plan
 
-    // Resolve provider: explicit body provider > BILLING_PROVIDER setting > auto
-    let provider = parsed.data.provider
-    if (!provider) {
-      if (env.BILLING_PROVIDER === 'waffo') {
-        provider = 'waffo'
-      } else if (env.BILLING_PROVIDER === 'polar') {
-        provider = 'polar'
-      } else {
-        // 'auto' mode: prefer configured provider, default to polar if available, otherwise waffo
-        provider = hasPolar ? 'polar' : hasWaffo ? 'waffo' : 'polar'
-      }
-    }
+    // 'auto' prefers Polar when both are configured
+    const provider =
+      env.BILLING_PROVIDER === 'auto' ? (hasPolar || !hasWaffo ? 'polar' : 'waffo') : env.BILLING_PROVIDER
 
     if (provider === 'waffo') {
       const productId = waffoProductIdForPlan(plan)
@@ -46,12 +34,14 @@ export async function POST(request: Request) {
         throw apiError('VALIDATION_FAILED', `Plan '${plan}' has no WAFFO_${plan.toUpperCase()}_PRODUCT_ID configured`)
       }
 
-      const waffo = await getWaffo()
-      if (!waffo) {
+      if (!hasWaffo) {
         throw apiError('INTERNAL', 'Waffo billing is not configured. Set WAFFO_MERCHANT_ID + WAFFO_PRIVATE_KEY.')
       }
 
       try {
+        // inside the try: the SDK validates config when the client is built,
+        // and its message is for the logs, not the buyer
+        const waffo = (await getWaffo())!
         const checkout = await waffo.checkout.authenticated.create({
           productId,
           currency: 'USD',
@@ -69,7 +59,8 @@ export async function POST(request: Request) {
           provider: 'waffo',
           userId: session.user.id,
           plan,
-          checkoutUrl: checkout.checkoutUrl,
+          // checkoutUrl carries the buyer's session token after #token=; never log it
+          sessionId: checkout.sessionId,
         })
         return { url: checkout.checkoutUrl }
       } catch (e) {

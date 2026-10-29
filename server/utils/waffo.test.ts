@@ -1,7 +1,13 @@
 import crypto from 'node:crypto'
 import { describe, expect, it } from 'vitest'
-import { verifyWebhook } from '@waffo/pancake-ts'
-import { getWaffo, planForWaffoProductId, waffoProductIdForPlan } from './waffo'
+import { verifyWebhook, type WebhookEventData } from '@waffo/pancake-ts'
+import {
+  getWaffo,
+  planForWaffoProductId,
+  waffoPeriodEnd,
+  waffoProductIdForPlan,
+  waffoSubscriptionFields,
+} from './waffo'
 import { planForProductId } from './polar'
 
 describe('waffo utilities', () => {
@@ -83,5 +89,59 @@ describe('waffo webhook verification', () => {
   it('rejects missing or malformed signature header', () => {
     expect(() => verifyWebhook(samplePayload, '', { publicKey })).toThrow(/Missing X-Waffo-Signature/)
     expect(() => verifyWebhook(samplePayload, 'malformed', { publicKey })).toThrow(/Malformed X-Waffo-Signature/)
+  })
+})
+
+describe('waffoSubscriptionFields', () => {
+  const base = { orderId: 'ORD_1', buyerEmail: 'a@b.c', currency: 'USD', amount: '9', taxAmount: '0', productName: 'Pro' }
+  const data = (extra: Partial<WebhookEventData>) => ({ ...base, ...extra }) as WebhookEventData
+
+  // The update spreads these fields over the stored row; a key that is present
+  // with an empty value would wipe a valid period end on a renewal receipt.
+  it('omits period and cancel fields the event does not carry', () => {
+    const fields = waffoSubscriptionFields('subscription.renewed', data({ orderStatus: 'active' }))
+    expect(fields).not.toHaveProperty('currentPeriodEnd')
+    expect(fields).not.toHaveProperty('canceledAt')
+    expect(fields).not.toHaveProperty('productId')
+  })
+
+  it('takes the period end from subscription.renewed, through the end of that day', () => {
+    const fields = waffoSubscriptionFields('subscription.renewed', data({ orderStatus: 'active', currentPeriodEnd: '2026-12-01' }))
+    expect(fields.currentPeriodEnd?.toISOString()).toBe('2026-12-01T23:59:59.999Z')
+  })
+
+  it('keeps full timestamps as sent', () => {
+    expect(waffoPeriodEnd('2026-11-23T00:00:00.000Z').toISOString()).toBe('2026-11-23T00:00:00.000Z')
+  })
+
+  // A portal plan change has no checkout metadata; productMetadata names the
+  // plan. Product IDs are unset in tests, so an unmappable plan must leave the
+  // stored product alone rather than fall back to the old checkout product.
+  it('prefers productMetadata.plan over the checkout product', () => {
+    const fields = waffoSubscriptionFields(
+      'subscription.plan_changed',
+      data({ orderStatus: 'active', productMetadata: { plan: 'team' }, orderMetadata: { productId: 'prod_pro' } }),
+    )
+    expect(fields).not.toHaveProperty('productId')
+  })
+
+  it('falls back to the checkout product when the product has no plan metadata', () => {
+    const fields = waffoSubscriptionFields('subscription.activated', data({ orderStatus: 'active', orderMetadata: { productId: 'prod_pro' } }))
+    expect(fields.productId).toBe('prod_pro')
+  })
+
+  it('maps terminal order statuses to canceled and leaves unknown ones out', () => {
+    expect(waffoSubscriptionFields('subscription.renewed', data({ orderStatus: 'expired' })).status).toBe('canceled')
+    expect(waffoSubscriptionFields('subscription.renewed', data({ orderStatus: 'closed' })).status).toBe('canceled')
+    expect(waffoSubscriptionFields('subscription.renewed', data({ orderStatus: 'pending' }))).not.toHaveProperty('status')
+    expect(waffoSubscriptionFields('subscription.renewed', data({ orderStatus: 'something_new' }))).not.toHaveProperty('status')
+  })
+
+  it('maps lifecycle events to status', () => {
+    expect(waffoSubscriptionFields('subscription.canceling', data({ orderStatus: 'canceling' }))).toMatchObject({ status: 'active', cancelAtPeriodEnd: true })
+    expect(waffoSubscriptionFields('subscription.past_due', data({ orderStatus: 'past_due' })).status).toBe('past_due')
+    const canceled = waffoSubscriptionFields('subscription.canceled', data({ orderStatus: 'canceled' }))
+    expect(canceled.status).toBe('canceled')
+    expect(canceled.canceledAt).toBeInstanceOf(Date)
   })
 })

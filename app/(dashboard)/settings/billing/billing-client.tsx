@@ -71,8 +71,10 @@ export function BillingSettingsClient({ justCheckedOut }: BillingSettingsClientP
     const label = subscription.plan ? subscription.plan[0]!.toUpperCase() + subscription.plan.slice(1) : 'Subscribed'
     return { name: label, price: null, renews: subscription.currentPeriodEnd }
   }, [subscription])
+  // Period ends are UTC dates (Waffo stores the end of that day). Formatting
+  // them in the viewer's zone shows the next or previous day.
   const renewsLabel = plan.renews
-    ? new Date(plan.renews).toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric' })
+    ? new Date(plan.renews).toLocaleDateString(locale, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
     : null
 
   const loadSubscription = useCallback(async () => {

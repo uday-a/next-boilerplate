@@ -58,6 +58,20 @@ export const subscriptions = pgTable('subscriptions', {
 export type Subscription = typeof subscriptions.$inferSelect
 export type NewSubscription = typeof subscriptions.$inferInsert
 
+// Webhook deliveries already applied. A provider retries a delivery until it
+// gets a 2xx, so handlers claim the delivery id inside the same transaction as
+// their writes and skip the delivery when the claim conflicts.
+export const webhookEvents = pgTable(
+  'webhook_events',
+  {
+    id: serial('id').primaryKey(),
+    provider: varchar('provider', { length: 16 }).notNull(),
+    deliveryId: varchar('delivery_id', { length: 128 }).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (t) => [uniqueIndex('webhook_events_provider_delivery_unique').on(t.provider, t.deliveryId)],
+)
+
 export const magicLinkTokens = pgTable('magic_link_tokens', {
   id: serial('id').primaryKey(),
   email: varchar('email', { length: 256 }).notNull(),
